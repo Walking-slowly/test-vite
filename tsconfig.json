@@ -1,21 +1,42 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
+  // "compileOnSave": true, /* 设置保存文件得时候自动编译，需要编译器支持 */
+   /* 配置编译选项 */
+  "compilerOptions": { 
+    // "baseUrl": "./",  /* 解析非相对模块的基地址，默认是当前目录 */
+    "target": "ESNext", /* 目标语言的版本 */
     "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "ESNext", /* 指定生成代码的模板标准 */
+    "moduleResolution": "Node",  /* 模块解析策略，ts默认用node的解析策略，即相对的方式导入 */
     "strict": true,
     "jsx": "preserve",
+    // "noUnusedParameters": true,  /* 检查未使用的函数参数（只提示、不报错） */
+    // "noUnusedLocals": true,  /* 检查只声明、未使用的局部变量（只提示、不报错） */
+    // "strictNullChecks": false,  /* 不允许把 null、undefined 赋值给其他类型的变量 */
+    // "noImplicitAny": false, /* 不允许隐式 Any 类型 */
+    "removeComments": true,      /*  删除注释  */
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
+    // "sourceMap": true,            /* 生成目标文件的sourceMap文件 */
+    // "preserveConstEnums": true,  /* 保留 const 和 enum 声明 */
+    "allowJs": true,  /* 允许编译器编译 JS、JSX 文件 */
+    "isolatedModules": true, /* vite 编译器选项 */
+    "esModuleInterop": true, /* 允许 `export =` 导出，由 `import from` 导入 */
+    "lib": ["ESNext", "DOM"], /* TS需要引用的库，即声明文件，es5 默认引用dom、es5、scripthost,如需要使用es的高级版本特性，通常都需要配置，如es8的数组新特性需要引入"ES2019.Array" */
     "skipLibCheck": true,
     "noEmit": true,
     "types": [
       "unplugin-icons/types/vue",
     ]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "./auto-imports.d.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src/**/*.ts", 
+    "**/*.d.ts", 
+    "src/**/*.tsx", 
+    "src/**/*.vue", 
+    "src/**/*.jsx", 
+    "src/**/*.js"
+  ], // 表示编译需要编译得文件或者目录
+  // "extends": "./tsconfig.base.json", // 引入其他配置文件，继承配置
+  // "files": [], // 表示编译需要编译得单个文件
+  "references": [{ "path": "./tsconfig.node.json" }], // 指定依赖得工程
+  "exclude": ["node_modules", "dist"] /* 指定编译器需要排除编译的文件或文件夹 */
 }

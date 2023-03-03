@@ -10,7 +10,9 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-// import Inspect from 'vite-plugin-inspect'
+import { viteMockServe } from 'vite-plugin-mock'
+
+import Inspect from 'vite-plugin-inspect'
 
 const pathSrc = path.resolve(__dirname, 'src')
 
@@ -32,6 +34,8 @@ export default defineConfig({
     }),
 
     Components({
+      dirs: ['src/components'], // default
+      extensions: ['vue'], // default
       resolvers: [
         // 自动导入 Element Plus 组件
         ElementPlusResolver({ importStyle: "sass", }),
@@ -50,7 +54,12 @@ export default defineConfig({
       compiler: 'vue3'
     }),
 
-    // Inspect()
+    viteMockServe({
+      mockPath: './mock',
+      localEnabled: true
+    }),
+
+    Inspect()
   ],
 
   css: {
@@ -72,5 +81,8 @@ export default defineConfig({
     alias: {
       "@": pathSrc
     },
-  }
+    extensions: [".js", ".jsx", ".ts", ".tsx"]
+  },
+
+  base: './'
 })
