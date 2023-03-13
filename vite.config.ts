@@ -8,10 +8,13 @@ import IconsResolver from 'unplugin-icons/resolver'
 
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import ElementPlus from 'unplugin-element-plus/vite'
 
+// mock
 import { viteMockServe } from 'vite-plugin-mock'
 
+// 插件调试工具
 import Inspect from 'vite-plugin-inspect'
 
 const pathSrc = path.resolve(__dirname, 'src')
@@ -21,14 +24,15 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    ElementPlus({ useSource: true }),
     AutoImport({
       // 自动导入vue相关函数
       imports: ['vue'],
 
-      resolvers: [
-        // 自动导入 Element Plus 指令方法
-        ElementPlusResolver({ importStyle: "sass", }),
-      ],
+      // resolvers: [
+      //   // 自动导入 Element Plus 指令方法
+      //   // ElementPlusResolver({ importStyle: "sass", }),
+      // ],
       
       dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
     }),
@@ -38,7 +42,7 @@ export default defineConfig({
       extensions: ['vue'], // default
       resolvers: [
         // 自动导入 Element Plus 组件
-        ElementPlusResolver({ importStyle: "sass", }),
+        // ElementPlusResolver({ importStyle: "sass", }),
 
         // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
         IconsResolver({ 
@@ -65,7 +69,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/element/index.scss" as *;`,
+        additionalData: `@use "@/styles/element.scss" as *;`,
       },
     },
   },

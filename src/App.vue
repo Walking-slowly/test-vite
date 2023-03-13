@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import lang from 'element-plus/lib/locale/lang/zh-cn'
+import { ElConfigProvider } from "element-plus"
 </script>
 
 <template>

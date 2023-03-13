@@ -1,0 +1,16 @@
+.el-header {
+  background-color: var(--default-background-color);
+  color: var(--default-color);
+  padding-left: 0 !important;
+  display: flex;
+  img {
+    width: var(--el-aside-width);
+    height: var(--el-header-height);
+  }
+  .common-header-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

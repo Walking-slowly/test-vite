@@ -6,6 +6,8 @@
     :rules="rules"
     :cols="cols"
   />
+
+  <el-button type="primary">测试</el-button>
 </template>
 
 <script>
@@ -92,7 +94,9 @@ export default {
     }
   },
 
-  mounted() {},
+  mounted() {
+    console.log(this.$route, 'ss')
+  },
 
   methods: {
     a() {

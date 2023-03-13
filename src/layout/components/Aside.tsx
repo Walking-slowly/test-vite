@@ -1,39 +1,83 @@
 import { FunctionalComponent as FC } from "vue"
 
+import { Edit } from "@element-plus/icons-vue";
+
+import { useRoute } from 'vue-router';
 interface rowsItem {
   name: String,
   url: String,
+  isParent?: Boolean,
+  parentUrl?: String,
   children?: Array<rowsItem>
 }
 
-const menuTtem: FC<rowsItem> = rows => <>
-  <el-menu-item index={ rows.url }>
-    <i class="el-icon-menu"/><span v-slots:title>{ rows.name }</span>
-  </el-menu-item>
-</>
+// 目录
+const MenuTtem: FC<rowsItem> = item => {
+  const { 
+    url, 
+    name, 
+    isParent, 
+    parentUrl, 
+    children 
+  } = item
+  return <>
+    {
+      children && children.length 
+      ? <SubmenuItem {...item} {...{parentUrl: parentUrl}}/> 
+      : <el-menuItem index={`${parentUrl || '/'}${url}`}>
+        { isParent && <el-icon><Edit/></el-icon> }
+        <span>{ name }</span>
+      </el-menuItem>
+    }
+  </>
+}
 
-const submenuItem: FC<rowsItem> = rows => <>
-  <el-sub-menu index={ rows.url }>{ rows.children?.map(i => <menuTtem {...i}/>) }</el-sub-menu>
-</>
+// 菜单
+const SubmenuItem: FC<rowsItem> = ({ 
+  name, 
+  url, 
+  children = [], 
+  isParent, 
+  parentUrl 
+}) => {
+  const slots = {
+    title: () => <>
+      { isParent && <el-icon><Edit/></el-icon> }
+      <span>{ name }</span>
+    </>
+  }
+
+  return <>
+    <el-subMenu index={`${url}`} v-slots={slots}>
+      { children?.map(i => <MenuTtem {...i} {...{parentUrl: `${parentUrl || '/'}${url}`}}/>) }
+    </el-subMenu>
+  </>
+}
 
 export default defineComponent({
   name: 'Aside',
   setup () {
     const menuList: Array<rowsItem> = JSON.parse(sessionStorage.getItem('menuList') || '') || []
+    const route = useRoute()
 
     return () => (
       <el-aside>
-        <el-menu>
-          { menuList.map(item => {
-            return <>
-              {
-                item.children && item.children.length 
-                ? <submenuItem {...item}/> 
-                : <menuTtem {...item}/>
-              }
-            </>
-          }) }
-        </el-menu>
+        <el-scrollbar>
+          <el-menu
+            router
+            default-active={route.path}
+            unique-opened>
+            { menuList.map(item => {
+              return <>
+                {
+                  item.children && item.children.length 
+                  ? <SubmenuItem {...item} isParent/> 
+                  : <MenuTtem {...item} isParent/>
+                }
+              </>
+            }) }
+          </el-menu>
+        </el-scrollbar>
       </el-aside>
     )
   }

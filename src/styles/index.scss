@@ -1,4 +1,19 @@
 @import "el-aside";
+@import "el-header";
+
+:root {
+  // 主色
+  // --default-params-color: #000000;
+  // 导航菜单背景色
+  --default-background-color: #33333E;
+  // 导航菜单字体颜色
+  --default-color: #FFFFFF;
+  // 头部高度
+  --default-header-height: 50px;
+  // 导航宽度
+  --el-aside-width: 230px;
+  --light-9: #242429;
+}
 
 *,
 *:before,
@@ -12,10 +27,14 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.15;
   color: #303133;
   background-color: #F1F1F1;
+}
+
+li {
+  list-style: none;
 }
 
 #app, .el-container{
@@ -24,4 +43,8 @@ body {
 
 img {
   vertical-align: middle;
+}
+
+.cursor {
+  cursor: pointer;
 }

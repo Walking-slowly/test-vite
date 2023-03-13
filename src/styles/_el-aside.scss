@@ -1,11 +1,7 @@
-.common-aside {
-  width: 400px;
-  background-color: aqua;
-  // &__menu {
-  //   display: flex;
-  //   flex-flow: column;
-  //   height: 100%;
-  //   overflow: hidden;
-  //   overflow-y: auto;
-  // }
+.el-aside {
+  background-color: var(--default-background-color);
+  height: 100%;
+  .el-menu {
+    border: 0;
+  }
 }

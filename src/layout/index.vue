@@ -1,7 +1,7 @@
 <template>
   <el-container style="flex-flow: column;">
     <Header/>
-    <el-container>
+    <el-container style="height: 100%;overflow: hidden;">
       <Aside/>
       <Main/>
     </el-container>

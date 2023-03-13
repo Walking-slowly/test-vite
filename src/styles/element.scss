@@ -1,0 +1,18 @@
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  // $colors: (
+  //   'primary': (
+  //     'base': red,
+  //   )
+  // ),
+
+  $menu: (
+    'bg-color': var(--default-background-color),
+    'text-color': var(--default-color),
+    'hover-bg-color': var(--light-9)
+  ),
+
+  $header: (
+    'height': var(--default-header-height),
+  )
+);
