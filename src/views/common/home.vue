@@ -7,7 +7,7 @@
     :cols="cols"
   />
 
-  <el-button type="primary">测试</el-button>
+  <el-button type="primary" @click="a">测试</el-button>
 </template>
 
 <script>
@@ -25,7 +25,8 @@ export default {
           elType: 'el-input',
           span: 8,
           prop: 'name',
-          label: '姓名'
+          label: '姓名',
+          placeholder: '请输入'
         },
         {
           elType: 'el-input',
@@ -88,7 +89,7 @@ export default {
     rules() {
       return {
         a: [
-          { required: true, message: 'Please input Activity name', trigger: 'blur' },
+          { required: true, message: '请输入', trigger: 'blur' },
         ],
       }
     }

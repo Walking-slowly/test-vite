@@ -1,11 +1,10 @@
 import { FunctionalComponent as FC } from "vue"
 
-import { Edit } from "@element-plus/icons-vue";
-
 import { useRoute } from 'vue-router';
 interface rowsItem {
   name: String,
   url: String,
+  icon?: String,
   isParent?: Boolean,
   parentUrl?: String,
   children?: Array<rowsItem>
@@ -15,7 +14,8 @@ interface rowsItem {
 const MenuTtem: FC<rowsItem> = item => {
   const { 
     url, 
-    name, 
+    name,
+    icon,
     isParent, 
     parentUrl, 
     children 
@@ -25,7 +25,7 @@ const MenuTtem: FC<rowsItem> = item => {
       children && children.length 
       ? <SubmenuItem {...item} {...{parentUrl: parentUrl}}/> 
       : <el-menuItem index={`${parentUrl || '/'}${url}`}>
-        { isParent && <el-icon><Edit/></el-icon> }
+        { isParent && <el-icon>{ icon && h(resolveComponent(`${icon}`)) }</el-icon> }
         <span>{ name }</span>
       </el-menuItem>
     }
@@ -37,12 +37,13 @@ const SubmenuItem: FC<rowsItem> = ({
   name, 
   url, 
   children = [], 
-  isParent, 
+  isParent,
+  icon,
   parentUrl 
 }) => {
   const slots = {
     title: () => <>
-      { isParent && <el-icon><Edit/></el-icon> }
+      { isParent && <el-icon>{ icon && h(resolveComponent(`${icon}`)) }</el-icon> }
       <span>{ name }</span>
     </>
   }

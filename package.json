@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
+    "@types/nprogress": "^0.2.0",
     "element-plus": "^2.2.19",
     "eslint": "^8.26.0",
     "eslint-plugin-vue": "^9.7.0",
+    "nprogress": "^0.2.0",
     "sass-loader": "^13.2.0",
     "vue": "^3.2.41",
     "vue-router": "^4.1.6"

@@ -54,18 +54,11 @@ const slots = useSlots()
 
 
 const pipeComponents = (item: FormItem): VNode => {
-  switch(item.elType) {
-    case 'el-input':
-      return <el-input placeholder="请输入"/>
-    case 'el-select':
-      return <el-select placeholder="请选择">
-        {(item.options || []).map(i => <el-option { ...i }/>)}
-      </el-select>
-    case 'el-date-picker':
-      return <el-date-picker type='date' placeholder="请选择"/>
-    default:
-      const type = item.prop as string
-      return <slot name={item.prop}>{slots[type] && slots[type]!()}</slot>
+  if (item.elType) {
+    return h(resolveComponent(`${item.elType}`))
+  } else {
+    const type = item.prop as string
+    return <slot name={item.prop}>{slots[type] && slots[type]!()}</slot>
   }
 }
 

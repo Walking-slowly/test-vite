@@ -40,23 +40,23 @@ export default defineConfig({
     Components({
       dirs: ['src/components'], // default
       extensions: ['vue'], // default
-      resolvers: [
+      // resolvers: [
         // 自动导入 Element Plus 组件
         // ElementPlusResolver({ importStyle: "sass", }),
 
         // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
-        IconsResolver({ 
-          prefix: false, 
-          enabledCollections: ['ep'] 
-        }),
-      ],
+        // IconsResolver({ 
+        //   prefix: false, 
+        //   enabledCollections: ['ep'] 
+        // }),
+      // ],
       dts: path.resolve(pathSrc, 'components.d.ts'),
     }),
 
-    Icons({ 
-      autoInstall: true,
-      compiler: 'vue3'
-    }),
+    // Icons({ 
+    //   autoInstall: true,
+    //   compiler: 'vue3'
+    // }),
 
     viteMockServe({
       mockPath: './mock',
