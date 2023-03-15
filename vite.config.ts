@@ -3,12 +3,12 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from "@vitejs/plugin-vue-jsx";
 
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
+// import Icons from 'unplugin-icons/vite'
+// import IconsResolver from 'unplugin-icons/resolver'
 
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import ElementPlus from 'unplugin-element-plus/vite'
 
 // mock
@@ -24,15 +24,15 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    ElementPlus({ useSource: true }),
+    // ElementPlus({ useSource: true }),
     AutoImport({
       // 自动导入vue相关函数
       imports: ['vue'],
 
-      // resolvers: [
-      //   // 自动导入 Element Plus 指令方法
-      //   // ElementPlusResolver({ importStyle: "sass", }),
-      // ],
+      resolvers: [
+        // 自动导入 Element Plus 指令方法
+        ElementPlusResolver({ importStyle: "sass", }),
+      ],
       
       dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
     }),
@@ -40,16 +40,16 @@ export default defineConfig({
     Components({
       dirs: ['src/components'], // default
       extensions: ['vue'], // default
-      // resolvers: [
+      resolvers: [
         // 自动导入 Element Plus 组件
-        // ElementPlusResolver({ importStyle: "sass", }),
+        ElementPlusResolver({ importStyle: "sass", }),
 
         // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
         // IconsResolver({ 
         //   prefix: false, 
         //   enabledCollections: ['ep'] 
         // }),
-      // ],
+      ],
       dts: path.resolve(pathSrc, 'components.d.ts'),
     }),
 
@@ -60,6 +60,7 @@ export default defineConfig({
 
     viteMockServe({
       mockPath: './mock',
+      // 开启
       localEnabled: true
     }),
 
@@ -78,7 +79,12 @@ export default defineConfig({
     host:'0.0.0.0',
     port: 8080,
     open: true,
-    proxy:{}
+    proxy:{
+      '/api': {
+        target: 'http://10.87.106.237:9797',
+        rewrite: path => path.replace(/^\/api/,'/')
+      }
+    }
   },
 
   resolve: {

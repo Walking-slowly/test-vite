@@ -37,19 +37,16 @@ const routes: Array<RouteRecordRaw> = [
 // 动态路由错误页面需要动态添加不能是静态路由
 const ErrorRouter: RouteRecordRaw = {
   path: '/:pathMatch(.*)',
-  redirect: '/404'
+  name: '404',
+  meta: { title: 'Pge not found' },
+  component: () => import('@/views/common/404.vue')
 }
 
 const defaultRoute = {
   path: '',
   name: '',
   component: Layout,
-  children: [{
-    path: '/404',
-    name: '404',
-    meta: { title: 'Pge not found' },
-    component: () => import('@/views/common/404.vue')
-  }]
+  children: []
 }
 
 const router = createRouter({
@@ -95,8 +92,14 @@ router.beforeEach(async (to, from, next) => {
 
   // 不存在菜单和重新刷新都需要重新添加动态路由 否则页面空白
   if (!sessionStorage.getItem('menuList') || !isRefresh) {
-    const data = await getMenuListBySubsystem()
-    defaultRoute.children.unshift(...fnAddDynamicMenuRoutes(data))
+    let data = null
+    try {
+      data = await getMenuListBySubsystem()
+    } catch (e) {
+      NProgress.done()
+    }
+
+    defaultRoute.children = fnAddDynamicMenuRoutes(data)
     router.addRoute(defaultRoute)
     router.addRoute(ErrorRouter)
     sessionStorage.setItem('menuList', JSON.stringify([{ name: '首页',icon: 'House',id: 1,url: 'home'}, ...data]))

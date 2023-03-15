@@ -2,7 +2,7 @@ import request from '@/utils/request.js'
 
 export function getMenuListBySubsystem(data) {
   return request({
-    url: '/api/getMenuListBySubsystem',
+    url: 'getMenuListBySubsystem',
     method: 'get',
     data
   })

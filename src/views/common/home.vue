@@ -95,15 +95,11 @@ export default {
     }
   },
 
-  mounted() {
-    console.log(this.$route, 'ss')
-  },
+  mounted() {},
 
   methods: {
     a() {
-      this.$refs['common-form'].validate().then(() => {
-        console.log('111111')
-      })
+      this.$refs['common-form'].validate().then(() => { })
     },
 
     b() {
