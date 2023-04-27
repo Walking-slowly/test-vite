@@ -18,7 +18,9 @@ import {
   ElOption,
   ElSelect,
   ElMain,
-  ElButton
+  ElButton,
+  ElTable,
+  ElTableColumn
 } from "element-plus"
 
 const componentFiles = [
@@ -39,7 +41,9 @@ const componentFiles = [
   ElOption,
   ElSelect,
   ElMain,
-  ElButton
+  ElButton,
+  ElTable,
+  ElTableColumn
 ]
 
 export default {

@@ -9,7 +9,7 @@ export default [
         code: 200,
         data: [
           {
-            name: '基础设置',
+            name: '表格',
             id: 100,
             url: 'setting',
             icon: 'setting'

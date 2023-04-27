@@ -1,22 +1,13 @@
-<script lang="tsx">
-
-export default defineComponent({
-  setup() {
-    const a = reactive({})
-    const cols = reactive([{
-      elType: 'el-input',
-      span: 8,
-      prop: 'name',
-      label: '姓名',
-      placeholder: '请输入'
-    }])
-    return () => (<>
-      <el-button>111</el-button>
-
-      <common-form v-model={a} cols={cols}/>
-
-      <el-tag>Tag 1</el-tag>
-    </>)
-  }
-})
-</script>
+<template>
+  <CommonTable :cols="[
+    {
+      prop: 'aa',
+      label: '序号',
+      align: 'center'
+    },
+    {
+      prop: 'bb',
+      label: '测试'
+    }
+  ]" :tableData="[{aa: 1, bb: 2}]"/>
+</template>

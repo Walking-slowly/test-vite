@@ -99,10 +99,10 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     }
 
-    defaultRoute.children = fnAddDynamicMenuRoutes(data)
+    defaultRoute.children = fnAddDynamicMenuRoutes(data || [])
     router.addRoute(defaultRoute)
     router.addRoute(ErrorRouter)
-    sessionStorage.setItem('menuList', JSON.stringify([{ name: '首页',icon: 'House',id: 1,url: 'home'}, ...data]))
+    sessionStorage.setItem('menuList', JSON.stringify([{ name: '首页',icon: 'House',id: 1,url: 'home'}, ...(data || [])]))
 
     isRefresh = true
     

@@ -42,9 +42,13 @@ service.interceptors.response.use(
 function showError(error) {
   // token失效
   if (error.code === 403) {
-    console.log(1111)
-    // // to re-login
-    // store.dispatch('user/loginOut')
+    ElMessage({
+      message: '验证失败，请重新登录！',
+      type: 'error',
+      duration: 3 * 1000
+    })
+    sessionStorage.clear()
+    router.replace({ name: 'login' })
   } else {
     ElMessage({
       message: error.msg || error.message || '服务异常',
