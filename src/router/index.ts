@@ -1,10 +1,11 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw, useRouter } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Layout from '@/layout/index.vue'
 import { getMenuListBySubsystem } from '@/api/index.js'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css';
 
+let modules = import.meta.glob('../views/**/*.vue')
 interface RouteRow {
   url: String,
   name: String,
@@ -62,8 +63,9 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, path = '/') => {
       path: `${path}${url}`,
       name: url,
       meta: {title: name},
-      component: () => import(`@/views/${url}/index.vue`),
-      children: fnAddDynamicMenuRoutes(item.children || [])
+      bb: `${path}${url}/index`,
+      component: item.children && item.children.length ? null : modules[`../views${path}${url}/index.vue`],
+      children: fnAddDynamicMenuRoutes(item.children || [], `${path}${url}/`)
     }
   })
 }
@@ -99,10 +101,10 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     }
 
-    defaultRoute.children = fnAddDynamicMenuRoutes(data || [])
+    defaultRoute.children = fnAddDynamicMenuRoutes(data)
     router.addRoute(defaultRoute)
     router.addRoute(ErrorRouter)
-    sessionStorage.setItem('menuList', JSON.stringify([{ name: '首页',icon: 'House',id: 1,url: 'home'}, ...(data || [])]))
+    sessionStorage.setItem('menuList', JSON.stringify([{ name: '首页',icon: 'House',id: 1,url: 'home'}, ...data]))
 
     isRefresh = true
     

@@ -23,8 +23,8 @@ export default defineComponent({
       return <>
         {
           children && children.length 
-          ? <SubmenuItem {...item} {...{parentUrl: parentUrl}}/> 
-          : <el-menuItem index={`${parentUrl || '/'}${url}`}>
+          ? <SubmenuItem {...item} {...{parentUrl: `${parentUrl}${url}/`}}/> 
+          : <el-menuItem index={`${parentUrl}${url}`}>
             { isParent && <el-icon>{ icon && h(resolveComponent(`${icon}`)) }</el-icon> }
             <span>{ name }</span>
           </el-menuItem>
@@ -42,8 +42,8 @@ export default defineComponent({
       }
 
       return <>
-        <el-subMenu index={`${url}`} v-slots={slots}>
-          { children?.map(i => <MenuTtem {...i} {...{parentUrl: `${parentUrl || '/'}${url}`}}/>) }
+        <el-subMenu index={`${parentUrl}${url}`} v-slots={slots}>
+          { children?.map(i => <MenuTtem {...i} {...{parentUrl: `${parentUrl}${url}/`}}/>) }
         </el-subMenu>
       </>
     }
@@ -59,8 +59,8 @@ export default defineComponent({
               return <>
                 {
                   item.children && item.children.length 
-                  ? <SubmenuItem {...item} isParent/> 
-                  : <MenuTtem {...item} isParent/>
+                  ? <SubmenuItem {...item} isParent parentUrl="/"/> 
+                  : <MenuTtem {...item} isParent parentUrl="/" />
                 }
               </>
             }) }

@@ -8,7 +8,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // import ElementPlus from 'unplugin-element-plus/vite'
 
 // mock
@@ -31,7 +31,7 @@ export default defineConfig({
 
       resolvers: [
         // 自动导入 Element Plus 指令方法
-        ElementPlusResolver({ importStyle: "sass", }),
+        // ElementPlusResolver({ importStyle: "sass", }),
       ],
       
       dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
@@ -42,7 +42,7 @@ export default defineConfig({
       extensions: ['vue'], // default
       resolvers: [
         // 自动导入 Element Plus 组件
-        ElementPlusResolver({ importStyle: "sass", }),
+        // ElementPlusResolver({ importStyle: "sass", }),
 
         // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
         // IconsResolver({ 

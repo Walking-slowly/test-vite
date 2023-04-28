@@ -9,111 +9,111 @@ export default [
         code: 200,
         data: [
           {
-            name: '表格',
+            name: 'Table',
             id: 100,
             url: 'setting',
             icon: 'setting'
           },
           {
-            name: '测试页面',
+            name: '表单',
             id: 101,
             url: 'test',
             icon: '',
             children: [
               {
-                name: '测试页面-1',
+                name: '表单-1',
                 id: 101-1,
-                url: '/test-1',
+                url: 'from',
                 icon: '',
               },
               {
                 name: '测试页面-2',
                 id: 101-2,
-                url: '/test-2',
+                url: 'test-2',
                 icon: ''
               },
               {
                 name: '测试页面-1',
                 id: 101-1,
-                url: '/test-1',
+                url: 'test-1',
                 icon: '',
               },
               {
                 name: '测试页面-2',
                 id: 101-2,
-                url: '/test-2',
+                url: 'test-2',
                 icon: ''
               },
               {
                 name: '测试页面-1',
                 id: 101-1,
-                url: '/test-1',
+                url: 'test-1',
                 icon: '',
               },
               {
                 name: '测试页面-2',
                 id: 101-2,
-                url: '/test-2',
+                url: 'test-2',
                 icon: ''
               },
               {
                 name: '测试页面-1',
                 id: 101-1,
-                url: '/test-1',
+                url: 'test-1',
                 icon: '',
               },
               {
                 name: '测试页面-2',
                 id: 101-2,
-                url: '/test-2',
+                url: 'test-2',
                 icon: ''
               },
               {
                 name: '测试页面-1',
                 id: 101-1,
-                url: '/test-1',
+                url: 'test-1',
                 icon: '',
               },
               {
                 name: '测试页面-2',
                 id: 101-2,
-                url: '/test-2',
+                url: 'test-2',
                 icon: ''
               },
               {
                 name: '测试页面-1',
                 id: 101-1,
-                url: '/test-1',
+                url: 'test-1',
                 icon: '',
               },
               {
                 name: '测试页面-2',
                 id: 101-2,
-                url: '/test-2',
+                url: 'test-2',
                 icon: ''
               },
               {
                 name: '测试页面-1',
                 id: 101-1,
-                url: '/test-1',
+                url: 'test-1',
                 icon: '',
               },
               {
                 name: '测试页面-2',
                 id: 101-2,
-                url: '/test-2',
+                url: 'test-2',
                 icon: ''
               },
               {
                 name: '测试页面-1',
                 id: 101-1,
-                url: '/test-1',
+                url: 'test-1',
                 icon: '',
               },
               {
                 name: '测试页面-2',
                 id: 101-2,
-                url: '/test-2',
+                url: 'test-2',
                 icon: ''
               }
             ]

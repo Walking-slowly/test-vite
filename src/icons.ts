@@ -1,19 +1,10 @@
 import { App } from "vue"
-
-import { 
-  House,
-  Setting
-} from "@element-plus/icons-vue";
-
-const componentFiles = [
-  House,
-  Setting
-]
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 export default {
   install(app: App) {
-    componentFiles.forEach(item => {
-      app.component(item.name, item)
-    })
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component)
+    }
   }
 }

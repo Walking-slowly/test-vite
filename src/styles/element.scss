@@ -1,5 +1,10 @@
 
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': green,
+    ),
+  ),
   $menu: (
     'bg-color': var(--default-background-color),
     'text-color': var(--default-color),
@@ -10,3 +15,5 @@
     'height': var(--default-header-height),
   )
 );
+
+@use "element-plus/theme-chalk/src/index.scss" as *;
