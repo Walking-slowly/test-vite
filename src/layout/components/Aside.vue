@@ -26,7 +26,7 @@ export default defineComponent({
           ? <SubmenuItem {...item} {...{parentUrl: `${parentUrl}${url}/`}}/> 
           : <el-menuItem index={`${parentUrl}${url}`}>
             { isParent && <el-icon>{ icon && h(resolveComponent(`${icon}`)) }</el-icon> }
-            <span>{ name }</span>
+            <span style={`margin-left: ${!isParent ? '20px' : ''}`}>{ name }</span>
           </el-menuItem>
         }
       </>

@@ -53,7 +53,7 @@ const { gutter } = toRefs(props)
 const slots = useSlots()
 
 
-const pipeComponents = (item: FormItem): String =>  item.elType
+const pipeComponents = (item: FormItem): String => item.elType
 
 // validate
 const validate = (): Promise<boolean> => {

@@ -35,7 +35,7 @@ export default {
           label: '性别'
         },
         {
-          elType: 'el-select',
+          elType: 'common-select',
           span: 8,
           prop: 'a',
           label: '测试下拉',
