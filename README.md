@@ -1,4 +1,4 @@
-# Vue 3 + TypeScript + Vite
+# Vue 3 + TypeScript + Vite + elementPlus + pinia
 
 1. **components**
 

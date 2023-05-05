@@ -4,7 +4,7 @@
 import type { Column } from "element-plus";
 
 export default defineComponent({
-  name: 'VirtualizedTable',
+  name: 'defaultTable',
 
   setup(props, { attrs }) {
     const { columns } = attrs
