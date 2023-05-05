@@ -25,6 +25,7 @@
     "noEmit": true,
     "types": [
       "unplugin-icons/types/vue",
+      "node"
     ]
   },
   "include": [

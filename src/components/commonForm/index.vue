@@ -2,20 +2,20 @@
   <el-form :model="modelValue" ref="formRef">
     <el-row :gutter="gutter">
       <el-col
-        v-for="(item, i) in cols" 
+        v-for="({span, prop, events, ...other}, i) in cols" 
         :key="i" 
-        :span="item.span || 24"
+        :span="span || 24"
       >
         
-        <el-form-item v-bind="{...item}">
+        <el-form-item v-bind="{...other, prop}">
           <component
-            :is="pipeComponents(item)"
+            :is="pipeComponents(other)"
             v-bind="{
               clearable: true,
-              ...item
+              ...other
             }"
-            v-on="item.events || {}"
-            v-model="modelValue[item.prop]"
+            v-on="events || {}"
+            v-model="modelValue[prop]"
           />
         </el-form-item>
       </el-col>
@@ -26,7 +26,6 @@
 <script lang="tsx" setup>
 import { OptionItemProps } from "element-plus/es/components/select-v2/src/select.types"
 import type { FormInstance } from 'element-plus'
-import { VNode } from "vue"
 
 interface FormItem {
   elType: String, // 输入框类型

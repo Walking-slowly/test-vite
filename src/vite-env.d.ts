@@ -12,6 +12,12 @@ declare module '*.tsx' {
   export default component
 }
 
+declare module "*.vue" {
+  import { DefineComponent } from "vue"
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+
 // declare module '*.jsx' {
 //   import type { DefineComponent } from 'vue'
 //   const component: DefineComponent<{}, {}, any>
@@ -25,3 +31,4 @@ declare module '*.tsx' {
 // }
 
 declare module '@/api/index.js'
+declare module 'three'

@@ -16,6 +16,7 @@
     "eslint-plugin-vue": "^9.7.0",
     "nprogress": "^0.2.0",
     "sass-loader": "^13.2.0",
+    "three": "^0.152.0",
     "vue": "^3.2.41",
     "vue-router": "^4.1.6"
   },
@@ -23,6 +24,7 @@
     "@iconify-json/mdi": "^1.1.35",
     "@iconify/json": "^2.1.141",
     "@types/node": "^18.11.9",
+    "@types/three": "^0.150.2",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vitejs/plugin-vue-jsx": "^2.1.1",
     "axios": "^1.1.3",

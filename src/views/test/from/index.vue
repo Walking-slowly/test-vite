@@ -100,10 +100,6 @@ export default {
   methods: {
     a() {
       this.$refs['common-form'].validate().then(() => { })
-    },
-
-    b() {
-      this.$refs['common-form'].resetFields()
     }
   }
 }
