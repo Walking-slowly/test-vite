@@ -5,7 +5,9 @@
     ref="common-form"
     :rules="rules"
     :cols="cols"
-  />
+  >
+    <template #K><div>测试彩色</div></template>
+  </common-form>
 
   <el-button type="primary" @click="a">测试</el-button>
 </template>
@@ -71,12 +73,12 @@ export default {
           rows: 4,
           label: '打打',
         },
-        // {
-        //   elType: '',
-        //   span: 24,
-        //   prop: 'K',
-        //   label: 'AAA',
-        // },
+        {
+          elType: 'custom',
+          span: 24,
+          prop: 'K',
+          label: 'AAA',
+        },
         // {
         //   elType: '',
         //   span: 24,

@@ -16,7 +16,9 @@
             }"
             v-on="events || {}"
             v-model="modelValue[prop]"
-          />
+          >
+            <slot v-if="other.elType === 'custom'" :name="prop"/>
+          </component>
         </el-form-item>
       </el-col>
     </el-row>
@@ -52,7 +54,9 @@ const { gutter } = toRefs(props)
 const slots = useSlots()
 
 
-const pipeComponents = (item: FormItem): String => item.elType
+const pipeComponents = (item: FormItem): any => {
+  if (item.elType !== 'custom') return item.elType
+}
 
 // validate
 const validate = (): Promise<boolean> => {

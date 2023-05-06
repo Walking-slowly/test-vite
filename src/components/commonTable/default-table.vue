@@ -5,14 +5,24 @@ import type { Column } from "element-plus";
 
 export default defineComponent({
   name: 'defaultTable',
+  inheritAttrs: false,
 
   setup(props, { attrs }) {
-    const { columns } = attrs
-     return () => <>
-      <el-table data={[]} height={'calc(100% - 0px)'}>
-        { (columns as Column).map((i : any) => <el-table-column {...i} label={i.title}/>)}
+    const { columns = [], ...other } = attrs
+    
+    return () => <>
+      <el-table {...other} height={'100%'}>
+        { (columns as Column).map((i : Column) => <el-table-column 
+          {...i} 
+          label={i.title}
+          v-slots={{ 
+            default: (res: any) => i.cellRenderer && i.cellRenderer({...res, rowData: res.row}) 
+          }}
+          />
+        )}
       </el-table>
     </>
   }
 })
 </script>
+

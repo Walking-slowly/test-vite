@@ -4,6 +4,7 @@ import { SelectOptionProxy } from "element-plus"
 
 export default defineComponent({
   name: 'CommonSelect',
+  inheritAttrs: false,
 
   setup(props, { attrs }) {
 
