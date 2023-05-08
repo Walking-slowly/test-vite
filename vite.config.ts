@@ -3,6 +3,9 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from "@vitejs/plugin-vue-jsx";
 
+// 定义options
+import DefineOptions from 'unplugin-vue-define-options/vite'
+
 // import Icons from 'unplugin-icons/vite'
 // import IconsResolver from 'unplugin-icons/resolver'
 
@@ -24,6 +27,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    DefineOptions(),
     // ElementPlus({ useSource: true }),
     AutoImport({
       // 自动导入vue相关函数

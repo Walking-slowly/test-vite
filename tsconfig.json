@@ -24,6 +24,7 @@
     "skipLibCheck": true,
     "noEmit": true,
     "types": [
+      "unplugin-vue-define-options/macros-global",
       "unplugin-icons/types/vue",
       "node"
     ]

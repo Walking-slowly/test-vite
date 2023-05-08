@@ -1,7 +1,7 @@
 <template>
   <div class="default-common-table">
-    <!-- <VirtualizedTable {...attrs} v-if="isVirtualizedTable"/>
-    <DefaultTable {...attrs} v-else/>   -->
+    <VirtualizedTable v-bind="attrs" v-if="isVirtualizedTable" :width="width" :height="height"/>
+    <DefaultTable v-bind="attrs" v-else/>  
 
     <el-pagination
       v-if="isPagination"
@@ -11,6 +11,8 @@
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[100, 200, 300, 400]"
       :total="pageInfo.total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
       class="common-pagination"
     />
   </div>
@@ -31,19 +33,50 @@ interface PageInfo {
   total: Number
 }
 
+defineOptions({
+  name: 'CommonTable',
+  inheritAttrs: false
+})
+
+const emit = defineEmits<{
+  (event: 'changeCallBack', params: Object): null
+}>()
+
+const handleCurrentChange = (val: number) => {
+  pageInfo.currentPage = val
+  emit('changeCallBack', pageInfo)
+}
+
+const handleSizeChange = (val: number) => {
+  pageInfo.pageSize = val
+  emit('changeCallBack', pageInfo)
+}
+
+onMounted(() => {
+  nextTick(() => {
+    const { offsetHeight, offsetWidth } = document.querySelector('.default-common-table') as HTMLElement
+    width.value = offsetWidth || 200
+    height.value = offsetHeight || 100
+  })
+})
+
 const props = withDefaults(defineProps<FormProps>(), {
   isVirtualizedTable: () => false,
   isPagination: () => false
 })
 
-// const attrs =  useAttrs()
-// console.log(attrs, 'sss')
+const attrs =  useAttrs()
+
 const { isVirtualizedTable, isPagination } = toRefs(props)
-let pageInfo = reactive<PageInfo>({
+
+const pageInfo = reactive<PageInfo>({
   pageSize: 100,
   currentPage: 1,
   total: 20,
 })
+
+const width = ref<Number>(200)
+const height = ref<Number>(100)
 
 </script>
 

@@ -1,21 +1,28 @@
 <template>
   <el-tabs style="height: calc(100vh - 70px); overflow: hidden;" class="demo-tabs">
+    <el-tab-pane label="虚拟滚动表格"><commonTable :columns="columns" :isVirtualizedTable="true" :data="data"/></el-tab-pane>
     <el-tab-pane label="普通表格">
       <commonTable 
         :columns="columns" 
         :data="data"
         border
-        isPagination/>
+        @changeCallBack="changeCallBack"
+        :isPagination="true"/>
       </el-tab-pane>
-    <el-tab-pane label="虚拟滚动表格"><commonTable :columns="columns" isVirtualizedTable :data="data"/></el-tab-pane>
+    
   </el-tabs>
 </template>
 
 <script lang="tsx" setup>
 import type { Column } from 'element-plus'
 import { CellRendererParams } from 'element-plus/es/components/table-v2/src/types'
+import { VNode } from 'vue'
 
-const columns: Column<any>[] = ([
+const changeCallBack = <T, >(params: T) => {
+  console.log(params, 'paramsparamsparamsparams')
+}
+
+const columns: Column[] = ([
   {
     title: 'Date',
     width: 200,
@@ -29,7 +36,7 @@ const columns: Column<any>[] = ([
     key: 'name',
     dataKey: 'name',
     prop: 'name',
-    cellRenderer: ({rowData}: any) => {
+    cellRenderer: ({rowData}: any): VNode => {
       return <el-button text type="primary">{ rowData.name || '' }</el-button>
     }
   },

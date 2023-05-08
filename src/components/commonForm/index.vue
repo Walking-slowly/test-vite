@@ -45,6 +45,10 @@ interface FormProps {
   gutter?: Number
 }
 
+defineOptions({
+  name: 'CommonForm'
+})
+
 const props = withDefaults(defineProps<FormProps>(), {
   gutter: () => 20
 })

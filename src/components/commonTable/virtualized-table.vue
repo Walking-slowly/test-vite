@@ -6,20 +6,14 @@ export default defineComponent({
   name: 'VirtualizedTable',
   inheritAttrs: false,
 
+  props: {
+    width: Number,
+    height: Number
+  },
+
   setup(props, { attrs }) {
     const { columns, data = [], ...other} = attrs
     
-    const width = ref<Number>(200)
-    const height = ref<Number>(100)
-
-    onMounted(() => {
-      nextTick(() => {
-        const { offsetHeight, offsetWidth} = document.querySelector('.default-common-table') as HTMLElement
-        width.value = offsetWidth
-        height.value = offsetHeight
-      })
-    })
-
     return () => <>
       <elTableV2
         columns={columns as Column}
@@ -27,8 +21,8 @@ export default defineComponent({
         calss="virtualized-common-table"
         header-height={40}
         {...other}
-        width={width.value}
-        height={height.value}
+        width={props.width}
+        height={props.height}
         fixed
       >
         {{
