@@ -1,21 +1,33 @@
 <script lang="tsx">
-import { SelectOptionProxy } from "element-plus"
-
-
 export default defineComponent({
   name: 'CommonSelect',
   inheritAttrs: false,
 
+  props: {
+    // 下拉数据源
+    options: {
+      type: Array,
+      required: true,
+    },
+    value: [String, Number],
+    // 是否展示树形结构
+    isTree: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  emits: ['update:value'],
+
   setup(props, { attrs }) {
-
-    const { 
-      options,
-      ...other
-    } = attrs
-
     return () => (
-      <el-select {...other}>
-        { (options as Array<SelectOptionProxy>).map(i => <el-option {...i}/>)}
+      <el-select
+        v-model={[props.value, 'value']}
+        {...attrs}
+      >
+        {props.options.map((option: any) => (
+          <el-option {...option} />
+        ))}
       </el-select>
     )
   }

@@ -6,7 +6,7 @@
     :rules="rules"
     :cols="cols"
   >
-    <template #K><div>测试彩色</div></template>
+    <template #K>测试测试测试</template>
   </common-form>
 
   <el-button type="primary" @click="a">测试</el-button>
@@ -40,6 +40,7 @@ export default {
           elType: 'common-select',
           span: 8,
           prop: 'a',
+          placeholder: 'BBBB',
           label: '测试下拉',
           options: [
             {
@@ -48,8 +49,7 @@ export default {
             },
             {
               label: '222',
-              value: 2,
-              disabled: true
+              value: 2
             }
           ]
         },
@@ -77,7 +77,7 @@ export default {
           elType: 'custom',
           span: 24,
           prop: 'K',
-          label: 'AAA',
+          label: 'AAA'
         },
         // {
         //   elType: '',

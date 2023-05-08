@@ -6,10 +6,7 @@ export default defineComponent({
   name: 'VirtualizedTable',
   inheritAttrs: false,
 
-  props: {
-    width: Number,
-    height: Number
-  },
+  props: ['width', 'height'],
 
   setup(props, { attrs }) {
     const { columns, data = [], ...other} = attrs

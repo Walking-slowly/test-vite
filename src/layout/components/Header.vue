@@ -15,7 +15,7 @@ export default defineComponent({
   setup() {
     const router = useRouter()
 
-    const color = ref<String>('#008000')
+    const color = ref<string>('#008000')
 
     const handleLoginOut = () => {
       sessionStorage.clear()
@@ -39,7 +39,7 @@ export default defineComponent({
       return '#' + _r + _g + _b
     }
   
-    const handleChange = (value: String) => {
+    const handleChange = (value: string) => {
       const node = document.documentElement;
       const pre = "--el-color-primary"; 
       // 源码中的$color-white，也就是白色

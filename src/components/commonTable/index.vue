@@ -23,14 +23,14 @@ import DefaultTable from './default-table.vue'
 import VirtualizedTable from './virtualized-table.vue'
 
 interface FormProps {
-  isVirtualizedTable?: Boolean,
-  isPagination?: Boolean,
+  isVirtualizedTable?: boolean,
+  isPagination?: boolean,
 }
 
 interface PageInfo {
-  pageSize: Number,
-  currentPage: Number,
-  total: Number
+  pageSize: number,
+  currentPage: number,
+  total: number
 }
 
 defineOptions({
@@ -39,7 +39,7 @@ defineOptions({
 })
 
 const emit = defineEmits<{
-  (event: 'changeCallBack', params: Object): null
+  (event: 'changeCallBack', params: object): null
 }>()
 
 const handleCurrentChange = (val: number) => {
@@ -75,8 +75,8 @@ const pageInfo = reactive<PageInfo>({
   total: 20,
 })
 
-const width = ref<Number>(200)
-const height = ref<Number>(100)
+const width = ref<number>(200)
+const height = ref<number>(100)
 
 </script>
 

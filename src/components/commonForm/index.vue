@@ -2,23 +2,23 @@
   <el-form :model="modelValue" ref="formRef">
     <el-row :gutter="gutter">
       <el-col
-        v-for="({span, prop, events, ...other}, i) in cols" 
-        :key="i" 
+        v-for="{span, events, ...other} in cols" 
+        :key="other.prop" 
         :span="span || 24"
       >
         
-        <el-form-item v-bind="{...other, prop}">
+        <el-form-item v-bind="{...other}">
+          <slot v-if="other.elType === 'custom'" :name="other.prop"/>
           <component
+            v-else
             :is="pipeComponents(other)"
             v-bind="{
               clearable: true,
               ...other
             }"
             v-on="events || {}"
-            v-model="modelValue[prop]"
-          >
-            <slot v-if="other.elType === 'custom'" :name="prop"/>
-          </component>
+            v-model="modelValue[other.prop]"
+          />
         </el-form-item>
       </el-col>
     </el-row>
@@ -30,19 +30,21 @@ import { OptionItemProps } from "element-plus/es/components/select-v2/src/select
 import type { FormInstance } from 'element-plus'
 
 interface FormItem {
-  elType: String, // 输入框类型
-  span?: Number, // element 栅格布局,
-  prop: String, // 表单字段
-  label?: String, // 表单lebel
-  placeholder?: String, // 继承element placeholder
-  events?: Object, // 继承element 事件
+  elType: string, // 输入框类型
+  span?: number, // element 栅格布局,
+  prop: string, // 表单字段
+  label?: string, // 表单lebel
+  placeholder?: string, // 继承element placeholder
+  events?: object, // 继承element 事件
   options?: Array<OptionItemProps>, // select options
 }
 
 interface FormProps {
   cols: Array<FormItem>,
-  modelValue: Object,
-  gutter?: Number
+  modelValue: {
+    [key: string]: any
+  },
+  gutter?: number
 }
 
 defineOptions({

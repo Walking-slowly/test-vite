@@ -2,23 +2,23 @@
 import { FunctionalComponent as FC } from "vue"
 
 import { useRoute } from 'vue-router';
-interface rowsItem {
-  name: String,
-  url: String,
-  icon?: String,
-  isParent?: Boolean,
-  parentUrl?: String,
-  children?: Array<rowsItem>
+interface RowsItem {
+  name: string,
+  url: string,
+  icon?: string,
+  isParent?: boolean,
+  parentUrl?: string,
+  children?: Array<RowsItem>
 }
 
 export default defineComponent({
   name: 'Aside',
   setup () {
-    const menuList: Array<rowsItem> = JSON.parse(sessionStorage.getItem('menuList') || '') || []
+    const menuList: Array<RowsItem> = JSON.parse(sessionStorage.getItem('menuList') || '') || []
     const route = useRoute()
 
     // 目录
-    const MenuTtem: FC<rowsItem> = item => {
+    const MenuTtem: FC<RowsItem> = item => {
       const { url, name, icon, isParent, parentUrl, children } = item
       return <>
         {
@@ -33,7 +33,7 @@ export default defineComponent({
     }
 
     // 菜单
-    const SubmenuItem: FC<rowsItem> = ({ name,  url, children = [], isParent, icon, parentUrl }) => {
+    const SubmenuItem: FC<RowsItem> = ({ name,  url, children = [], isParent, icon, parentUrl }) => {
       const slots = {
         title: () => <>
           { isParent && <el-icon>{ icon && h(resolveComponent(`${icon}`)) }</el-icon> }

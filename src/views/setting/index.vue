@@ -5,7 +5,7 @@
       <commonTable 
         :columns="columns" 
         :data="data"
-        border
+        :border="true"
         @changeCallBack="changeCallBack"
         :isPagination="true"/>
       </el-tab-pane>

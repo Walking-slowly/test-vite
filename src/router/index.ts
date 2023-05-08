@@ -7,8 +7,8 @@ import 'nprogress/nprogress.css';
 
 let modules = import.meta.glob('../views/**/*.vue')
 interface RouteRow {
-  url: String,
-  name: String,
+  url: string,
+  name: string,
   children?: Array<RouteRow>
 }
 
