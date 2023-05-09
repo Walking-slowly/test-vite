@@ -11,6 +11,15 @@ import icons from './icons'
 //引入
 import ElementPlus from 'element-plus'
 
+// 生产使用mock需要
+import { setupProdMockServer } from '../mock/index.ts';
+if (import.meta.env.VITE_MODE === 'production') {
+  setupProdMockServer();
+}
+
+
+console.log(import.meta.env, 'env')
+
 const app = createApp(App)
 app.use(createPinia())
 app.use(components)

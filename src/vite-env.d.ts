@@ -20,4 +20,5 @@ declare module "*.vue" {
 
 declare module '@/api/*.js'
 declare module '@/store/*.js'
+declare module '../mock/*.ts'
 declare module 'three'

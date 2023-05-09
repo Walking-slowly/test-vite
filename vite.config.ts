@@ -1,5 +1,5 @@
 import path from "path";
-import { defineConfig } from 'vite'
+import { defineConfig, ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from "@vitejs/plugin-vue-jsx";
 
@@ -23,80 +23,85 @@ import Inspect from 'vite-plugin-inspect'
 const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    DefineOptions(),
-    // ElementPlus({ useSource: true }),
-    AutoImport({
-      // 自动导入vue相关函数
-      imports: ['vue', 'vue-router'],
+export default defineConfig(({ command  }: ConfigEnv) => {
+  return {
+    plugins: [
+      vue(),
+      vueJsx(),
+      DefineOptions(),
+      // ElementPlus({ useSource: true }),
+      AutoImport({
+        // 自动导入vue相关函数
+        imports: ['vue', 'vue-router'],
 
-      resolvers: [
-        // 自动导入 Element Plus 指令方法
-        // ElementPlusResolver({ importStyle: "sass", }),
-      ],
-      
-      dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
-    }),
+        resolvers: [
+          // 自动导入 Element Plus 指令方法
+          // ElementPlusResolver({ importStyle: "sass", }),
+        ],
+        
+        dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
+      }),
 
-    // Components({
-    //   dirs: ['src/components'], // default
-    //   extensions: ['vue'], // default
-    //   resolvers: [
-    //     // 自动导入 Element Plus 组件
-    //     ElementPlusResolver({ importStyle: "sass", }),
+      // Components({
+      //   dirs: ['src/components'], // default
+      //   extensions: ['vue'], // default
+      //   resolvers: [
+      //     // 自动导入 Element Plus 组件
+      //     ElementPlusResolver({ importStyle: "sass", }),
 
-    //     // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
-    //     IconsResolver({ 
-    //       prefix: false, 
-    //       enabledCollections: ['ep'] 
-    //     }),
-    //   ],
-    //   dts: path.resolve(pathSrc, 'components.d.ts'),
-    // }),
+      //     // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
+      //     IconsResolver({ 
+      //       prefix: false, 
+      //       enabledCollections: ['ep'] 
+      //     }),
+      //   ],
+      //   dts: path.resolve(pathSrc, 'components.d.ts'),
+      // }),
 
-    // Icons({ 
-    //   autoInstall: true,
-    //   compiler: 'vue3'
-    // }),
+      // Icons({ 
+      //   autoInstall: true,
+      //   compiler: 'vue3'
+      // }),
 
-    viteMockServe({
-      mockPath: './mock',
-      // 开启
-      localEnabled: true
-    }),
+      viteMockServe({
+        mockPath: './mock',
+        // 开发环境开启
+        localEnabled: command === 'serve',
+        // 生产环境
+        prodEnabled: command !== 'serve',
+        // prodEnabled: false
+      }),
 
-    Inspect()
-  ],
+      Inspect()
+    ],
 
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/styles/element.scss" as *;`,
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/styles/element.scss" as *;`,
+        },
       },
     },
-  },
 
-  server:{
-    host:'0.0.0.0',
-    port: 8081,
-    open: true,
-    proxy:{
-      '/api': {
-        target: 'http://10.87.106.237:9797',
-        rewrite: path => path.replace(/^\/api/,'/')
+    server:{
+      host:'0.0.0.0',
+      port: 8081,
+      open: true,
+      proxy:{
+        '/api': {
+          target: 'http://10.87.106.237:8602',
+          rewrite: path => path.replace(/^\/api/,'/')
+        }
       }
-    }
-  },
-
-  resolve: {
-    alias: {
-      "@": pathSrc
     },
-    extensions: [".js", ".jsx", ".ts", ".tsx"]
-  },
 
-  base: './'
+    resolve: {
+      alias: {
+        "@": pathSrc
+      },
+      extensions: [".js", ".jsx", ".ts", ".tsx"]
+    },
+
+    base: './'
+  }
 })
