@@ -31,7 +31,7 @@ export default defineConfig({
     // ElementPlus({ useSource: true }),
     AutoImport({
       // 自动导入vue相关函数
-      imports: ['vue'],
+      imports: ['vue', 'vue-router'],
 
       resolvers: [
         // 自动导入 Element Plus 指令方法

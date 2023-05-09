@@ -3,10 +3,6 @@
   color: var(--default-color);
   padding-left: 0 !important;
   display: flex;
-  img {
-    width: var(--el-aside-width);
-    height: var(--el-header-height);
-  }
   .common-header-content {
     flex: 1;
     display: flex;
@@ -14,6 +10,10 @@
     justify-content: space-between;
     &__breadcrumb {
       flex: 1;
+      margin: 0 10px;
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
   }
 }

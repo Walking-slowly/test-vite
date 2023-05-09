@@ -1,7 +1,25 @@
 .el-aside {
   background-color: var(--default-background-color);
+  width: auto;
   height: 100%;
   .el-menu {
     border: 0;
+  }
+  .el-menu:not(.el-menu--collapse) {
+    width: var(--el-aside-width);
+  }
+  .header-img-menuItem {
+    background: url(@/assets/img/logo.png) no-repeat;
+    height: var(--default-header-height);
+    color: transparent;
+  }
+  .el-menu--collapse .header-img-menuItem{
+    background: none;
+    color: #FFF;
+    font-weight: bold;
+    .el-icon {
+      font-style: normal;
+      letter-spacing: 4px;
+    }
   }
 }

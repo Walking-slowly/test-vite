@@ -7,11 +7,21 @@ export default defineComponent({
   name: 'defaultTable',
   inheritAttrs: false,
 
+  props: {
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
+
   setup(props, { attrs }) {
     const { columns = [], ...other } = attrs
     
     return () => <>
-      <el-table {...other} height={'100%'}>
+      <el-table 
+        {...props} 
+        {...other}
+        height={'100%'}>
         { (columns as Column).map((i : Column) => <el-table-column 
           {...i} 
           label={i.title}

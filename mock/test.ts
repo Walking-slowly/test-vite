@@ -38,5 +38,96 @@ export default [
         message: '操作成功'
       }
     }
+  }, {
+    url: '/api/getList',
+    method: 'get',
+    response: () => {
+      return {
+        code: 200,
+        data: [{
+          date: '1111',
+          name: 1111,
+          address: '测试测试测试测试'
+        },
+        {
+          date: '2222',
+          name: 2222,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        },{
+          date: '3333',
+          name: 3333,
+          address: '测试测试测试测试'
+        }],
+        message: '操作成功'
+      }
+    }
   }
 ] as MockMethod[]

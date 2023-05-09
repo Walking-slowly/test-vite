@@ -1,8 +1,12 @@
 <template>
   <el-header>
-    <img src="@/assets/img/logo.png"/>
     <div class="common-header-content">
-      <div class="common-header-content__breadcrumb"></div>
+      <div class="common-header-content__breadcrumb">
+        <el-icon :size="28" class="cursor" @click="isCollapse = !isCollapse">
+          <Fold v-if="!isCollapse"/>
+          <Expand v-else/>
+        </el-icon>
+      </div>
       <el-color-picker v-model="color" @change="handleChange"/>
       <div class="cursor" @click="handleLoginOut" style="margin-left: 10px;">退出</div>
     </div>
@@ -10,12 +14,19 @@
 </template>
 
 <script lang="ts">
-import { useRouter } from 'vue-router';
+import { useCommonStore } from '@/store/common.js'
+
 export default defineComponent({
   setup() {
     const router = useRouter()
+    const useStore = useCommonStore()
 
     const color = ref<string>('#008000')
+
+    const isCollapse = computed({
+      get: () => useStore.isCollapse,
+      set: val => useStore.C_SET_ISCOLLAPSE(val)
+    })
 
     const handleLoginOut = () => {
       sessionStorage.clear()
@@ -54,12 +65,11 @@ export default defineComponent({
         node.style.setProperty(`${pre}-light-${i}`, mix(color.value as any, mixWhite, i * 0.1));
         node.style.setProperty(`${pre}-dark-${i}`, mix(color.value as any, mixWhite, i * 0.1));
       }
-
     }
 
     return { 
       color,
-
+      isCollapse,
       handleLoginOut,
       handleChange
     }

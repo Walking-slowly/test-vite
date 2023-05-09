@@ -1,26 +1,28 @@
 <template>
   <el-tabs style="height: calc(100vh - 70px); overflow: hidden;" class="demo-tabs">
-    <el-tab-pane label="虚拟滚动表格"><commonTable :columns="columns" :isVirtualizedTable="true" :data="data"/></el-tab-pane>
+    <el-tab-pane label="虚拟滚动表格">
+      <commonTable 
+      :columns="columns" 
+      :isVirtualizedTable="true"
+      :loading="loading"
+      :data="data"/>
+    </el-tab-pane>
     <el-tab-pane label="普通表格">
       <commonTable 
-        :columns="columns" 
-        :data="data"
-        :border="true"
-        @changeCallBack="changeCallBack"
-        :isPagination="true"/>
-      </el-tab-pane>
-    
+      :columns="columns" 
+      :data="data"
+      :loading="loading"
+      :border="true"
+      @onChangePage="onChangePage"
+      :isPagination="true"/>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
 <script lang="tsx" setup>
 import type { Column } from 'element-plus'
-import { CellRendererParams } from 'element-plus/es/components/table-v2/src/types'
 import { VNode } from 'vue'
-
-const changeCallBack = <T, >(params: T) => {
-  console.log(params, 'paramsparamsparamsparams')
-}
+import { getList } from '@/api/index.js'
 
 const columns: Column[] = ([
   {
@@ -49,96 +51,21 @@ const columns: Column[] = ([
   }
 ])
 
-const data = reactive([
-  {
-    date: '1111',
-    name: 1111,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '2222',
-    name: 2222,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '3333',
-    name: 3333,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '4444',
-    name: 444444,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '55555',
-    name: 55555,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-  {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-   {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-   {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-   {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-   {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  },
-   {
-    date: '66666',
-    name: 66666,
-    address: '测试测试测试测试'
-  }
-])
+let loading = ref<boolean>(false)
+
+let data = ref<any[]>([])
+
+const search = () => {
+  loading.value = true
+  getList().then((res: any) => {
+    data.value = res
+    loading.value = false
+  })
+}
+
+const onChangePage = <T, >(params: T) => {
+  console.log(params, 'paramsparamsparamsparams')
+}
+
+search()
 </script>

@@ -6,27 +6,36 @@ export default defineComponent({
   name: 'VirtualizedTable',
   inheritAttrs: false,
 
-  props: ['width', 'height'],
+  props: {
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
 
   setup(props, { attrs }) {
-    const { columns, data = [], ...other} = attrs
+    const { columns, ...other} = attrs
+
+    const slots = {
+      default: ({ height, width }: any) => <>
+        <elTableV2
+          columns={columns as Column}
+          class="virtualized-common-table"
+          header-height={40}
+          {...other}
+          {...props}
+          height={height}
+          width={width}
+          fixed
+        >
+          {{
+            empty: () => <div class="el-table__empty-block"><span class="el-table__empty-text">暂无数据</span></div>
+          }}
+        </elTableV2>
+      </>
+    }
     
-    return () => <>
-      <elTableV2
-        columns={columns as Column}
-        data={data}
-        calss="virtualized-common-table"
-        header-height={40}
-        {...other}
-        width={props.width}
-        height={props.height}
-        fixed
-      >
-        {{
-          empty: () => <div class="el-table__empty-block"><span class="el-table__empty-text">暂无数据</span></div>
-        }}
-      </elTableV2>
-    </>
+    return () => <el-auto-resizer v-slots={slots}/>
   }
 })
 </script>

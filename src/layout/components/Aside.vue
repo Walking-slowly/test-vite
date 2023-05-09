@@ -1,5 +1,6 @@
 <script lang="tsx">
 import { FunctionalComponent as FC } from "vue"
+import { useCommonStore } from '@/store/common.js'
 
 import { useRoute } from 'vue-router';
 interface RowsItem {
@@ -16,6 +17,9 @@ export default defineComponent({
   setup () {
     const menuList: Array<RowsItem> = JSON.parse(sessionStorage.getItem('menuList') || '') || []
     const route = useRoute()
+    const useStore = useCommonStore()
+ 
+    const isCollapse = computed(() => useStore.isCollapse)
 
     // 目录
     const MenuTtem: FC<RowsItem> = item => {
@@ -53,8 +57,12 @@ export default defineComponent({
         <el-scrollbar>
           <el-menu
             router
+            collapse={isCollapse.value}
             default-active={route.path}
             unique-opened>
+            <el-menu-item index="/home" class="header-img-menuItem">
+              <el-icon size={20}>首页</el-icon>
+            </el-menu-item>
             { menuList.map(item => {
               return <>
                 {

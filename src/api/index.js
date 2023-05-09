@@ -7,3 +7,15 @@ export function getMenuListBySubsystem(data) {
     data
   })
 }
+
+export function getList(data) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(request({
+        url: 'getList',
+        method: 'get',
+        data
+      }));
+    }, 3000);
+  });
+}

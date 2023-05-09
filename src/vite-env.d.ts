@@ -18,17 +18,6 @@ declare module "*.vue" {
   export default component
 }
 
-// declare module '*.jsx' {
-//   import type { DefineComponent } from 'vue'
-//   const component: DefineComponent<{}, {}, any>
-//   export default component
-// }
-
-// declare module '*.js' {
-//   import type { DefineComponent } from 'vue'
-//   const component: DefineComponent<{}, {}, any>
-//   export default component
-// }
-
-declare module '@/api/index.js'
+declare module '@/api/*.js'
+declare module '@/store/*.js'
 declare module 'three'

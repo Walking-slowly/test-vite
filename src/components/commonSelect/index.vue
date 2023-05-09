@@ -25,7 +25,7 @@ export default defineComponent({
         v-model={[props.value, 'value']}
         {...attrs}
       >
-        {props.options.map((option: any) => (
+        {(props.options || []).map((option: any) => (
           <el-option {...option} />
         ))}
       </el-select>

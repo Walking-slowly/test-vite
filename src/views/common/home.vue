@@ -76,6 +76,7 @@ export default defineComponent({
 
     const initEarth = () => {
       const earthRadius = 100
+      // 添加球体
       const earthGeometry = new THREE.SphereGeometry(earthRadius, 50, 50)
       // 纹理贴图材质
       const earthMaterial = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(a) })

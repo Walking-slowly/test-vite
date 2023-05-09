@@ -41,7 +41,7 @@ export default {
           span: 8,
           prop: 'a',
           placeholder: 'BBBB',
-          label: '测试下拉',
+          label: '普通下拉',
           options: [
             {
               label: '111',
@@ -79,12 +79,13 @@ export default {
           prop: 'K',
           label: 'AAA'
         },
-        // {
-        //   elType: '',
-        //   span: 24,
-        //   prop: 'm',
-        //   label: 'AAA',
-        // }
+        {
+          elType: 'common-select',
+          span: 24,
+          prop: 'j',
+          label: '树下拉',
+          options: []
+        }
       ]
     },
 

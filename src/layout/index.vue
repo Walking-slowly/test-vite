@@ -1,8 +1,8 @@
 <template>
-  <el-container style="flex-flow: column;">
-    <Header/>
-    <el-container style="height: 100%;overflow: hidden;">
-      <Aside/>
+  <el-container>
+    <Aside/>
+    <el-container style="display: flex;flex-flow: column;">
+      <Header/>
       <Main/>
     </el-container>
   </el-container>

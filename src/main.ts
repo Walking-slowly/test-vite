@@ -2,6 +2,8 @@ import '@/styles/index.scss'
 import App from './App.vue'
 import router from './router'
 
+import { createPinia } from 'pinia'
+
 import components from './components'
 
 import icons from './icons'
@@ -10,6 +12,7 @@ import icons from './icons'
 import ElementPlus from 'element-plus'
 
 const app = createApp(App)
+app.use(createPinia())
 app.use(components)
 app.use(ElementPlus)
 app.use(icons)
