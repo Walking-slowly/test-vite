@@ -28,11 +28,7 @@
  */
 
 {
-  "workbench.statusBar.visible": false,
-  "editor.fontFamily": "Consolas, 'JetBrains Mono', monospace",
-  "aicontext.personalContext": "",
   "workbench.colorTheme": "Default Dark+",
-  "editor.tabSize": 2,
   // 保存自动格式化
   "editor.formatOnSave": true,
   // 可以选择指定只格式化那些类型文件
