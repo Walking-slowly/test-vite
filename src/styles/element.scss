@@ -1,9 +1,8 @@
-
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
     'primary': (
-      'base': green,
-    ),
+      'base': green
+    )
   ),
   $menu: (
     'bg-color': var(--default-background-color),
@@ -12,8 +11,8 @@
   ),
 
   $header: (
-    'height': var(--default-header-height),
+    'height': var(--default-header-height)
   )
 );
 
-@use "element-plus/theme-chalk/src/index.scss" as *;
+@use 'element-plus/theme-chalk/src/index.scss' as *;

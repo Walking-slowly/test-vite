@@ -71,7 +71,7 @@ export default {
           prop: 'c',
           type: 'textarea',
           rows: 4,
-          label: '打打',
+          label: '打打'
         },
         {
           elType: 'custom',
@@ -91,9 +91,7 @@ export default {
 
     rules() {
       return {
-        a: [
-          { required: true, message: '请输入', trigger: 'blur' },
-        ],
+        a: [{ required: true, message: '请输入', trigger: 'blur' }]
       }
     }
   },
@@ -102,7 +100,7 @@ export default {
 
   methods: {
     a() {
-      this.$refs['common-form'].validate().then(() => { })
+      this.$refs['common-form'].validate().then(() => {})
     }
   }
 }

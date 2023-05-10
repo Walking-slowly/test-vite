@@ -33,15 +33,16 @@ service.interceptors.response.use(
       return Promise.reject(res)
     }
   },
-  (error)=> {
+  (error) => {
     console.error(error) // for debug
     const badMessage = error.message || error
-    const code = parseInt(badMessage.toString().replace('Error: Request failed with status code ', ''))
+    const code = parseInt(
+      badMessage.toString().replace('Error: Request failed with status code ', '')
+    )
     showError({ code, message: badMessage })
     return Promise.reject(error)
   }
 )
-
 
 function showError(error) {
   // token失效
@@ -60,7 +61,6 @@ function showError(error) {
       duration: 3 * 1000
     })
   }
-  
 }
 
 export default service

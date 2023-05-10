@@ -12,11 +12,10 @@ import icons from './icons'
 import ElementPlus from 'element-plus'
 
 // 生产使用mock需要
-import { setupProdMockServer } from '../mock/index.ts';
+import { setupProdMockServer } from '../mock/index.ts'
 if (import.meta.env.VITE_MODE === 'production') {
-  setupProdMockServer();
+  setupProdMockServer()
 }
-
 
 console.log(import.meta.env, 'env')
 

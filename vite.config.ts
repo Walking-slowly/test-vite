@@ -1,7 +1,7 @@
-import path from "path";
+import path from 'path'
 import { defineConfig, ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueJsx from "@vitejs/plugin-vue-jsx";
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // 定义options
 import DefineOptions from 'unplugin-vue-define-options/vite'
@@ -23,7 +23,7 @@ import Inspect from 'vite-plugin-inspect'
 const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command  }: ConfigEnv) => {
+export default defineConfig(({ command }: ConfigEnv) => {
   return {
     plugins: [
       vue(),
@@ -38,8 +38,8 @@ export default defineConfig(({ command  }: ConfigEnv) => {
           // 自动导入 Element Plus 指令方法
           // ElementPlusResolver({ importStyle: "sass", }),
         ],
-        
-        dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
+
+        dts: path.resolve(pathSrc, 'auto-imports.d.ts')
       }),
 
       // Components({
@@ -50,15 +50,15 @@ export default defineConfig(({ command  }: ConfigEnv) => {
       //     ElementPlusResolver({ importStyle: "sass", }),
 
       //     // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
-      //     IconsResolver({ 
-      //       prefix: false, 
-      //       enabledCollections: ['ep'] 
+      //     IconsResolver({
+      //       prefix: false,
+      //       enabledCollections: ['ep']
       //     }),
       //   ],
       //   dts: path.resolve(pathSrc, 'components.d.ts'),
       // }),
 
-      // Icons({ 
+      // Icons({
       //   autoInstall: true,
       //   compiler: 'vue3'
       // }),
@@ -69,7 +69,7 @@ export default defineConfig(({ command  }: ConfigEnv) => {
         // 开发环境开启
         localEnabled: command === 'serve',
         // 生产环境
-        prodEnabled: command !== 'serve',
+        prodEnabled: command !== 'serve'
         // prodEnabled: false,
       }),
 
@@ -79,28 +79,28 @@ export default defineConfig(({ command  }: ConfigEnv) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/styles/element.scss" as *;`,
-        },
-      },
+          additionalData: `@use "@/styles/element.scss" as *;`
+        }
+      }
     },
 
-    server:{
-      host:'0.0.0.0',
+    server: {
+      host: '0.0.0.0',
       port: 8081,
       open: true,
-      proxy:{
+      proxy: {
         '/salary': {
           target: 'http://10.87.106.237:9797',
-          rewrite: path => path.replace(/^\/salary/,'/salary')
+          rewrite: (path) => path.replace(/^\/salary/, '/salary')
         }
       }
     },
 
     resolve: {
       alias: {
-        "@": pathSrc
+        '@': pathSrc
       },
-      extensions: [".js", ".jsx", ".ts", ".tsx"]
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
     },
 
     base: './'
