@@ -2,7 +2,7 @@ import { MockMethod } from 'vite-plugin-mock'
 
 export default [
   {
-    url: '/api/getMenuListBySubsystem',
+    url: '/getMenuListBySubsystem',
     method: 'get',
     response: () => {
       return {
@@ -39,7 +39,7 @@ export default [
       }
     }
   }, {
-    url: '/api/getList',
+    url: '/getList',
     method: 'get',
     response: () => {
       return {

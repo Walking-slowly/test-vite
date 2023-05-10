@@ -1,3 +1,4 @@
+// ts和js相互引入，相当于识别声明
 /// <reference types="vite/client" />
 
 declare module '*.vue' {

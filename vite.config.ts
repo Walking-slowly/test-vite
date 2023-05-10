@@ -65,11 +65,12 @@ export default defineConfig(({ command  }: ConfigEnv) => {
 
       viteMockServe({
         mockPath: './mock',
+        ignore: /^\_/, // 忽略前缀路径
         // 开发环境开启
         localEnabled: command === 'serve',
         // 生产环境
         prodEnabled: command !== 'serve',
-        // prodEnabled: false
+        // prodEnabled: false,
       }),
 
       Inspect()
@@ -88,9 +89,9 @@ export default defineConfig(({ command  }: ConfigEnv) => {
       port: 8081,
       open: true,
       proxy:{
-        '/api': {
-          target: 'http://10.87.106.237:8602',
-          rewrite: path => path.replace(/^\/api/,'/')
+        '/salary': {
+          target: 'http://10.87.106.237:9797',
+          rewrite: path => path.replace(/^\/salary/,'/salary')
         }
       }
     },
