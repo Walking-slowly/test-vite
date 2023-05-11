@@ -1,18 +1,18 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import Layout from '@/layout/index.vue'
-import { getMenuListBySubsystem } from '@/api/index.js'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import Layout from '@/layout/index.vue';
+import { getMenuListBySubsystem } from '@/api/index.js';
 
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
-const modules = import.meta.glob('../views/**/*.vue')
+const modules = import.meta.glob('../views/**/*.vue');
 interface RouteRow {
-  url: string
-  name: string
-  children?: Array<RouteRow>
+  url: string;
+  name: string;
+  children?: Array<RouteRow>;
 }
 
-type NewRouteRow = RouteRow & RouteRecordRaw
+type NewRouteRow = RouteRow & RouteRecordRaw;
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -25,99 +25,99 @@ const routes: Array<RouteRecordRaw> = [
         path: '/home',
         name: 'home',
         meta: {
-          title: '首页'
+          title: '首页',
         },
-        component: () => import('@/views/common/home.vue')
-      }
-    ]
+        component: () => import('@/views/common/home.vue'),
+      },
+    ],
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/common/login.vue'),
     meta: {
-      title: '登录'
-    }
-  }
-]
+      title: '登录',
+    },
+  },
+];
 
 // 动态路由错误页面需要动态添加不能是静态路由
 const ErrorRouter: RouteRecordRaw = {
   path: '/:pathMatch(.*)',
   name: '404',
   meta: {
-    title: 'Pge not found'
+    title: 'Pge not found',
   },
-  component: () => import('@/views/common/404.vue')
-}
+  component: () => import('@/views/common/404.vue'),
+};
 
 const defaultRoute = {
   path: '',
   name: '',
   component: Layout,
-  children: []
-}
+  children: [],
+};
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
 
 const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, path = '/') => {
   return arr.map((item) => {
-    const { name, url } = item
+    const { name, url } = item;
 
     return {
       path: `${path}${url}`,
       name: url,
       meta: {
-        title: name
+        title: name,
       },
       bb: `${path}${url}/index`,
       component:
         item.children && item.children.length ? null : modules[`../views${path}${url}/index.vue`],
-      children: fnAddDynamicMenuRoutes(item.children || [], `${path}${url}/`)
-    }
-  })
-}
+      children: fnAddDynamicMenuRoutes(item.children || [], `${path}${url}/`),
+    };
+  });
+};
 
 /**
  * 判断是否是刷新页面进入的守卫
  */
-let isRefresh = false
+let isRefresh = false;
 
 // 路由授权
 router.beforeEach(async (to, from, next) => {
-  NProgress.start()
+  NProgress.start();
 
   if (to.name === 'login') {
-    NProgress.done()
-    next()
-    return
+    NProgress.done();
+    next();
+    return;
   }
 
   // 判断是否存在token
   if (!sessionStorage.getItem('token')) {
-    NProgress.done()
+    NProgress.done();
     next({
       name: 'login',
-      replace: true
-    })
-    return
+      replace: true,
+    });
+    return;
   }
 
   // 不存在菜单和重新刷新都需要重新添加动态路由 否则页面空白
   if (!sessionStorage.getItem('menuList') || !isRefresh) {
-    let data: Array<NewRouteRow> = []
+    let data: Array<NewRouteRow> = [];
     try {
-      data = await getMenuListBySubsystem()
+      data = await getMenuListBySubsystem();
     } catch (e) {
-      NProgress.done()
+      NProgress.done();
     }
 
-    defaultRoute.children = fnAddDynamicMenuRoutes(data || [])
-    router.addRoute(defaultRoute)
-    router.addRoute(ErrorRouter)
+    defaultRoute.children = fnAddDynamicMenuRoutes(data || []);
+    router.addRoute(defaultRoute);
+    router.addRoute(ErrorRouter);
     sessionStorage.setItem(
       'menuList',
       JSON.stringify([
@@ -125,24 +125,24 @@ router.beforeEach(async (to, from, next) => {
           name: '首页',
           icon: 'House',
           id: 1,
-          url: 'home'
+          url: 'home',
         },
-        ...(data || [])
+        ...(data || []),
       ])
-    )
+    );
 
-    isRefresh = true
+    isRefresh = true;
 
-    NProgress.done()
+    NProgress.done();
     // addRoute只会添加一个新的路由， 如果新增加的路由与当前位置相匹配， 所以刷新后需要手动导航地址 防止页面白屏
     next({
       ...to,
-      replace: true
-    })
+      replace: true,
+    });
   } else {
-    NProgress.done()
-    next()
+    NProgress.done();
+    next();
   }
-})
+});
 
-export default router
+export default router;

@@ -1,23 +1,28 @@
 <template>
   <common-form
+    ref="common-form"
     v-model="formModel"
     label-width="120px"
-    ref="common-form"
     :rules="rules"
     :cols="cols"
   >
     <template #K>测试测试测试</template>
   </common-form>
 
-  <el-button type="primary" @click="a">测试</el-button>
+  <el-button
+    type="primary"
+    @click="a"
+  >
+    测试
+  </el-button>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      formModel: {}
-    }
+      formModel: {},
+    };
   },
 
   computed: {
@@ -28,13 +33,13 @@ export default {
           span: 8,
           prop: 'name',
           label: '姓名',
-          placeholder: '请输入'
+          placeholder: '请输入',
         },
         {
           elType: 'el-input',
           span: 8,
           prop: 'b',
-          label: '性别'
+          label: '性别',
         },
         {
           elType: 'common-select',
@@ -45,25 +50,25 @@ export default {
           options: [
             {
               label: '111',
-              value: 1
+              value: 1,
             },
             {
               label: '222',
-              value: 2
-            }
-          ]
+              value: 2,
+            },
+          ],
         },
         {
           elType: 'el-date-picker',
           span: 8,
           prop: 'i',
-          type: 'month'
+          type: 'month',
         },
         {
           elType: 'el-date-picker',
           span: 8,
           prop: 'c',
-          label: '测试时间'
+          label: '测试时间',
         },
         {
           elType: 'el-input',
@@ -71,37 +76,37 @@ export default {
           prop: 'c',
           type: 'textarea',
           rows: 4,
-          label: '打打'
+          label: '打打',
         },
         {
           elType: 'custom',
           span: 24,
           prop: 'K',
-          label: 'AAA'
+          label: 'AAA',
         },
         {
           elType: 'common-select',
           span: 24,
           prop: 'j',
           label: '树下拉',
-          options: []
-        }
-      ]
+          options: [],
+        },
+      ];
     },
 
     rules() {
       return {
-        a: [{ required: true, message: '请输入', trigger: 'blur' }]
-      }
-    }
+        a: [{ required: true, message: '请输入', trigger: 'blur' }],
+      };
+    },
   },
 
   mounted() {},
 
   methods: {
     a() {
-      this.$refs['common-form'].validate().then(() => {})
-    }
-  }
-}
+      this.$refs['common-form'].validate().then(() => {});
+    },
+  },
+};
 </script>

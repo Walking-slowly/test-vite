@@ -1,6 +1,6 @@
 <!-- 虚拟列表 -->
 <script lang="tsx">
-import type { Column } from 'element-plus'
+import type { Column } from 'element-plus';
 
 export default defineComponent({
   name: 'VirtualizedTable',
@@ -9,12 +9,12 @@ export default defineComponent({
   props: {
     data: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
 
   setup(props, { attrs }) {
-    const { columns, ...other } = attrs
+    const { columns, ...other } = attrs;
 
     const slots = {
       default: ({ height, width }: any) => (
@@ -33,16 +33,16 @@ export default defineComponent({
                 <div class="el-table__empty-block">
                   <span class="el-table__empty-text">暂无数据</span>
                 </div>
-              )
+              ),
             }}
           </elTableV2>
         </>
-      )
-    }
+      ),
+    };
 
-    return () => <el-auto-resizer v-slots={slots} />
-  }
-})
+    return () => <el-auto-resizer v-slots={slots} />;
+  },
+});
 </script>
 
 <style lang="scss" scoped>

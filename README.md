@@ -28,6 +28,7 @@
  */
 
 {
+  "editor.fontFamily": "Consolas, 'JetBrains Mono', monospace",
   "workbench.colorTheme": "Default Dark+",
   // 保存自动格式化
   "editor.formatOnSave": true,

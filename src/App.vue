@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import lang from 'element-plus/lib/locale/lang/zh-cn'
+import lang from 'element-plus/lib/locale/lang/zh-cn';
 </script>
 
 <template>

@@ -1,16 +1,16 @@
 <template>
   <el-container>
-    <Aside />
+    <CommonAside />
     <el-container style="display: flex; flex-flow: column">
-      <Header />
-      <Main />
+      <CommonHeader />
+      <CommonMain />
     </el-container>
   </el-container>
 </template>
 
 <script lang="tsx">
-import { Header, Aside, Main } from './components'
+import { CommonHeader, CommonAside, CommonMain } from './components';
 export default defineComponent({
-  components: { Header, Aside, Main }
-})
+  components: { CommonHeader, CommonAside, CommonMain },
+});
 </script>

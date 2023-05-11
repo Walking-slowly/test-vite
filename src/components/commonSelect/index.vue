@@ -7,26 +7,31 @@ export default defineComponent({
     // 下拉数据源
     options: {
       type: Array,
-      required: true
+      required: true,
     },
-    value: [String, Number],
+    value: {
+      type: [String, Number, Array],
+      default: '',
+    },
     // 是否展示树形结构
     isTree: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   emits: ['update:value'],
 
   setup(props, { attrs }) {
     return () => (
-      <el-select v-model={[props.value, 'value']} {...attrs}>
+      <el-select
+        v-model={[props.value, 'value']}
+        {...attrs}>
         {(props.options || []).map((option: any) => (
           <el-option {...option} />
         ))}
       </el-select>
-    )
-  }
-})
+    );
+  },
+});
 </script>

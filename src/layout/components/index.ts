@@ -1,3 +1,3 @@
-export { default as Header } from './Header.vue'
-export { default as Aside } from './Aside.vue'
-export { default as Main } from './Main.vue'
+export { default as CommonHeader } from './Header.vue';
+export { default as CommonAside } from './Aside.vue';
+export { default as CommonMain } from './Main.vue';

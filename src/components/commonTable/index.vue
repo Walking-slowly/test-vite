@@ -1,7 +1,16 @@
 <template>
-  <div class="default-common-table" v-loading="loading">
-    <VirtualizedTable v-bind="attrs" v-if="isVirtualizedTable" />
-    <DefaultTable v-bind="attrs" v-else />
+  <div
+    v-loading="loading"
+    class="default-common-table"
+  >
+    <VirtualizedTable
+      v-if="isVirtualizedTable"
+      v-bind="attrs"
+    />
+    <DefaultTable
+      v-else
+      v-bind="attrs"
+    />
 
     <el-pagination
       v-if="isPagination"
@@ -11,63 +20,65 @@
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[100, 200, 300, 400]"
       :total="pageInfo.total"
+      class="common-pagination"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      class="common-pagination"
     />
   </div>
 </template>
 
 <script lang="tsx" setup>
-import DefaultTable from './default-table.vue'
-import VirtualizedTable from './virtualized-table.vue'
+import DefaultTable from './default-table.vue';
+import VirtualizedTable from './virtualized-table.vue';
 
 interface FormProps {
-  isVirtualizedTable?: boolean
-  isPagination?: boolean
-  loading?: boolean
+  isVirtualizedTable?: boolean;
+  isPagination?: boolean;
+  loading?: boolean;
 }
 
 interface PageInfo {
-  pageSize: number
-  currentPage: number
-  total: number
+  pageSize: number;
+  currentPage: number;
+  total: number;
 }
+
+type Emit = {
+  (event: 'onChangePage', params: object): void;
+};
 
 defineOptions({
   name: 'CommonTable',
-  inheritAttrs: false
-})
+  inheritAttrs: false,
+});
 
-const emit = defineEmits<{
-  (event: 'onChangePage', params: object): null
-}>()
+const emit = defineEmits<Emit>();
 
 const handleCurrentChange = (val: number) => {
-  pageInfo.currentPage = val
-  emit('onChangePage', pageInfo)
-}
+  pageInfo.currentPage = val;
+  emit('onChangePage', pageInfo);
+};
 
 const handleSizeChange = (val: number) => {
-  pageInfo.pageSize = val
-  emit('onChangePage', pageInfo)
-}
+  pageInfo.pageSize = val;
+  emit('onChangePage', pageInfo);
+};
 
 const props = withDefaults(defineProps<FormProps>(), {
   isVirtualizedTable: () => false,
   isPagination: () => false,
-  loading: () => false
-})
+  loading: () => false,
+});
 
-const attrs = useAttrs()
+const attrs = useAttrs();
 
-const { isVirtualizedTable, isPagination, loading } = toRefs(props)
+const { isVirtualizedTable, isPagination, loading } = toRefs(props);
 
 const pageInfo = reactive<PageInfo>({
   pageSize: 100,
   currentPage: 1,
-  total: 20
-})
+  total: 20,
+});
 </script>
 
 <style lang="scss" scoped>
