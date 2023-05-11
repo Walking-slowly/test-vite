@@ -29,42 +29,45 @@ import type { Column } from 'element-plus';
 import { VNode } from 'vue';
 import { getList } from '@/api/index.js';
 
-const columns: Column[] = [
-  {
-    title: 'Date',
-    width: 200,
-    key: 'date',
-    dataKey: 'date',
-    prop: 'date',
-  },
-  {
-    title: 'Name',
-    width: 580,
-    key: 'name',
-    dataKey: 'name',
-    prop: 'name',
-    cellRenderer: ({ rowData }: any): VNode => {
-      return (
-        <el-button
-          text
-          type="primary">
-          {rowData.name || ''}
-        </el-button>
-      );
-    },
-  },
-  {
-    title: 'Address',
-    width: 0,
-    key: 'address',
-    dataKey: 'address',
-    prop: 'address',
-  },
-];
+const columns = computed(
+  () =>
+    [
+      {
+        title: 'Date',
+        width: 200,
+        key: 'date',
+        dataKey: 'date',
+        prop: 'date',
+      },
+      {
+        title: 'Name',
+        width: 580,
+        key: 'name',
+        dataKey: 'name',
+        prop: 'name',
+        cellRenderer: ({ rowData }): VNode => {
+          return (
+            <el-button
+              text
+              type="primary">
+              {rowData.name || ''}
+            </el-button>
+          );
+        },
+      },
+      {
+        title: 'Address',
+        width: 0,
+        key: 'address',
+        dataKey: 'address',
+        prop: 'address',
+      },
+    ] as Column<any>[]
+);
 
 let loading = ref<boolean>(false);
 // let a = ref(null)
-let data = ref<any[]>([]);
+let data = ref([]);
 
 const search = () => {
   loading.value = true;
@@ -74,7 +77,7 @@ const search = () => {
   });
 };
 
-const onChangePage = (params: any) => {
+const onChangePage = <T extends any>(params: T) => {
   console.log(params, 'paramsparamsparamsparams');
 };
 
