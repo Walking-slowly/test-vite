@@ -43,16 +43,12 @@ interface PageInfo {
   total: number;
 }
 
-type Emit = {
-  (event: 'onChangePage', params: object): void;
-};
-
 defineOptions({
   name: 'CommonTable',
   inheritAttrs: false,
 });
 
-const emit = defineEmits<Emit>();
+const emit = defineEmits(['onChangePage']);
 
 const handleCurrentChange = (val: number) => {
   pageInfo.currentPage = val;
