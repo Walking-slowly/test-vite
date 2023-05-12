@@ -66,7 +66,7 @@ const columns = computed(
 );
 
 let loading = ref<boolean>(false);
-// let a = ref(null)
+// let a = ref(null);
 let data = ref([]);
 
 const search = () => {

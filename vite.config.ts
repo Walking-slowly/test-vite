@@ -1,26 +1,28 @@
-import path from 'path'
-import { defineConfig, ConfigEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import path from 'path';
+import { defineConfig, ConfigEnv } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 
 // 定义options
-import DefineOptions from 'unplugin-vue-define-options/vite'
+import DefineOptions from 'unplugin-vue-define-options/vite';
 
 // import Icons from 'unplugin-icons/vite'
 // import IconsResolver from 'unplugin-icons/resolver'
 
-import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from 'unplugin-auto-import/vite';
 // import Components from 'unplugin-vue-components/vite'
 // import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // import ElementPlus from 'unplugin-element-plus/vite'
 
 // mock
-import { viteMockServe } from 'vite-plugin-mock'
+import { viteMockServe } from 'vite-plugin-mock';
+
+import eslintPlugin from 'vite-plugin-eslint';
 
 // 插件调试工具
-import Inspect from 'vite-plugin-inspect'
+import Inspect from 'vite-plugin-inspect';
 
-const pathSrc = path.resolve(__dirname, 'src')
+const pathSrc = path.resolve(__dirname, 'src');
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }: ConfigEnv) => {
@@ -39,7 +41,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
           // ElementPlusResolver({ importStyle: "sass", }),
         ],
 
-        dts: path.resolve(pathSrc, 'auto-imports.d.ts')
+        dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
       }),
 
       // Components({
@@ -69,19 +71,26 @@ export default defineConfig(({ command }: ConfigEnv) => {
         // 开发环境开启
         localEnabled: command === 'serve',
         // 生产环境
-        prodEnabled: command !== 'serve'
+        prodEnabled: command !== 'serve',
         // prodEnabled: false,
       }),
 
-      Inspect()
+      eslintPlugin({
+        cache: false,
+        include: ['src/**/*.vue', 'src/**/*.ts'],
+        exclude: ['node_modules', 'dist'],
+        fix: true,
+      }),
+
+      Inspect(),
     ],
 
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/styles/element.scss" as *;`
-        }
-      }
+          additionalData: `@use "@/styles/element.scss" as *;`,
+        },
+      },
     },
 
     server: {
@@ -91,18 +100,18 @@ export default defineConfig(({ command }: ConfigEnv) => {
       proxy: {
         '/salary': {
           target: 'http://10.87.106.237:9797',
-          rewrite: (path) => path.replace(/^\/salary/, '/salary')
-        }
-      }
+          rewrite: (path) => path.replace(/^\/salary/, '/salary'),
+        },
+      },
     },
 
     resolve: {
       alias: {
-        '@': pathSrc
+        '@': pathSrc,
       },
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
 
-    base: './'
-  }
-})
+    base: './',
+  };
+});
