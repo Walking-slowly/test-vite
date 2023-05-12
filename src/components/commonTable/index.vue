@@ -14,8 +14,8 @@
 
     <el-pagination
       v-if="isPagination"
-      v-model:current-page="currentPage"
-      v-model:page-size="pageSize"
+      v-model:current-page="current"
+      v-model:page-size="pageNum"
       background
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[100, 200, 300, 400]"
@@ -45,18 +45,6 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const emit = defineEmits(['onChangePage', 'update:currentPage', 'update:pageSize']);
-
-const handleCurrentChange = (val: number) => {
-  emit('update:currentPage', val);
-  emit('onChangePage');
-};
-
-const handleSizeChange = (val: number) => {
-  emit('update:pageSize', val);
-  emit('onChangePage');
-};
-
 const props = withDefaults(defineProps<TableProps>(), {
   isVirtualizedTable: false,
   isPagination: false,
@@ -68,6 +56,27 @@ const props = withDefaults(defineProps<TableProps>(), {
 const attrs = useAttrs();
 
 const { isVirtualizedTable, isPagination, loading, currentPage, pageSize } = toRefs(props);
+
+const emit = defineEmits(['onChangePage', 'update:currentPage', 'update:pageSize']);
+
+const current = computed({
+  get: () => currentPage.value,
+  set: (val) => emit('update:currentPage', val),
+});
+
+const pageNum = computed({
+  get: () => pageSize.value,
+  set: (val) => emit('update:pageSize', val),
+});
+
+const handleCurrentChange = () => {
+  emit('onChangePage');
+};
+
+const handleSizeChange = () => {
+  current.value = 1;
+  emit('onChangePage');
+};
 </script>
 
 <style lang="scss" scoped>

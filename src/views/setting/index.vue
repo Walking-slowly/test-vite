@@ -74,10 +74,7 @@ let data = ref([]);
 
 const search = () => {
   loading.value = true;
-  getList({
-    currentPage: currentPage.value,
-    pageSize: pageSize.value,
-  }).then((res: any) => {
+  getList({ currentPage: currentPage.value, pageSize: pageSize.value }).then((res: any) => {
     data.value = res;
     total.value = 200;
     loading.value = false;
