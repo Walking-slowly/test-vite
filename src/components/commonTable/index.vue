@@ -14,12 +14,12 @@
 
     <el-pagination
       v-if="isPagination"
-      v-model:current-page="pageInfo.currentPage"
-      v-model:page-size="pageInfo.pageSize"
+      v-model:current-page="currentPage"
+      v-model:page-size="pageSize"
       background
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[100, 200, 300, 400]"
-      :total="pageInfo.total"
+      :total="total"
       class="common-pagination"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -31,15 +31,12 @@
 import DefaultTable from './default-table.vue';
 import VirtualizedTable from './virtualized-table.vue';
 
-interface FormProps {
+interface TableProps {
   isVirtualizedTable?: boolean;
   isPagination?: boolean;
   loading?: boolean;
-}
-
-interface PageInfo {
-  pageSize: number;
   currentPage: number;
+  pageSize: number;
   total: number;
 }
 
@@ -48,33 +45,29 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const emit = defineEmits(['onChangePage']);
+const emit = defineEmits(['onChangePage', 'update:currentPage', 'update:pageSize']);
 
 const handleCurrentChange = (val: number) => {
-  pageInfo.currentPage = val;
-  emit('onChangePage', pageInfo);
+  emit('update:currentPage', val);
+  emit('onChangePage');
 };
 
 const handleSizeChange = (val: number) => {
-  pageInfo.pageSize = val;
-  emit('onChangePage', pageInfo);
+  emit('update:pageSize', val);
+  emit('onChangePage');
 };
 
-const props = withDefaults(defineProps<FormProps>(), {
-  isVirtualizedTable: () => false,
-  isPagination: () => false,
-  loading: () => false,
+const props = withDefaults(defineProps<TableProps>(), {
+  isVirtualizedTable: false,
+  isPagination: false,
+  loading: false,
+  currentPage: 1,
+  pageSize: 100,
 });
 
 const attrs = useAttrs();
 
-const { isVirtualizedTable, isPagination, loading } = toRefs(props);
-
-const pageInfo = reactive<PageInfo>({
-  pageSize: 100,
-  currentPage: 1,
-  total: 20,
-});
+const { isVirtualizedTable, isPagination, loading, currentPage, pageSize } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>

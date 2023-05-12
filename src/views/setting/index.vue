@@ -3,22 +3,25 @@
     style="height: calc(100vh - 70px); overflow: hidden"
     class="demo-tabs"
   >
+    <el-tab-pane label="普通表格">
+      <commonTable
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :columns="columns"
+        :data="data"
+        :loading="loading"
+        :border="true"
+        :is-pagination="true"
+        :total="total"
+        @on-change-page="onChangePage"
+      />
+    </el-tab-pane>
     <el-tab-pane label="虚拟滚动表格">
       <commonTable
         :columns="columns"
         :is-virtualized-table="true"
         :loading="loading"
         :data="data"
-      />
-    </el-tab-pane>
-    <el-tab-pane label="普通表格">
-      <commonTable
-        :columns="columns"
-        :data="data"
-        :loading="loading"
-        :border="true"
-        :is-pagination="true"
-        @on-change-page="onChangePage"
       />
     </el-tab-pane>
   </el-tabs>
@@ -28,6 +31,7 @@
 import type { Column } from 'element-plus';
 import { VNode } from 'vue';
 import { getList } from '@/api/index.js';
+import { useTable } from '@/hook/useTable.ts';
 
 const columns = computed(
   () =>
@@ -65,21 +69,22 @@ const columns = computed(
     ] as Column<any>[]
 );
 
-let loading = ref<boolean>(false);
 // let a = ref(null);
 let data = ref([]);
 
 const search = () => {
   loading.value = true;
-  getList().then((res: any) => {
+  getList({
+    currentPage: currentPage.value,
+    pageSize: pageSize.value,
+  }).then((res: any) => {
     data.value = res;
+    total.value = 200;
     loading.value = false;
   });
 };
 
-const onChangePage = <T extends any>(params: T) => {
-  console.log(params, 'paramsparamsparamsparams');
-};
+let { currentPage, pageSize, total, loading, onChangePage } = useTable(search);
 
 search();
 </script>
