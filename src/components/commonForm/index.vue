@@ -10,6 +10,9 @@
         :span="span || 24"
       >
         <el-form-item v-bind="{ ...other }">
+          <template #label>
+            <span :style="{ opacity: other.label ? '1' : '0' }">{{ other.label || '测试' }}</span>
+          </template>
           <slot
             v-if="other.elType === 'custom'"
             :name="other.prop"

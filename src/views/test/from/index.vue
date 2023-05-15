@@ -2,11 +2,17 @@
   <common-form
     ref="common-form"
     v-model="formModel"
+    label-position="top"
     label-width="120px"
     :rules="rules"
     :cols="cols"
   >
-    <template #K>测试测试测试</template>
+    <template #K>
+      <common-icon
+        name="icon-yuan"
+        :size="28"
+      />
+    </template>
   </common-form>
 
   <el-button

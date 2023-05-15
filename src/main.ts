@@ -1,28 +1,32 @@
-import '@/styles/index.scss'
-import App from './App.vue'
-import router from './router'
+import '@/styles/index.scss';
+import App from './App.vue';
+import router from './router';
 
-import { createPinia } from 'pinia'
+// vuex
+import { createPinia } from 'pinia';
 
-import components from './components'
+// components
+import components from './components';
 
-import icons from './icons'
+// ElementPlus-icon
+import icons from './icons';
 
-//引入
-import ElementPlus from 'element-plus'
+//ElementPlus
+import ElementPlus from 'element-plus';
+import 'virtual:svg-icons-register';
 
 // 生产使用mock需要
-import { setupProdMockServer } from '../mock/index.ts'
+import { setupProdMockServer } from '../mock/index.ts';
 if (import.meta.env.VITE_MODE === 'production') {
-  setupProdMockServer()
+  setupProdMockServer();
 }
 
-console.log(import.meta.env, 'env')
+console.log(import.meta.env, 'env');
 
-const app = createApp(App)
-app.use(createPinia())
-app.use(components)
-app.use(ElementPlus)
-app.use(icons)
-app.use(router)
-app.mount('#app')
+const app = createApp(App);
+app.use(createPinia());
+app.use(components);
+app.use(ElementPlus);
+app.use(icons);
+app.use(router);
+app.mount('#app');

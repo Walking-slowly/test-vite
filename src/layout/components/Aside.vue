@@ -33,7 +33,7 @@ export default defineComponent({
             />
           ) : (
             <el-menuItem index={`${parentUrl}${url}`}>
-              {isParent && <el-icon>{icon && h(resolveComponent(`${icon}`))}</el-icon>}
+              {isParent && <common-icon name={icon} />}
               <span style={`margin-left: ${!isParent ? '20px' : ''}`}>{name}</span>
             </el-menuItem>
           )}
@@ -46,7 +46,7 @@ export default defineComponent({
       const slots = {
         title: () => (
           <>
-            {isParent && <el-icon>{icon && h(resolveComponent(`${icon}`))}</el-icon>}
+            {isParent && <common-icon name={icon} />}
             <span>{name}</span>
           </>
         ),

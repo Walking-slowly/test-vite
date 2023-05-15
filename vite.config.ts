@@ -2,6 +2,8 @@ import path from 'path';
 import { defineConfig, ConfigEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+// 插件调试工具
+// import Inspect from 'vite-plugin-inspect';
 
 // 定义options
 import DefineOptions from 'unplugin-vue-define-options/vite';
@@ -16,11 +18,10 @@ import AutoImport from 'unplugin-auto-import/vite';
 
 // mock
 import { viteMockServe } from 'vite-plugin-mock';
-
+// eslint校验
 import eslintPlugin from 'vite-plugin-eslint';
-
-// 插件调试工具
-import Inspect from 'vite-plugin-inspect';
+// svg
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
 const pathSrc = path.resolve(__dirname, 'src');
 
@@ -82,7 +83,12 @@ export default defineConfig(({ command }: ConfigEnv) => {
         fix: true,
       }),
 
-      Inspect(),
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')],
+        symbolId: 'icon-[name]',
+      }),
+
+      // Inspect(),
     ],
 
     css: {

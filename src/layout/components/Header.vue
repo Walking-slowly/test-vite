@@ -2,14 +2,12 @@
   <el-header>
     <div class="common-header-content">
       <div class="common-header-content__breadcrumb">
-        <el-icon
-          :size="28"
+        <common-icon
           class="cursor"
+          :size="28"
+          :name="!isCollapse ? 'el-fold' : 'el-expand'"
           @click="isCollapse = !isCollapse"
-        >
-          <Fold v-if="!isCollapse" />
-          <Expand v-else />
-        </el-icon>
+        />
       </div>
       <el-color-picker
         v-model="color"

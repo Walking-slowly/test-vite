@@ -123,7 +123,7 @@ router.beforeEach(async (to, from, next) => {
       JSON.stringify([
         {
           name: '首页',
-          icon: 'House',
+          icon: 'el-House',
           id: 1,
           url: 'home',
         },
