@@ -11,8 +11,10 @@
         :data="data"
         :loading="loading"
         :border="true"
+        is-select
         :is-pagination="true"
         :total="total"
+        @on-change-select="onSelectChange"
         @on-change-page="onChangePage"
       />
     </el-tab-pane>
@@ -71,6 +73,10 @@ const columns = computed(
 
 // let a = ref(null);
 let data = ref([]);
+
+const onSelectChange = (val: any) => {
+  console.log(1111, val);
+};
 
 const search = () => {
   loading.value = true;

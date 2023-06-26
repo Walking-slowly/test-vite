@@ -23,15 +23,22 @@ export default defineComponent({
   emits: ['update:value'],
 
   setup(props, { attrs }) {
-    return () => (
-      <el-select
-        v-model={[props.value, 'value']}
-        {...attrs}>
-        {(props.options || []).map((option: any) => (
-          <el-option {...option} />
-        ))}
-      </el-select>
-    );
+    return () =>
+      props.isTree ? (
+        <el-tree-select
+          v-model={[props.value, 'value']}
+          data={props.options}
+          {...attrs}
+        />
+      ) : (
+        <el-select
+          v-model={[props.value, 'value']}
+          {...attrs}>
+          {(props.options || []).map((option: any) => (
+            <el-option {...option} />
+          ))}
+        </el-select>
+      );
   },
 });
 </script>

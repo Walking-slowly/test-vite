@@ -14,7 +14,7 @@
 <commonTable />
 ```
 
-> 支持 **element-plus** 默认表格和虚拟滚动
+> 支持 **element-plus** 默认表格和虚拟滚动 <span style=" margin-left: 20px;color: red;">**注意：** 虚拟表格多选、编辑需要自己按照官网例子实现，普通表格添加配置即可</span>
 
 2. **格式化**
 

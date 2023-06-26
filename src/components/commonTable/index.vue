@@ -10,6 +10,7 @@
     <DefaultTable
       v-else
       v-bind="attrs"
+      @selection-change="handleSelectionChange"
     />
 
     <el-pagination
@@ -18,7 +19,7 @@
       v-model:page-size="pageNum"
       background
       layout="total, sizes, prev, pager, next, jumper"
-      :page-sizes="[100, 200, 300, 400]"
+      :page-sizes="[50, 100, 200, 300]"
       :total="total"
       class="common-pagination"
       @size-change="handleSizeChange"
@@ -50,14 +51,19 @@ const props = withDefaults(defineProps<TableProps>(), {
   isPagination: false,
   loading: false,
   currentPage: 1,
-  pageSize: 100,
+  pageSize: 50,
 });
 
 const attrs = useAttrs();
 
 const { isVirtualizedTable, isPagination, loading, currentPage, pageSize } = toRefs(props);
 
-const emit = defineEmits(['onChangePage', 'update:currentPage', 'update:pageSize']);
+const emit = defineEmits([
+  'onChangePage',
+  'onChangeSelect',
+  'update:currentPage',
+  'update:pageSize',
+]);
 
 const current = computed({
   get: () => currentPage.value,
@@ -76,6 +82,10 @@ const handleCurrentChange = () => {
 const handleSizeChange = () => {
   current.value = 1;
   emit('onChangePage');
+};
+
+const handleSelectionChange = (val: any[]) => {
+  emit('onChangeSelect', val);
 };
 </script>
 

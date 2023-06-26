@@ -10,7 +10,7 @@
  */
 export const useTable = (callBack: Function): object => {
   const currentPage = ref<number>(1);
-  const pageSize = ref<number>(100);
+  const pageSize = ref<number>(50);
   const total = ref<number>(0);
   const loading = ref<boolean>(false);
   const onChangePage = () => {

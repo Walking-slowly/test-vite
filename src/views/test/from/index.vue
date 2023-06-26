@@ -2,8 +2,8 @@
   <common-form
     ref="common-form"
     v-model="formModel"
-    label-position="top"
-    label-width="120px"
+    label-position="left"
+    label-width="80px"
     :rules="rules"
     :cols="cols"
   >
@@ -46,6 +46,9 @@ export default {
           span: 8,
           prop: 'b',
           label: '性别',
+          events: {
+            input: (val) => console.log(val, '11'),
+          },
         },
         {
           elType: 'common-select',
@@ -63,11 +66,15 @@ export default {
               value: 2,
             },
           ],
+          events: {
+            change: (val) => console.log(val, 'change'),
+          },
         },
         {
           elType: 'el-date-picker',
           span: 8,
           prop: 'i',
+          labelWidth: '0px',
           type: 'month',
         },
         {
@@ -95,7 +102,81 @@ export default {
           span: 24,
           prop: 'j',
           label: '树下拉',
-          options: [],
+          isTree: true,
+          showCheckbox: true,
+          options: [
+            {
+              value: '1',
+              label: 'Level one 1',
+              children: [
+                {
+                  value: '1-1',
+                  label: 'Level two 1-1',
+                  children: [
+                    {
+                      value: '1-1-1',
+                      label: 'Level three 1-1-1',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              value: '2',
+              label: 'Level one 2',
+              children: [
+                {
+                  value: '2-1',
+                  label: 'Level two 2-1',
+                  children: [
+                    {
+                      value: '2-1-1',
+                      label: 'Level three 2-1-1',
+                    },
+                  ],
+                },
+                {
+                  value: '2-2',
+                  label: 'Level two 2-2',
+                  children: [
+                    {
+                      value: '2-2-1',
+                      label: 'Level three 2-2-1',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              value: '3',
+              label: 'Level one 3',
+              children: [
+                {
+                  value: '3-1',
+                  label: 'Level two 3-1',
+                  children: [
+                    {
+                      value: '3-1-1',
+                      label: 'Level three 3-1-1',
+                    },
+                  ],
+                },
+                {
+                  value: '3-2',
+                  label: 'Level two 3-2',
+                  children: [
+                    {
+                      value: '3-2-1',
+                      label: 'Level three 3-2-1',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          events: {
+            change: (val) => console.log(val, '树下拉'),
+          },
         },
       ];
     },

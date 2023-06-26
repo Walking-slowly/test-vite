@@ -12,6 +12,11 @@ export default defineComponent({
       type: Array,
       default: () => [],
     },
+    // 多选
+    isSelect: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup(props, { attrs }) {
@@ -23,6 +28,13 @@ export default defineComponent({
           {...props}
           {...other}
           height={'100%'}>
+          {props.isSelect && (
+            <el-table-column
+              type="selection"
+              align="center"
+              width="55"
+            />
+          )}
           {(columns as Column).map((i: Column) => (
             <el-table-column
               {...i}
