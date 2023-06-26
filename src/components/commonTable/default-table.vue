@@ -42,6 +42,8 @@ export default defineComponent({
               v-slots={{
                 default: (res: any) =>
                   i.cellRenderer && i.cellRenderer({ ...res, rowData: res.row }),
+                header: (res: any) =>
+                  i.headerCellRenderer && i.headerCellRenderer({ ...res, rowData: res.row }),
               }}
             />
           ))}
