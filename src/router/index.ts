@@ -10,6 +10,7 @@ interface RouteRow {
   url: string;
   name: string;
   children?: Array<RouteRow>;
+  keepAlive?: Boolean;
 }
 
 type NewRouteRow = RouteRow & RouteRecordRaw;
@@ -72,8 +73,8 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, path = '/') => {
       name: url,
       meta: {
         title: name,
+        keepAlive: !!item.keepAlive,
       },
-      bb: `${path}${url}/index`,
       component:
         item.children && item.children.length ? null : modules[`../views${path}${url}/index.vue`],
       children: fnAddDynamicMenuRoutes(item.children || [], `${path}${url}/`),

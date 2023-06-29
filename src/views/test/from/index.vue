@@ -9,7 +9,7 @@
   >
     <template #K>
       <common-icon
-        name="icon-yuan"
+        name="a-yuan"
         :size="28"
       />
     </template>

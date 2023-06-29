@@ -43,7 +43,11 @@ export default defineComponent({
                 default: (res: any) =>
                   i.cellRenderer && i.cellRenderer({ ...res, rowData: res.row }),
                 header: (res: any) =>
-                  i.headerCellRenderer && i.headerCellRenderer({ ...res, rowData: res.row }),
+                  i.headerCellRenderer ? (
+                    i.headerCellRenderer({ ...res, rowData: res.row })
+                  ) : (
+                    <span>{i.title}</span>
+                  ),
               }}
             />
           ))}

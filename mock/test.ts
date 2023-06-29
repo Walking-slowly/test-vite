@@ -24,6 +24,7 @@ export default [
                 name: '表单-1',
                 id: 101 - 1,
                 url: 'from',
+                keepAlive: 1,
                 icon: '',
               },
               {
