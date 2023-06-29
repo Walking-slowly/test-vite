@@ -3,6 +3,7 @@
   // "compileOnSave": true, /* 设置保存文件得时候自动编译，需要编译器支持 */
   /* 配置编译选项 */
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     // "baseUrl": "./",  /* 解析非相对模块的基地址，默认是当前目录 */
     "target": "ESNext" /* 目标语言的版本 */,
     "useDefineForClassFields": true,
