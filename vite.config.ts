@@ -126,7 +126,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
         'axios',
         'vue-router',
         'element-plus',
-        'nprogress',
         'vue-cesium',
         'three',
         '@element-plus/icons-vue',

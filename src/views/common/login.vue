@@ -19,6 +19,7 @@ import TWEEN from '@tweenjs/tween.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { login } from '@/api/index.js';
+import a from '@/assets/img/example.jpg';
 export default defineComponent({
   name: 'Login',
   setup() {
@@ -64,7 +65,7 @@ export default defineComponent({
       const geometry = new THREE.SphereGeometry(1000, 1000, 1000);
       const material = new THREE.MeshBasicMaterial({
         // color: "red",
-        map: new THREE.TextureLoader().load('src/assets/img/example.jpg'),
+        map: new THREE.TextureLoader().load(a),
         transparent: true,
         side: THREE.DoubleSide,
       });
