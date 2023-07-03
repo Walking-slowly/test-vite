@@ -56,7 +56,8 @@ export default defineComponent({
         <>
           <el-subMenu
             index={`${parentUrl}${url}`}
-            v-slots={slots}>
+            v-slots={slots}
+          >
             {children?.map((i) => (
               <MenuTtem
                 {...i}
@@ -75,10 +76,12 @@ export default defineComponent({
             router
             collapse={isCollapse.value}
             default-active={route.path}
-            unique-opened>
+            unique-opened
+          >
             <el-menu-item
               index="/home"
-              class="header-img-menuItem">
+              class="header-img-menuItem"
+            >
               <el-icon size={20}>首页</el-icon>
             </el-menu-item>
             {menuList.map((item) => {

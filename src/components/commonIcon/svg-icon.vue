@@ -23,7 +23,8 @@ export default defineComponent({
         <svg
           style={{ width: prop.size + 'px', height: prop.size + 'px' }}
           class={['svg-icon', `svg-icon__${prop.iconName}`]}
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           <use
             href={`#${prop.iconName}`}
             fill={prop.color}

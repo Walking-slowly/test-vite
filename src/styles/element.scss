@@ -1,17 +1,17 @@
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
     'primary': (
-      'base': green
-    )
+      'base': green,
+    ),
   ),
   $menu: (
     'bg-color': var(--default-background-color),
     'text-color': var(--default-color),
-    'hover-bg-color': var(--light-9)
+    'hover-bg-color': var(--light-9),
   ),
 
   $header: (
-    'height': var(--default-header-height)
+    'height': var(--default-header-height),
   )
 );
 

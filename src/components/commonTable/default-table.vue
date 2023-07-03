@@ -27,7 +27,8 @@ export default defineComponent({
         <el-table
           {...props}
           {...other}
-          height={'100%'}>
+          height={'100%'}
+        >
           {props.isSelect && (
             <el-table-column
               type="selection"

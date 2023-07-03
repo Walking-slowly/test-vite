@@ -55,7 +55,8 @@ const columns = computed(
           return (
             <el-button
               text
-              type="primary">
+              type="primary"
+            >
               {rowData.name || ''}
             </el-button>
           );

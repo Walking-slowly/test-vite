@@ -33,7 +33,8 @@ export default defineComponent({
       ) : (
         <el-select
           v-model={[props.value, 'value']}
-          {...attrs}>
+          {...attrs}
+        >
           {(props.options || []).map((option: any) => (
             <el-option {...option} />
           ))}

@@ -27,7 +27,8 @@ export default defineComponent({
             {...props}
             height={height}
             width={width}
-            fixed>
+            fixed
+          >
             {{
               empty: () => (
                 <div class="el-table__empty-block">

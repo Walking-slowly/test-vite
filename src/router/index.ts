@@ -2,9 +2,10 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import Layout from '@/layout/index.vue';
 import { getMenuListBySubsystem } from '@/api/index.js';
 
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+// import NProgress from 'nprogress';
+// import 'nprogress/nprogress.css';
 
+// import.meta.glob 懒加载
 const modules = import.meta.glob('../views/**/*.vue');
 interface RouteRow {
   url: string;
@@ -89,17 +90,17 @@ let isRefresh = false;
 
 // 路由授权
 router.beforeEach(async (to, from, next) => {
-  NProgress.start();
+  // NProgress.start();
 
   if (to.name === 'login') {
-    NProgress.done();
+    // NProgress.done();
     next();
     return;
   }
 
   // 判断是否存在token
-  if (!sessionStorage.getItem('token')) {
-    NProgress.done();
+  if (!localStorage.getItem('token')) {
+    // NProgress.done();
     next({
       name: 'login',
       replace: true,
@@ -113,7 +114,8 @@ router.beforeEach(async (to, from, next) => {
     try {
       data = await getMenuListBySubsystem();
     } catch (e) {
-      NProgress.done();
+      console.error(e);
+      // NProgress.done();
     }
 
     defaultRoute.children = fnAddDynamicMenuRoutes(data || []);
@@ -134,14 +136,14 @@ router.beforeEach(async (to, from, next) => {
 
     isRefresh = true;
 
-    NProgress.done();
+    // NProgress.done();
     // addRoute只会添加一个新的路由， 如果新增加的路由与当前位置相匹配， 所以刷新后需要手动导航地址 防止页面白屏
     next({
       ...to,
       replace: true,
     });
   } else {
-    NProgress.done();
+    // NProgress.done();
     next();
   }
 });

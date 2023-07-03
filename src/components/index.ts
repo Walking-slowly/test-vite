@@ -1,10 +1,11 @@
-import { App } from 'vue'
+import { App } from 'vue';
+import type { AsyncComponentLoader } from 'vue';
 
-const coms: any = import.meta.glob('./**/*.vue', { eager: true })
+const components = import.meta.glob('./**/index.vue');
 
 export default function install(app: App) {
-  for (let objname in coms) {
-    let myval = coms[objname]
-    app.component(objname.substring(2).replace('/index.vue', ''), myval.default)
+  for (const [key, value] of Object.entries(components)) {
+    const name = key.substring(2).replace('/index.vue', '');
+    app.component(name, defineAsyncComponent(value as AsyncComponentLoader));
   }
 }

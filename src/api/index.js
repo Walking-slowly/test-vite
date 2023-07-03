@@ -1,11 +1,11 @@
-import request from '@/utils/request.js'
+import request from '@/utils/request.js';
 
 export function getMenuListBySubsystem(params) {
   return request({
     url: '/getMenuListBySubsystem',
     method: 'get',
-    params
-  })
+    params,
+  });
 }
 
 export function getList(params) {
@@ -15,11 +15,11 @@ export function getList(params) {
         request({
           url: '/getList',
           method: 'get',
-          params
+          params,
         })
-      )
-    }, 3000)
-  })
+      );
+    }, 3000);
+  });
 }
 
 // 测试真实后端接口
@@ -27,6 +27,6 @@ export function login(data) {
   return request({
     url: '/salary/sysUser/login',
     method: 'post',
-    data
-  })
+    data,
+  });
 }

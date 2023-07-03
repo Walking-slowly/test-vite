@@ -28,7 +28,7 @@
     ] /* TS需要引用的库，即声明文件，es5 默认引用dom、es5、scripthost,如需要使用es的高级版本特性，通常都需要配置，如es8的数组新特性需要引入"ES2019.Array" */,
     "skipLibCheck": true, // 跳过声明类型文件
     "noEmit": true, // 不是输出编译文件
-    "types": ["unplugin-vue-define-options/macros-global", "unplugin-icons/types/vue", "node"]
+    "types": ["unplugin-vue-define-options/macros-global", "node"]
   },
   "include": [
     "src/**/*.ts",

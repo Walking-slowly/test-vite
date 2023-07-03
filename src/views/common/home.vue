@@ -68,6 +68,39 @@ const vcConfig = reactive({
 
 const onViewerReady = ({ Cesium, viewer }) => {
   CesiumRef.value = Cesium;
+
+  // 左键平移，右键旋转
+  viewer.scene.screenSpaceCameraController.zoomEventTypes = [
+    Cesium.CameraEventType.WHEEL,
+    Cesium.CameraEventType.PINCH,
+  ];
+  viewer.scene.screenSpaceCameraController.tiltEventTypes = [
+    Cesium.CameraEventType.PINCH,
+    Cesium.CameraEventType.RIGHT_DRAG,
+  ];
+  // viewer.camera.setView({
+  //   destination: new Cesium.Cartesian3(0, 0, 0),
+  //   orientation: new Cesium.HeadingPitchRoll(0, 0, 0),
+  // });
+
+  // setTimeout(() => {
+  //   viewer.camera.flyTo(
+  //     {
+  //       destination: new Cesium.Cartesian3(
+  //         viewer.camera.position.x,
+  //         viewer.camera.position.y,
+  //         viewer.camera.position.z
+  //       ),
+  //       orientation: new Cesium.HeadingPitchRoll(
+  //         viewer.camera.heading,
+  //         viewer.camera.pitch,
+  //         viewer.camera.roll
+  //       ),
+  //     },
+  //     1000
+  //   );
+  // });
+
   console.log(Cesium, viewer, '222');
   loading.value = false;
 };

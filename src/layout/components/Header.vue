@@ -41,7 +41,7 @@ export default defineComponent({
     });
 
     const handleLoginOut = () => {
-      sessionStorage.clear();
+      localStorage.clear();
       router.replace({ name: 'login' });
     };
 
