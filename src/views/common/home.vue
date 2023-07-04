@@ -17,12 +17,7 @@
           @ready="onReady"
         />
 
-        <vc-layer-imagery
-          :alpha="alpha"
-          :brightness="brightness"
-          :contrast="contrast"
-          :sort-order="20"
-        >
+        <vc-layer-imagery :sort-order="20">
           <vc-imagery-provider-tianditu
             map-style="cva_c"
             token="436ce7e50d27eede2f2929307e6b33c0"
@@ -35,15 +30,11 @@
           />
         </vc-layer-imagery>
 
-        <!-- <vc-layer-imagery>
-          <vc-imagery-provider-amap
-            ref="provider"
-            :map-style="6"
-            :projection-transforms="projectionTransforms"
-            :minimum-level="0"
-            :maximum-level="18"
-          />
-        </vc-layer-imagery> -->
+        <vc-datasource-geojson
+          ref="datasourceRef"
+          data="https://zouyaoji.top/vue-cesium/SampleData/geojson/china.json"
+          :show="true"
+        />
       </vc-viewer>
     </vc-config-provider>
   </div>
@@ -57,17 +48,18 @@ import {
   VcLayerImagery,
   VcImageryProviderTianditu,
   VcPrimitiveTileset,
+  VcDatasourceGeojson,
 } from 'vue-cesium';
 
 const loading = ref(true);
-const CesiumRef = ref(null);
+let CesiumRef = null;
 
 const vcConfig = reactive({
   cesiumPath: 'https://unpkg.com/cesium@latest/Build/Cesium/Cesium.js',
 });
 
 const onViewerReady = ({ Cesium, viewer }) => {
-  CesiumRef.value = Cesium;
+  CesiumRef = Cesium;
 
   // 左键平移，右键旋转
   viewer.scene.screenSpaceCameraController.zoomEventTypes = [
@@ -78,51 +70,25 @@ const onViewerReady = ({ Cesium, viewer }) => {
     Cesium.CameraEventType.PINCH,
     Cesium.CameraEventType.RIGHT_DRAG,
   ];
-  // viewer.camera.setView({
-  //   destination: new Cesium.Cartesian3(0, 0, 0),
-  //   orientation: new Cesium.HeadingPitchRoll(0, 0, 0),
-  // });
 
-  // setTimeout(() => {
-  //   viewer.camera.flyTo(
-  //     {
-  //       destination: new Cesium.Cartesian3(
-  //         viewer.camera.position.x,
-  //         viewer.camera.position.y,
-  //         viewer.camera.position.z
-  //       ),
-  //       orientation: new Cesium.HeadingPitchRoll(
-  //         viewer.camera.heading,
-  //         viewer.camera.pitch,
-  //         viewer.camera.roll
-  //       ),
-  //     },
-  //     1000
-  //   );
-  // });
-
-  console.log(Cesium, viewer, '222');
   loading.value = false;
 };
 
 const onReady = ({ cesiumObject: tileset, viewer }) => {
-  const cartographic = CesiumRef.value.Cartographic.fromCartesian(tileset.boundingSphere.center);
-  const surface = CesiumRef.value.Cartesian3.fromRadians(
+  const cartographic = CesiumRef.Cartographic.fromCartesian(tileset.boundingSphere.center);
+  const surface = CesiumRef.Cartesian3.fromRadians(
     cartographic.longitude,
     cartographic.latitude,
     cartographic.height
   );
-  const offset = CesiumRef.value.Cartesian3.fromRadians(
-    cartographic.longitude,
-    cartographic.latitude,
-    0
-  );
-  const translation = CesiumRef.value.Cartesian3.subtract(
-    offset,
-    surface,
-    new CesiumRef.value.Cartesian3()
-  );
-  tileset.modelMatrix = CesiumRef.value.Matrix4.fromTranslation(translation);
-  viewer.zoomTo(tileset);
+  const offset = CesiumRef.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, 0);
+  const translation = CesiumRef.Cartesian3.subtract(offset, surface, new CesiumRef.Cartesian3());
+  tileset.modelMatrix = CesiumRef.Matrix4.fromTranslation(translation);
+  // viewer.zoomTo(tileset);
+  setTimeout(() => {
+    viewer.flyTo(tileset, {
+      duration: 4,
+    });
+  }, 5500);
 };
 </script>
