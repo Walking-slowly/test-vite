@@ -4,6 +4,8 @@ import router from './router';
 
 // vuex
 import { createPinia } from 'pinia';
+// 状态持久化
+import piniaPersist from 'pinia-plugin-persist';
 
 // components
 import components from './components';
@@ -24,7 +26,7 @@ if (import.meta.env.VITE_MODE === 'production') {
 console.log(import.meta.env, 'env');
 
 const app = createApp(App);
-app.use(createPinia());
+app.use(createPinia().use(piniaPersist));
 app.use(components);
 app.use(ElementPlus);
 app.use(icons);

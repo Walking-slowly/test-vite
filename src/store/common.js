@@ -14,4 +14,10 @@ export const useCommonStore = defineStore('common', {
       });
     },
   },
+
+  persist: {
+    enabled: true,
+    // strategies: [{ key: '', storage: localStorage }],
+    // paths: []
+  },
 });
