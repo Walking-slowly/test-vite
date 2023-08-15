@@ -1,9 +1,27 @@
 <template>
   <el-tabs
-    style="height: calc(100vh - 70px); overflow: hidden"
+    style="height: calc(100vh - 80px)"
     class="demo-tabs"
   >
     <el-tab-pane label="普通表格">
+      <common-form
+        ref="common-form"
+        v-model="formModel"
+        :cols="cols"
+      >
+        <template #K>
+          <div style="text-align: right; width: 100%">
+            <el-button
+              type="primary"
+              @click="search"
+            >查询</el-button>
+            <el-button>重置</el-button>
+          </div>
+        </template>
+        <template #B>
+          <el-divider />
+        </template>
+      </common-form>
       <commonTable
         v-model:current-page="currentPage"
         v-model:page-size="pageSize"
@@ -55,8 +73,7 @@ const columns = computed(
           return (
             <el-button
               text
-              type="primary"
-            >
+              type="primary">
               {rowData.name || ''}
             </el-button>
           );
@@ -74,6 +91,67 @@ const columns = computed(
 
 // let a = ref(null);
 let data = ref([]);
+let formModel = reactive({});
+const cols = readonly([
+  {
+    elType: 'el-input',
+    span: 4,
+    prop: 'name',
+    placeholder: '请输入',
+  },
+  {
+    elType: 'el-select',
+    span: 4,
+    prop: 'a',
+    placeholder: '请选择',
+    options: [],
+  },
+  {
+    elType: 'el-select',
+    span: 4,
+    prop: 'a',
+    placeholder: '请选择',
+    options: [],
+  },
+  {
+    elType: 'el-select',
+    span: 4,
+    prop: 'a',
+    placeholder: '请选择',
+    options: [],
+  },
+  {
+    elType: 'el-select',
+    span: 4,
+    prop: 'a',
+    placeholder: '请选择',
+    options: [],
+  },
+  {
+    elType: 'el-select',
+    span: 4,
+    prop: 'a',
+    placeholder: '请选择',
+    options: [],
+  },
+  {
+    elType: 'el-select',
+    span: 4,
+    prop: 'a',
+    placeholder: '请选择',
+    options: [],
+  },
+  {
+    elType: 'custom',
+    span: 20,
+    prop: 'K',
+  },
+  {
+    elType: 'custom',
+    span: 24,
+    prop: 'B',
+  },
+]);
 
 const onSelectChange = (val: any) => {
   console.log(1111, val);

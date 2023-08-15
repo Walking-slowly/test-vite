@@ -18,26 +18,23 @@ export default defineComponent({
 
     const slots = {
       default: ({ height, width }: any) => (
-        <>
-          <elTableV2
-            columns={columns as Column}
-            class="virtualized-common-table"
-            header-height={40}
-            {...other}
-            {...props}
-            height={height}
-            width={width}
-            fixed
-          >
-            {{
-              empty: () => (
-                <div class="el-table__empty-block">
-                  <span class="el-table__empty-text">暂无数据</span>
-                </div>
-              ),
-            }}
-          </elTableV2>
-        </>
+        <elTableV2
+          columns={columns as Column}
+          class="virtualized-common-table"
+          header-height={40}
+          {...other}
+          {...props}
+          height={height}
+          width={width}
+          fixed>
+          {{
+            empty: () => (
+              <div class="el-table__empty-block">
+                <span class="el-table__empty-text">暂无数据</span>
+              </div>
+            ),
+          }}
+        </elTableV2>
       ),
     };
 

@@ -23,37 +23,33 @@ export default defineComponent({
     const { columns = [], ...other } = attrs;
 
     return () => (
-      <>
-        <el-table
-          {...props}
-          {...other}
-          height={'100%'}
-        >
-          {props.isSelect && (
-            <el-table-column
-              type="selection"
-              align="center"
-              width="55"
-            />
-          )}
-          {(columns as Column).map((i: Column) => (
-            <el-table-column
-              {...i}
-              label={i.title}
-              v-slots={{
-                default: (res: any) =>
-                  i.cellRenderer && i.cellRenderer({ ...res, rowData: res.row }),
-                header: (res: any) =>
-                  i.headerCellRenderer ? (
-                    i.headerCellRenderer({ ...res, rowData: res.row })
-                  ) : (
-                    <span>{i.title}</span>
-                  ),
-              }}
-            />
-          ))}
-        </el-table>
-      </>
+      <el-table
+        {...props}
+        {...other}
+        height={'100%'}>
+        {props.isSelect && (
+          <el-table-column
+            type="selection"
+            align="center"
+            width="45"
+          />
+        )}
+        {(columns as Column).map((i: Column) => (
+          <el-table-column
+            {...i}
+            label={i.title}
+            v-slots={{
+              default: (res: any) => i.cellRenderer && i.cellRenderer({ ...res, rowData: res.row }),
+              header: (res: any) =>
+                i.headerCellRenderer ? (
+                  i.headerCellRenderer({ ...res, rowData: res.row })
+                ) : (
+                  <span>{i.title}</span>
+                ),
+            }}
+          />
+        ))}
+      </el-table>
     );
   },
 });

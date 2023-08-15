@@ -2,6 +2,8 @@
 @import 'el-header';
 @import 'el-main';
 @import 'el-tabs';
+@import 'el-divider';
+@import 'el-table';
 
 :root {
   // 主色
@@ -51,4 +53,14 @@ img {
 
 .cursor {
   cursor: pointer;
+}
+
+.hidden {
+  overflow: hidden;
+}
+
+.flow {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
 }

@@ -19,7 +19,7 @@ module.exports = {
   extends: ['plugin:vue/vue3-recommended'],
   rules: {
     'no-var': 1, // 不允许使用var
-    'no-unused-vars': 1, //不允许有声明后未被使用的变量或参数
+    'no-unused-vars': [1, { "args": "none" }], //不允许有声明后未被使用的变量或参数
     'vue/multi-word-component-names': 0, // 关闭组件名称校验
     // 关闭在标签前后需要换行
     'vue/singleline-html-element-content-newline': 0,

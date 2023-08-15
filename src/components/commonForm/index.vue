@@ -10,9 +10,6 @@
         :span="span || 24"
       >
         <el-form-item v-bind="{ ...other }">
-          <template #label>
-            <span :style="{ opacity: other.label ? '1' : '0' }">{{ other.label || '测试' }}</span>
-          </template>
           <slot
             v-if="other.elType === 'custom'"
             :name="other.prop"
@@ -60,7 +57,7 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<FormProps>(), {
-  gutter: () => 20,
+  gutter: () => 10,
 });
 
 const formRef = ref<FormInstance>();
@@ -97,6 +94,9 @@ defineExpose({
   .el-date-editor,
   .el-input__wrapper {
     width: 100%;
+  }
+  .el-form-item {
+    margin-bottom: 8px;
   }
 }
 </style>

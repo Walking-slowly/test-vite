@@ -94,6 +94,7 @@ const handleSelectionChange = (val: any[]) => {
   background-color: #fff;
   display: flex;
   height: 100%;
+  overflow: hidden;
   flex-flow: column;
   align-items: flex-end;
   .common-pagination {
