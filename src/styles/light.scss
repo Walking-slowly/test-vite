@@ -1,0 +1,13 @@
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': green,
+    ),
+  ),
+
+  $header: (
+    'height': var(--default-header-height),
+  )
+);
+
+@use 'element-plus/theme-chalk/src/index.scss' as *;

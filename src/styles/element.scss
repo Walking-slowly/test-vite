@@ -1,18 +1,15 @@
-@forward 'element-plus/theme-chalk/src/common/var.scss' with (
-  $colors: (
-    'primary': (
-      'base': green,
-    ),
-  ),
-  $menu: (
-    'bg-color': var(--default-background-color),
-    'text-color': var(--default-color),
-    'hover-bg-color': var(--light-9),
-  ),
+// @forward 'element-plus/theme-chalk/src/common/var.scss' with (
+//   $colors: (
+//     'primary': (
+//       'base': green,
+//     ),
+//   ),
 
-  $header: (
-    'height': var(--default-header-height),
-  )
-);
+//   $header: (
+//     'height': var(--default-header-height),
+//   )
+// );
 
-@use 'element-plus/theme-chalk/src/index.scss' as *;
+// @use 'element-plus/theme-chalk/src/index.scss' as *;
+@use './light.scss';
+@use './dark.scss';

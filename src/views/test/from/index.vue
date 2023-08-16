@@ -1,26 +1,28 @@
 <template>
-  <common-form
-    ref="common-form"
-    v-model="formModel"
-    label-position="left"
-    label-width="80px"
-    :rules="rules"
-    :cols="cols"
-  >
-    <template #K>
-      <common-icon
-        name="icon-yuan"
-        :size="28"
-      />
-    </template>
-  </common-form>
+  <div>
+    <common-form
+      ref="common-form"
+      v-model="formModel"
+      label-position="left"
+      label-width="80px"
+      :rules="rules"
+      :cols="cols"
+    >
+      <template #K>
+        <common-icon
+          name="icon-yuan"
+          :size="28"
+        />
+      </template>
+    </common-form>
 
-  <el-button
-    type="primary"
-    @click="a"
-  >
-    测试
-  </el-button>
+    <el-button
+      type="primary"
+      @click="a"
+    >
+      测试
+    </el-button>
+  </div>
 </template>
 
 <script>

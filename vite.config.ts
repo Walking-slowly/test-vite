@@ -72,8 +72,8 @@ export default defineConfig(({ command }: ConfigEnv) => {
         // 开发环境开启
         localEnabled: command === 'serve',
         // 生产环境
-        prodEnabled: command !== 'serve',
-        // prodEnabled: false,
+        // prodEnabled: command !== 'serve',
+        prodEnabled: false,
       }),
 
       eslintPlugin({
@@ -127,7 +127,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
         'vue-router',
         'element-plus',
         'vue-cesium',
-        'three',
         '@element-plus/icons-vue',
       ],
     },

@@ -78,7 +78,7 @@ export default defineComponent({
             <el-menu-item
               index="/home"
               class="header-img-menuItem">
-              <el-icon size={20}>首页</el-icon>
+              <el-icon size={20}></el-icon>
             </el-menu-item>
             {menuList.map((item) => {
               return (

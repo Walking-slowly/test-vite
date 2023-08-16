@@ -91,7 +91,6 @@ const handleSelectionChange = (val: any[]) => {
 
 <style lang="scss" scoped>
 .default-common-table {
-  background-color: #fff;
   display: flex;
   height: 100%;
   overflow: hidden;

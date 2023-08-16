@@ -1,6 +1,6 @@
 <template>
   <el-tabs
-    style="height: calc(100vh - 80px)"
+    style="height: calc(100vh - 82px)"
     class="demo-tabs"
   >
     <el-tab-pane label="普通表格">

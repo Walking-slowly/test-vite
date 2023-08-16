@@ -6,17 +6,10 @@
 @import 'el-table';
 
 :root {
-  // 主色
-  // --el-color-primary: red !important;
-  // 导航菜单背景色
-  --default-background-color: #33333e;
-  // 导航菜单字体颜色
-  --default-color: #ffffff;
   // 头部高度
   --default-header-height: 50px;
   // 导航宽度
   --el-aside-width: 230px;
-  --light-9: #242429;
 }
 
 *,
@@ -34,8 +27,6 @@ body {
     '微软雅黑', Arial, sans-serif;
   font-size: 16px;
   line-height: 1.15;
-  color: #303133;
-  background-color: #f1f1f1;
 }
 
 li {

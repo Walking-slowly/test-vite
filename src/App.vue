@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import lang from 'element-plus/lib/locale/lang/zh-cn';
-
 onMounted(() => {
   // const link = document.createElement('link');
   // link.rel = 'stylesheet';
@@ -11,7 +9,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-config-provider :locale="lang">
-    <router-view />
-  </el-config-provider>
+  <router-view />
 </template>

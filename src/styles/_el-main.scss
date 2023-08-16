@@ -1,7 +1,8 @@
 .el-main {
   overflow-x: hidden;
-  background-color: #fff;
-  margin: 10px;
-  border-radius: 4px;
-  padding: 8px 8px 0px 8px;
+  border: 8px solid #f1f1f1;
+  padding: 8px;
+  & > div {
+    padding: 8px 8px 0px 8px;
+  }
 }
