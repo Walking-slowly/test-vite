@@ -43,9 +43,10 @@ defineOptions({
 const router = useRouter();
 const useStore = useCommonStore();
 
-const isDarkTheme = ref(localStorage.getItem('useDarkKEY') === 'dark');
+const isDarkTheme = ref(true);
 
-const isDark = useDark({ storageKey: 'useDarkKEY' });
+const isDark = useDark();
+isDark.value = true;
 const toggleDark = useToggle(isDark);
 
 // const color = ref<string>('#008000');
