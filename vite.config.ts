@@ -23,6 +23,8 @@ import eslintPlugin from 'vite-plugin-eslint';
 // svg
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
+import cesium from 'vite-plugin-cesium';
+
 const pathSrc = path.resolve(__dirname, 'src');
 
 // https://vitejs.dev/config/
@@ -31,6 +33,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
     plugins: [
       vue(),
       vueJsx(),
+      cesium(),
       DefineOptions(),
       // ElementPlus({ useSource: true }),
       AutoImport({
@@ -123,10 +126,10 @@ export default defineConfig(({ command }: ConfigEnv) => {
       include: [
         'vue',
         'pinia',
+        'cesium',
         'axios',
         'vue-router',
         'element-plus',
-        'vue-cesium',
         '@element-plus/icons-vue',
       ],
     },
