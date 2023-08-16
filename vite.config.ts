@@ -5,7 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 // 插件调试工具
 // import Inspect from 'vite-plugin-inspect';
 
-// 定义options
+// 定义options node 14.19.0 unplugin-vue-define-options 1.1.4 我是试过安装1.2.0以及更高版本会提示找不到模块
 import DefineOptions from 'unplugin-vue-define-options/vite';
 
 // import Icons from 'unplugin-icons/vite'
