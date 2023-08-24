@@ -19,6 +19,16 @@ export default defineComponent({
     const useStore = useCommonStore();
 
     const isCollapse = computed(() => useStore.isCollapse);
+    const routeTabs = computed({
+      get: () => useStore.routeTabs,
+      set: (val) => useStore.SET_ROUTETABS(val),
+    });
+
+    const handleClick = (row: RowsItem) => {
+      const index = routeTabs.value.findIndex((i: RowsItem) => i.url === row.url);
+      if (index >= 0) return;
+      routeTabs.value.push(row);
+    };
 
     // 目录
     const MenuTtem: FC<RowsItem> = (item) => {
@@ -31,7 +41,9 @@ export default defineComponent({
               {...{ parentUrl: `${parentUrl}${url}/` }}
             />
           ) : (
-            <el-menuItem index={`${parentUrl}${url}`}>
+            <el-menuItem
+              index={`${parentUrl}${url}`}
+              onClick={() => handleClick({ ...item, url: `${parentUrl}${url}` })}>
               {isParent && <common-icon name={icon} />}
               <span style={`margin-left: ${!isParent ? '20px' : ''}`}>{name}</span>
             </el-menuItem>
@@ -52,20 +64,23 @@ export default defineComponent({
       };
 
       return (
-        <>
-          <el-subMenu
-            index={`${parentUrl}${url}`}
-            v-slots={slots}>
-            {children?.map((i) => (
-              <MenuTtem
-                {...i}
-                {...{ parentUrl: `${parentUrl}${url}/` }}
-              />
-            ))}
-          </el-subMenu>
-        </>
+        <el-subMenu
+          index={`${parentUrl}${url}`}
+          v-slots={slots}>
+          {children?.map((i) => (
+            <MenuTtem
+              {...i}
+              {...{ parentUrl: `${parentUrl}${url}/` }}
+            />
+          ))}
+        </el-subMenu>
       );
     };
+
+    handleClick({
+      name: route.meta.title as string,
+      url: route.path,
+    });
 
     return () => (
       <el-aside>
@@ -76,6 +91,7 @@ export default defineComponent({
             default-active={route.path}
             unique-opened>
             <el-menu-item
+              onClick={() => handleClick({ name: '首页', url: '/home' })}
               index="/home"
               class="header-img-menuItem">
               <el-icon size={20}></el-icon>

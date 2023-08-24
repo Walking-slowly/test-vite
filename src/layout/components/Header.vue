@@ -43,17 +43,20 @@ defineOptions({
 const router = useRouter();
 const useStore = useCommonStore();
 
-const isDarkTheme = ref(true);
+const isDarkTheme = computed({
+  get: () => useStore.isDarkTheme,
+  set: (val) => useStore.SET_ISTHEME(val),
+});
 
 const isDark = useDark();
-isDark.value = true;
+isDark.value = isDarkTheme.value;
 const toggleDark = useToggle(isDark);
 
 // const color = ref<string>('#008000');
 
 const isCollapse = computed({
   get: () => useStore.isCollapse,
-  set: (val) => useStore.C_SET_ISCOLLAPSE(val),
+  set: (val) => useStore.SET_ISCOLLAPSE(val),
 });
 
 const handleLoginOut = () => {
@@ -63,7 +66,9 @@ const handleLoginOut = () => {
     type: 'warning',
   })
     .then(() => {
+      useStore.$reset();
       localStorage.clear();
+      sessionStorage.clear();
       router.replace({ name: 'login' });
     })
     .catch(() => {});
