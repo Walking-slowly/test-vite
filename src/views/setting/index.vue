@@ -90,7 +90,7 @@ const columns = computed(
 );
 
 // let a = ref(null);
-let data = ref([]);
+let data = ref<Array<any>>([]);
 let formModel = reactive({});
 const cols = readonly([
   {
@@ -153,17 +153,19 @@ const cols = readonly([
   },
 ]);
 
-const onSelectChange = (val: any) => {
+const onSelectChange = <T extends Array<T>>(val: T) => {
   console.log(1111, val);
 };
 
 const search = () => {
   loading.value = true;
-  getList({ currentPage: currentPage.value, pageSize: pageSize.value }).then((res: any) => {
-    data.value = res;
-    total.value = 200;
-    loading.value = false;
-  });
+  getList({ currentPage: currentPage.value, pageSize: pageSize.value }).then(
+    <T extends Array<T>>(res: T) => {
+      data.value = res;
+      total.value = 200;
+      loading.value = false;
+    }
+  );
 };
 
 let { currentPage, pageSize, total, loading, onChangePage } = useTable(search);

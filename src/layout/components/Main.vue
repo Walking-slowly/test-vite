@@ -43,7 +43,9 @@ const router = useRouter();
 const useStore = useCommonStore();
 
 const handleSelectedTab = (tab: TabsPaneContext) => {
-  const row = useStore.routeTabs.filter((i: any) => i.url === tab.paneName);
+  const row = useStore.routeTabs.filter(
+    <T, K extends keyof T>(i: { url: K }) => i.url === tab.paneName
+  );
   if (!row.length) return;
   router.push({
     path: row[0].url,
@@ -51,7 +53,7 @@ const handleSelectedTab = (tab: TabsPaneContext) => {
 };
 
 const handleRemoveTab = (url: string) => {
-  const i = useStore.routeTabs.findIndex((i: any) => i.url === url);
+  const i = useStore.routeTabs.findIndex(<T, K extends keyof T>(i: { url: K }) => i.url === url);
   if (i < 0) return;
   if (url === route.path) {
     router.push({

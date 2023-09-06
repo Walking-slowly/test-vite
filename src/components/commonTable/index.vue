@@ -84,7 +84,7 @@ const handleSizeChange = () => {
   emit('onChangePage');
 };
 
-const handleSelectionChange = (val: any[]) => {
+const handleSelectionChange = <T extends Array<T>>(val: T) => {
   emit('onChangeSelect', val);
 };
 </script>
