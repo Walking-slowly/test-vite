@@ -45,12 +45,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .virtualized-common-table {
-  :deep(.el-table-v2__empty) {
-    height: calc(100% - 50px);
-    display: flex;
-  }
-  :deep(.el-table-v2) {
-    height: 100% !important;
+  ::v-deep {
+    .el-table-v2__empty {
+      height: calc(100% - 50px);
+      display: flex;
+    }
+    .el-table-v2 {
+      height: 100% !important;
+    }
   }
 }
 </style>

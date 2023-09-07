@@ -89,10 +89,14 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-:deep(.el-select, .el-date-editor, .el-input__wrapper) {
-  width: 100%;
-}
-:deep(.el-form-item) {
-  margin-bottom: 8px;
+::v-deep {
+  .el-select,
+  .el-date-editor,
+  .el-input__wrapper {
+    width: 100%;
+  }
+  .el-form-item {
+    margin-bottom: 8px;
+  }
 }
 </style>
