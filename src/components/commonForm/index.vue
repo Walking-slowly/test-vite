@@ -33,6 +33,7 @@
 <script lang="tsx" setup>
 import { OptionItemProps } from 'element-plus/es/components/select-v2/src/select.types';
 import type { FormInstance } from 'element-plus';
+import { toHump } from '@/utils/utils.js';
 
 interface FormItem {
   elType: string; // 输入框类型
@@ -60,11 +61,19 @@ const props = withDefaults(defineProps<FormProps>(), {
   gutter: () => 10,
 });
 
+const modules = import.meta.glob('../**/*.vue', { eager: true }) as Record<string, any>;
+
 const formRef = ref<FormInstance>();
 const { gutter, modelValue } = toRefs(props);
 
 const pipeComponents = (item: FormItem): any => {
-  if (item.elType !== 'custom') return item.elType;
+  console.log(111);
+  // 自定义
+  if (item.elType === 'custom') return;
+  // element-plus
+  if (item.elType.indexOf('el') === 0) return item.elType;
+  // 公共组件
+  return modules[`../${toHump(item.elType)}/index.vue` as keyof typeof modules].default;
 };
 
 // validate
@@ -89,14 +98,12 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-::v-deep {
-  .el-select,
-  .el-date-editor,
-  .el-input__wrapper {
-    width: 100%;
-  }
-  .el-form-item {
-    margin-bottom: 8px;
-  }
+::v-deep(.el-select),
+::v-deep(.el-date-editor),
+::v-deep(.el-input__wrapper) {
+  width: 100%;
+}
+::v-deep(.el-form-item) {
+  margin-bottom: 8px;
 }
 </style>

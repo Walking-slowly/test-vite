@@ -7,9 +7,6 @@ import { createPinia } from 'pinia';
 // 状态持久化
 import piniaPersist from 'pinia-plugin-persist';
 
-// components
-import components from './components';
-
 // ElementPlus-icon
 import icons from './icons';
 
@@ -28,7 +25,6 @@ console.log(import.meta.env, 'env');
 
 const app = createApp(App);
 app.use(createPinia().use(piniaPersist));
-app.use(components);
 app.use(ElementPlus, { locale: zhCn });
 app.use(icons);
 app.use(router);

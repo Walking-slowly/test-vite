@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { useCommonStore } from '@/store/common.js';
-import type { TabsPaneContext } from 'element-plus';
+import type { TabsPaneContext, TabPaneName } from 'element-plus';
 const route = useRoute();
 const router = useRouter();
 const useStore = useCommonStore();
@@ -52,7 +52,7 @@ const handleSelectedTab = (tab: TabsPaneContext) => {
   });
 };
 
-const handleRemoveTab = (url: string) => {
+const handleRemoveTab = (url: TabPaneName) => {
   const i = useStore.routeTabs.findIndex(<T, K extends keyof T>(i: { url: K }) => i.url === url);
   if (i < 0) return;
   if (url === route.path) {
@@ -68,35 +68,34 @@ const handleRemoveTab = (url: string) => {
 .main-tabs {
   padding: 0 8px;
   background-color: #efefef;
-  ::v-deep {
-    .el-tabs__content {
-      display: none;
-    }
-    .el-tabs__nav,
-    .el-tabs__item,
-    .el-tabs__header {
-      border: 0 !important;
-    }
 
-    .el-tabs__item {
-      background: #ffffff;
-      margin: 0 3px;
-      border-radius: 4px;
-      color: #333;
-    }
-    .el-tabs__nav-prev,
-    .el-tabs__nav-next {
-      background: #ffffff;
-      border-radius: 4px;
-      color: #333;
-    }
-    .el-tabs__header {
-      margin: 5px 0 8px 0;
-    }
-    .el-tabs__item.is-active {
-      background: var(--el-color-primary);
-      color: #fff;
-    }
+  ::v-deep(.el-tabs__content) {
+    display: none;
+  }
+  ::v-deep(.el-tabs__nav),
+  ::v-deep(.el-tabs__item),
+  ::v-deep(.el-tabs__header) {
+    border: 0 !important;
+  }
+
+  ::v-deep(.el-tabs__item) {
+    background: #ffffff;
+    margin: 0 3px;
+    border-radius: 4px;
+    color: #333;
+  }
+  ::v-deep(.el-tabs__nav-prev),
+  ::v-deep(.el-tabs__nav-next) {
+    background: #ffffff;
+    border-radius: 4px;
+    color: #333;
+  }
+  ::v-deep(.el-tabs__header) {
+    margin: 5px 0 8px 0;
+  }
+  ::v-deep(.el-tabs__item.is-active) {
+    background: var(--el-color-primary);
+    color: #fff;
   }
 }
 </style>

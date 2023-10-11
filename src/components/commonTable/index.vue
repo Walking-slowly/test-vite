@@ -38,7 +38,7 @@ interface TableProps {
   loading?: boolean;
   currentPage: number;
   pageSize: number;
-  total: number;
+  total?: number;
 }
 
 defineOptions({
@@ -52,6 +52,7 @@ const props = withDefaults(defineProps<TableProps>(), {
   loading: false,
   currentPage: 1,
   pageSize: 50,
+  total: 0,
 });
 
 const attrs = useAttrs();

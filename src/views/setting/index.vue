@@ -92,7 +92,7 @@ const columns = computed(
 // let a = ref(null);
 let data = ref<Array<any>>([]);
 let formModel = reactive({});
-const cols = readonly([
+const cols = reactive([
   {
     elType: 'el-input',
     span: 4,

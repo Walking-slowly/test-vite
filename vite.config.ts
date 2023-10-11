@@ -12,7 +12,7 @@ import DefineOptions from 'unplugin-vue-define-options/vite';
 // import IconsResolver from 'unplugin-icons/resolver'
 
 import AutoImport from 'unplugin-auto-import/vite';
-// import Components from 'unplugin-vue-components/vite'
+import Components from 'unplugin-vue-components/vite';
 // import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // import ElementPlus from 'unplugin-element-plus/vite'
 
@@ -23,8 +23,6 @@ import eslintPlugin from 'vite-plugin-eslint';
 // svg
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
-import cesium from 'vite-plugin-cesium';
-
 const pathSrc = path.resolve(__dirname, 'src');
 
 // https://vitejs.dev/config/
@@ -33,7 +31,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
     plugins: [
       vue(),
       vueJsx(),
-      cesium(),
       DefineOptions(),
       // ElementPlus({ useSource: true }),
       AutoImport({
@@ -48,21 +45,20 @@ export default defineConfig(({ command }: ConfigEnv) => {
         dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
       }),
 
-      // Components({
-      //   dirs: ['src/components'], // default
-      //   extensions: ['vue'], // default
-      //   resolvers: [
-      //     // 自动导入 Element Plus 组件
-      //     ElementPlusResolver({ importStyle: "sass", }),
-
-      //     // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
-      //     IconsResolver({
-      //       prefix: false,
-      //       enabledCollections: ['ep']
-      //     }),
-      //   ],
-      //   dts: path.resolve(pathSrc, 'components.d.ts'),
-      // }),
+      Components({
+        dirs: ['src/components'], // default
+        extensions: ['vue'], // default
+        resolvers: [
+          // // 自动导入 Element Plus 组件
+          // ElementPlusResolver({ importStyle: "sass", }),
+          // // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
+          // IconsResolver({
+          //   prefix: false,
+          //   enabledCollections: ['ep']
+          // }),
+        ],
+        dts: path.resolve(pathSrc, 'components.d.ts'),
+      }),
 
       // Icons({
       //   autoInstall: true,

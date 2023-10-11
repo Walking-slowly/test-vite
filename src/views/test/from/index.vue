@@ -7,14 +7,7 @@
       label-width="80px"
       :rules="rules"
       :cols="cols"
-    >
-      <template #K>
-        <common-icon
-          name="icon-yuan"
-          :size="28"
-        />
-      </template>
-    </common-form>
+    />
 
     <el-button
       type="primary"
@@ -94,10 +87,12 @@ export default {
           label: '打打',
         },
         {
-          elType: 'custom',
+          elType: 'common-icon',
           span: 24,
           prop: 'K',
           label: 'AAA',
+          name: 'icon-yuan',
+          size: 28,
         },
         {
           elType: 'common-select',
