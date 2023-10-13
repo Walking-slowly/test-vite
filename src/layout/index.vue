@@ -1,7 +1,7 @@
 <template>
-  <el-container>
+  <el-container style="background-color: #efefef">
     <CommonAside />
-    <el-container style="display: flex; flex-flow: column">
+    <el-container style="display: flex; flex-flow: column; margin: 0 8px">
       <CommonHeader />
       <CommonMain />
     </el-container>

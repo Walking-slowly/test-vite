@@ -1,6 +1,7 @@
 .el-header {
   padding-left: 0 !important;
   display: flex;
+  margin: 0 -8px;
   background-color: var(--el-bg-color);
   .common-header-content {
     flex: 1;

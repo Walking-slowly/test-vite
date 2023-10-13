@@ -39,7 +39,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
 
         resolvers: [
           // 自动导入 Element Plus 指令方法
-          // ElementPlusResolver({ importStyle: "sass", }),
+          // ElementPlusResolver(),
         ],
 
         dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
@@ -50,7 +50,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
         extensions: ['vue'], // default
         resolvers: [
           // // 自动导入 Element Plus 组件
-          // ElementPlusResolver({ importStyle: "sass", }),
+          // ElementPlusResolver(),
           // // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
           // IconsResolver({
           //   prefix: false,

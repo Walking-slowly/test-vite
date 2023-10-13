@@ -15,8 +15,10 @@
     />
   </el-tabs>
   <el-scrollbar
-    style="width: 100%"
-    view-style="min-height: 100%; display: flex;"
+    max-height="100%"
+    style="width: 100%; border-radius: 4px; height: auto"
+    view-style="height: 100%; display: flex;"
+    wrap-style="max-height: 100%; height: auto"
   >
     <el-main>
       <router-view v-slot="{ Component }">
@@ -66,9 +68,6 @@ const handleRemoveTab = (url: TabPaneName) => {
 
 <style scoped lang="scss">
 .main-tabs {
-  padding: 0 8px;
-  background-color: #efefef;
-
   ::v-deep(.el-tabs__content) {
     display: none;
   }
@@ -83,6 +82,9 @@ const handleRemoveTab = (url: TabPaneName) => {
     margin: 0 3px;
     border-radius: 4px;
     color: #333;
+  }
+  & ::v-deep(.el-tabs__item):first-child {
+    margin-left: 0;
   }
   ::v-deep(.el-tabs__nav-prev),
   ::v-deep(.el-tabs__nav-next) {

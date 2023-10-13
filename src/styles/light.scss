@@ -9,8 +9,17 @@
     'height': var(--default-header-height),
   ),
 
+  $bg-color: (
+    '': #f9f9f9,
+    'page': #fff,
+  ),
+
   $tabs: (
     'header-height': 34px,
+  ),
+
+  $fill-color: (
+    'blank': transparent,
   )
 );
 

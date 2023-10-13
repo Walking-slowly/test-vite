@@ -19,6 +19,7 @@ export default defineComponent({
     const useStore = useCommonStore();
 
     const isCollapse = computed(() => useStore.isCollapse);
+    const isDarkTheme = computed(() => useStore.isDarkTheme);
     const routeTabs = computed({
       get: () => useStore.routeTabs,
       set: (val) => useStore.SET_ROUTETABS(val),
@@ -89,6 +90,7 @@ export default defineComponent({
             router
             collapse={isCollapse.value}
             default-active={route.path}
+            text-color={isDarkTheme.value ? '#FFF' : ''}
             unique-opened>
             <el-menu-item
               onClick={() => handleClick({ name: '首页', url: '/home' })}
