@@ -1,1 +1,3 @@
-<template>首页</template>
+<template><div>首页</div></template>
+
+<script setup></script>

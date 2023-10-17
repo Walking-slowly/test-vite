@@ -9,3 +9,4 @@
 //     app.component(name, defineAsyncComponent(value as AsyncComponentLoader));
 //   }
 // }
+export {};
