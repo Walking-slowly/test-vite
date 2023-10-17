@@ -130,6 +130,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
       ],
     },
 
-    base: './',
+    base: process.env.NODE_ENV === 'production' ? './' : '/',
   };
 });
