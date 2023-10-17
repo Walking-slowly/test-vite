@@ -85,19 +85,21 @@ export default defineComponent({
 
     return () => (
       <el-aside>
-        <el-scrollbar>
+        <el-menu
+          collapse={isCollapse.value}
+          text-color={isDarkTheme.value ? '#FFF' : ''}>
+          <el-menu-item
+            onClick={() => handleClick({ name: '首页', url: '/home' })}
+            index="/home"
+            class="header-img-menuItem"></el-menu-item>
+        </el-menu>
+        <el-scrollbar style="flex: 1;">
           <el-menu
             router
             collapse={isCollapse.value}
             default-active={route.path}
             text-color={isDarkTheme.value ? '#FFF' : ''}
             unique-opened>
-            <el-menu-item
-              onClick={() => handleClick({ name: '首页', url: '/home' })}
-              index="/home"
-              class="header-img-menuItem">
-              <el-icon size={20}></el-icon>
-            </el-menu-item>
             {menuList.map((item) => {
               return (
                 <>

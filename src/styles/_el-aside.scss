@@ -1,6 +1,9 @@
 .el-aside {
   width: auto !important;
+  overflow: hidden;
   height: 100%;
+  display: flex;
+  flex-flow: column;
   background-color: var(--el-bg-color-page);
   .el-menu {
     border: 0;
@@ -11,15 +14,12 @@
   .header-img-menuItem {
     background: url(@/assets/img/logo.png) no-repeat;
     height: var(--default-header-height);
+    padding: 0 !important;
+    line-height: var(--default-header-height);
   }
   .el-menu--collapse .header-img-menuItem {
     background: none;
     font-weight: bold;
-    position: relative;
-    .el-icon {
-      font-style: normal;
-      letter-spacing: 4px;
-    }
     &::before {
       content: '首页';
       font-size: 20px;
