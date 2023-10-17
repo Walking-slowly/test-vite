@@ -1,12 +1,13 @@
 @forward 'element-plus/theme-chalk/src/dark/var.scss' with (
   $colors: (
     'primary': (
-      'base': green,
+      'base': red,
     ),
   ),
   $bg-color: (
-    '': #383842,
-    'page': #fff,
+    '': #ffffff,
+    'page': #383842,
+    'overlay': #ffffff,
   ),
 
   $text-color: (

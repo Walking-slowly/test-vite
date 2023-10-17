@@ -26,6 +26,7 @@ body {
     '微软雅黑', Arial, sans-serif;
   font-size: 16px;
   line-height: 1.15;
+  background-color: #f9f9f9;
 }
 
 li {
@@ -53,4 +54,8 @@ img {
   height: 100%;
   display: flex;
   flex-flow: column;
+}
+
+.el-menu--vertical.el-menu--popup-container {
+  background: var(--el-bg-color-page);
 }

@@ -86,6 +86,9 @@ const handleRemoveTab = (url: TabPaneName) => {
   & ::v-deep(.el-tabs__item):first-child {
     margin-left: 0;
   }
+  & ::v-deep(.el-tabs__item):last-child {
+    margin-right: 0;
+  }
   ::v-deep(.el-tabs__nav-prev),
   ::v-deep(.el-tabs__nav-next) {
     background: #ffffff;
@@ -98,6 +101,17 @@ const handleRemoveTab = (url: TabPaneName) => {
   ::v-deep(.el-tabs__item.is-active) {
     background: var(--el-color-primary);
     color: #fff;
+  }
+  ::v-deep(.el-tabs__nav-wrap.is-scrollable .el-tabs__nav-scroll) {
+    margin: 0 5px;
+  }
+
+  ::v-deep(.el-tabs__nav-next),
+  ::v-deep(.el-tabs__nav-prev) {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>
