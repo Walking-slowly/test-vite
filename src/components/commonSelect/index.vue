@@ -1,4 +1,6 @@
 <script lang="tsx">
+import { FunctionalComponent as FC } from 'vue';
+
 export default defineComponent({
   name: 'CommonSelect',
   inheritAttrs: false,
@@ -18,14 +20,28 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+
+    isVirtualized: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   emits: ['update:value'],
 
   setup(props, { attrs }) {
-    return () =>
-      props.isTree ? (
-        <el-tree-select
+    const treeSelect: FC = () => (
+      // 虚拟树下拉待开发...
+      <el-tree-select
+        v-model={[props.value, 'value']}
+        data={props.options}
+        {...attrs}
+      />
+    );
+
+    const defaultSelect: FC = () =>
+      props.isVirtualized ? (
+        <el-select-v2
           v-model={[props.value, 'value']}
           data={props.options}
           {...attrs}
@@ -33,13 +49,14 @@ export default defineComponent({
       ) : (
         <el-select
           v-model={[props.value, 'value']}
-          {...attrs}
-        >
+          {...attrs}>
           {(props.options || []).map((option: any) => (
             <el-option {...option} />
           ))}
         </el-select>
       );
+
+    return () => (props.isTree ? <treeSelect /> : <defaultSelect />);
   },
 });
 </script>
