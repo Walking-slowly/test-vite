@@ -11,7 +11,19 @@
 
 ```js
 // 所有表格统一使用 commonTable
-<commonTable />
+<commonTable
+  v-model:current-page="currentPage"
+  v-model:page-size="pageSize"
+  :columns="columns"
+  :data="data"
+  :loading="loading"
+  :border="true"
+  is-select
+  :is-pagination="true"
+  :total="total"
+  @on-change-select="onSelectChange"
+  @on-change-page="onChangePage"
+/>
 ```
 
 > 支持 **element-plus** 默认表格和虚拟滚动 <span style=" margin-left: 20px;color: red;">**注意：** 虚拟表格多选、编辑需要自己按照官网例子实现，普通表格添加配置即可</span>
