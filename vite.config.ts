@@ -102,6 +102,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
       host: '0.0.0.0',
       port: 8081,
       open: true,
+      hmr: true,
       proxy: {
         '/salary': {
           target: 'http://10.87.106.237:9797',

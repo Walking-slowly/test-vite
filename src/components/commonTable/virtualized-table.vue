@@ -45,12 +45,25 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .virtualized-common-table {
+  border: 1px solid #ebeef5;
+  overflow: hidden;
   ::v-deep(.el-table-v2__empty) {
     height: calc(100% - 50px);
     display: flex;
   }
   ::v-deep(.el-table-v2) {
     height: 100% !important;
+  }
+  ::v-deep(.el-table-v2__header-cell),
+  ::v-deep(.el-table-v2__row-cell) {
+    border-right: 1px solid #ebeef5;
+  }
+  ::v-deep(.el-table-v2__header-cell),
+  ::v-deep(.el-table-v2__row-cell) {
+    &:last-child {
+      border-right: 0;
+      flex: 1 !important;
+    }
   }
 }
 </style>
