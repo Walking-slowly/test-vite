@@ -101,22 +101,13 @@ export default defineComponent({
             text-color={isDarkTheme.value ? '#FFF' : ''}
             unique-opened>
             {menuList.map((item) => {
+              const tag = item.children && item.children.length ? SubmenuItem : MenuTtem;
               return (
-                <>
-                  {item.children && item.children.length ? (
-                    <SubmenuItem
-                      {...item}
-                      isParent
-                      parentUrl="/"
-                    />
-                  ) : (
-                    <MenuTtem
-                      {...item}
-                      isParent
-                      parentUrl="/"
-                    />
-                  )}
-                </>
+                <tag
+                  {...item}
+                  isParent
+                  parentUrl="/"
+                />
               );
             })}
           </el-menu>
