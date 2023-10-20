@@ -18,12 +18,11 @@ export const useTable = (callBack: Function): object => {
   };
 
   return {
-    ...shallowReactive({
-      currentPage,
-      pageSize,
-      total,
-      loading,
-    }),
+    currentPage,
+    pageSize,
+    total,
+    loading,
+
     onChangePage,
   };
 };
