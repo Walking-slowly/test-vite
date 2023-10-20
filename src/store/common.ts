@@ -16,18 +16,18 @@ export const useCommonStore = defineStore('common', {
   },
 
   actions: {
-    SET_ISTHEME(value) {
+    SET_ISTHEME(value: boolean) {
       this.$patch((state) => {
         state.isDarkTheme = value;
       });
     },
-    SET_ISCOLLAPSE(value) {
+    SET_ISCOLLAPSE(value: boolean) {
       this.$patch((state) => {
         state.isCollapse = value;
       });
     },
 
-    SET_ROUTETABS(value) {
+    SET_ROUTETABS(value: Array<any>) {
       this.$patch((state) => {
         state.routeTabs = value;
       });

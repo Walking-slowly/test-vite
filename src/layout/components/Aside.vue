@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { FunctionalComponent as FC } from 'vue';
-import { useCommonStore } from '@/store/common.js';
+import { useCommonStore } from '@/store/common.ts';
 
 interface RowsItem {
   name: string;

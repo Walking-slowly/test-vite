@@ -12,9 +12,10 @@ declare module '*.tsx' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+t;
 
 declare module '@/api/*.js';
-declare module '@/store/*.js';
+declare module '@/store/*.ts';
 declare module '@/hook/*.ts';
 declare module '@/utils/*.js';
 declare module '../mock/*.ts';
