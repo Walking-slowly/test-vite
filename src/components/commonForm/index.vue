@@ -30,7 +30,7 @@
   </el-form>
 </template>
 
-<script lang="tsx" setup>
+<script lang="ts" setup>
 import { OptionItemProps } from 'element-plus/es/components/select-v2/src/select.types';
 import type { FormInstance } from 'element-plus';
 import { toHump } from '@/utils/utils.js';

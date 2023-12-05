@@ -8,7 +8,7 @@
   </el-container>
 </template>
 
-<script lang="tsx">
+<script lang="ts">
 import { CommonHeader, CommonAside, CommonMain } from './components';
 export default defineComponent({
   components: { CommonHeader, CommonAside, CommonMain },

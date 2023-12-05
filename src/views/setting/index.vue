@@ -1,61 +1,12 @@
-<template>
-  <el-tabs
-    style="height: calc(100vh - 105px)"
-    class="demo-tabs"
-  >
-    <el-tab-pane label="普通表格">
-      <common-form
-        ref="common-form"
-        v-model="formModel"
-        :cols="cols"
-      >
-        <template #K>
-          <div style="text-align: right; width: 100%">
-            <el-button
-              type="primary"
-              @click="search"
-            >查询</el-button>
-            <el-button>重置</el-button>
-          </div>
-        </template>
-        <template #B>
-          <el-divider />
-        </template>
-      </common-form>
-      <commonTable
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize"
-        :columns="columns"
-        :data="data"
-        :loading="loading"
-        :border="true"
-        is-select
-        :is-pagination="true"
-        :total="total"
-        @on-change-select="onSelectChange"
-        @on-change-page="onChangePage"
-      />
-    </el-tab-pane>
-    <el-tab-pane label="虚拟滚动表格">
-      <commonTable
-        :columns="columns"
-        :is-virtualized-table="true"
-        :loading="loading"
-        :data="data"
-      />
-    </el-tab-pane>
-  </el-tabs>
-</template>
-
-<script lang="tsx" setup>
+<script lang="tsx">
 import type { Column } from 'element-plus';
 import { VNode } from 'vue';
 import { getList } from '@/api/index.js';
 import { useTable } from '@/hook/useTable.ts';
 
-const columns = computed(
-  () =>
-    [
+export default defineComponent({
+  setup() {
+    const columns = reactive([
       {
         title: 'Date',
         width: 200,
@@ -86,89 +37,140 @@ const columns = computed(
         dataKey: 'address',
         prop: 'address',
       },
-    ] as Column<any>[]
-);
+    ] as Column<any>[]);
 
-// let a = ref(null);
-let data = ref<Array<any>>([]);
-let formModel = reactive({});
-const cols = reactive([
-  {
-    elType: 'el-input',
-    span: 4,
-    prop: 'name',
-    placeholder: '请输入',
-  },
-  {
-    elType: 'el-select',
-    span: 4,
-    prop: 'a',
-    placeholder: '请选择',
-    options: [],
-  },
-  {
-    elType: 'el-select',
-    span: 4,
-    prop: 'a',
-    placeholder: '请选择',
-    options: [],
-  },
-  {
-    elType: 'el-select',
-    span: 4,
-    prop: 'a',
-    placeholder: '请选择',
-    options: [],
-  },
-  {
-    elType: 'el-select',
-    span: 4,
-    prop: 'a',
-    placeholder: '请选择',
-    options: [],
-  },
-  {
-    elType: 'el-select',
-    span: 4,
-    prop: 'a',
-    placeholder: '请选择',
-    options: [],
-  },
-  {
-    elType: 'el-select',
-    span: 4,
-    prop: 'a',
-    placeholder: '请选择',
-    options: [],
-  },
-  {
-    elType: 'custom',
-    span: 20,
-    prop: 'K',
-  },
-  {
-    elType: 'custom',
-    span: 24,
-    prop: 'B',
-  },
-]);
+    // let a = ref(null);
+    let data = ref<Array<any>>([]);
+    let formModel = reactive({});
+    const cols = reactive([
+      {
+        elType: 'el-input',
+        span: 4,
+        prop: 'name',
+        placeholder: '请输入',
+      },
+      {
+        elType: 'el-select',
+        span: 4,
+        prop: 'a',
+        placeholder: '请选择',
+        options: [],
+      },
+      {
+        elType: 'el-select',
+        span: 4,
+        prop: 'a',
+        placeholder: '请选择',
+        options: [],
+      },
+      {
+        elType: 'el-select',
+        span: 4,
+        prop: 'a',
+        placeholder: '请选择',
+        options: [],
+      },
+      {
+        elType: 'el-select',
+        span: 4,
+        prop: 'a',
+        placeholder: '请选择',
+        options: [],
+      },
+      {
+        elType: 'el-select',
+        span: 4,
+        prop: 'a',
+        placeholder: '请选择',
+        options: [],
+      },
+      {
+        elType: 'el-select',
+        span: 4,
+        prop: 'a',
+        placeholder: '请选择',
+        options: [],
+      },
+      {
+        elType: 'custom',
+        span: 20,
+        prop: 'K',
+      },
+      {
+        elType: 'custom',
+        span: 24,
+        prop: 'B',
+      },
+    ]);
 
-const onSelectChange = <T extends Array<T>>(val: T) => {
-  console.log(1111, val);
-};
+    let search = () => {
+      loading.value = true;
+      getList({ currentPage: currentPage.value, pageSize: pageSize.value }).then(
+        <T extends Array<T>>(res: T) => {
+          data.value = res;
+          total.value = 200;
+          loading.value = false;
+        }
+      );
+    };
 
-const search = () => {
-  loading.value = true;
-  getList({ currentPage: currentPage.value, pageSize: pageSize.value }).then(
-    <T extends Array<T>>(res: T) => {
-      data.value = res;
-      total.value = 200;
-      loading.value = false;
-    }
-  );
-};
+    let { currentPage, pageSize, total, loading, onChangePage } = useTable(search);
 
-let { currentPage, pageSize, total, loading, onChangePage } = useTable(search);
+    const onSelectChange = <T extends Array<T>>(val: T) => {
+      console.log(1111, val);
+    };
 
-search();
+    search();
+
+    const slots = {
+      K: () => (
+        <div style="text-align: right; width: 100%">
+          <el-button
+            type="primary"
+            onClick={search}>
+            查询
+          </el-button>
+          <el-button>重置</el-button>
+        </div>
+      ),
+    };
+
+    return () => (
+      <el-tabs
+        style="height: calc(100vh - 105px)"
+        class="demo-tabs">
+        <el-tab-pane label="普通表格">
+          <common-form
+            ref="common-form"
+            v-model={[formModel, 'modelValue']}
+            v-slots={slots}
+            cols={cols}
+          />
+
+          <commonTable
+            v-model:current-page={currentPage.value}
+            v-model:page-size={pageSize.value}
+            columns={columns}
+            data={data.value}
+            loading={loading.value}
+            border={true}
+            is-select
+            is-pagination={true}
+            total={total.value}
+            onChangeSelect={onSelectChange}
+            onChangePage={onChangePage}
+          />
+        </el-tab-pane>
+        <el-tab-pane label="虚拟滚动表格">
+          <commonTable
+            columns={columns}
+            is-virtualized-table={true}
+            loading={loading.value}
+            data={data.value}
+          />
+        </el-tab-pane>
+      </el-tabs>
+    );
+  },
+});
 </script>

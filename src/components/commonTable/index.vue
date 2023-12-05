@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script lang="tsx" setup>
+<script lang="ts" setup>
 import DefaultTable from './default-table.vue';
 import VirtualizedTable from './virtualized-table.vue';
 
@@ -59,12 +59,7 @@ const attrs = useAttrs();
 
 const { isVirtualizedTable, isPagination, loading, currentPage, pageSize } = toRefs(props);
 
-const emit = defineEmits([
-  'onChangePage',
-  'onChangeSelect',
-  'update:currentPage',
-  'update:pageSize',
-]);
+const emit = defineEmits(['changePage', 'changeSelect', 'update:currentPage', 'update:pageSize']);
 
 const current = computed({
   get: () => currentPage.value,
@@ -77,16 +72,16 @@ const pageNum = computed({
 });
 
 const handleCurrentChange = () => {
-  emit('onChangePage');
+  emit('changePage');
 };
 
 const handleSizeChange = () => {
   current.value = 1;
-  emit('onChangePage');
+  emit('changePage');
 };
 
 const handleSelectionChange = <T extends Array<T>>(val: T) => {
-  emit('onChangeSelect', val);
+  emit('changeSelect', val);
 };
 </script>
 
