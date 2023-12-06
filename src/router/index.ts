@@ -73,8 +73,7 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, path = '/') => {
         title: name,
         keepAlive: !!item.keepAlive,
       },
-      component:
-        item.children && item.children.length ? null : modules[`../views${path}${url}/index.vue`],
+      component: modules[`../views${path}${url}/index.vue`] || null,
       children: fnAddDynamicMenuRoutes(item.children || [], `${path}${url}/`),
     };
   });
