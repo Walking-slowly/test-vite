@@ -3,12 +3,8 @@
     v-loading="loading"
     class="default-common-table"
   >
-    <VirtualizedTable
-      v-if="isVirtualizedTable"
-      v-bind="attrs"
-    />
-    <DefaultTable
-      v-else
+    <component
+      :is="isVirtualizedTable ? VirtualizedTable : DefaultTable"
       v-bind="attrs"
       @selection-change="handleSelectionChange"
     />
@@ -29,8 +25,9 @@
 </template>
 
 <script lang="ts" setup>
-import DefaultTable from './default-table.vue';
-import VirtualizedTable from './virtualized-table.vue';
+import { defineAsyncComponent } from 'vue';
+const DefaultTable = defineAsyncComponent(() => import('./default-table.vue'));
+const VirtualizedTable = defineAsyncComponent(() => import('./virtualized-table.vue'));
 
 interface TableProps {
   isVirtualizedTable?: boolean;

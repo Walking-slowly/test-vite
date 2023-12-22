@@ -120,15 +120,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
 
     // 预构建
     optimizeDeps: {
-      include: [
-        'vue',
-        'pinia',
-        'cesium',
-        'axios',
-        'vue-router',
-        'element-plus',
-        '@element-plus/icons-vue',
-      ],
+      include: ['vue', 'pinia', 'axios', 'vue-router', 'element-plus', '@element-plus/icons-vue'],
     },
 
     base: process.env.NODE_ENV === 'production' ? './' : '/',
