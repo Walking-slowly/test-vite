@@ -10,6 +10,9 @@ import piniaPersist from 'pinia-plugin-persist';
 // ElementPlus-icon
 import icons from './icons';
 
+// Components
+import components from '@/components/index.ts';
+
 //ElementPlus
 import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
@@ -26,6 +29,7 @@ console.log(import.meta.env, 'env');
 const app = createApp(App);
 app.use(createPinia().use(piniaPersist));
 app.use(ElementPlus, { locale: zhCn });
+app.use(components);
 app.use(icons);
 app.use(router);
 app.mount('#app');

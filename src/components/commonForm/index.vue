@@ -33,7 +33,6 @@
 <script lang="ts" setup>
 import { OptionItemProps } from 'element-plus/es/components/select-v2/src/select.types';
 import type { FormInstance } from 'element-plus';
-import { toHump } from '@/utils/utils.js';
 
 interface FormItem {
   elType: string; // 输入框类型
@@ -61,19 +60,15 @@ const props = withDefaults(defineProps<FormProps>(), {
   gutter: () => 10,
 });
 
-const modules = import.meta.glob('../**/*.vue', { eager: true }) as Record<string, any>;
-
 const formRef = ref<FormInstance>();
 const { gutter, modelValue } = toRefs(props);
 
 const pipeComponents = (item: FormItem): any => {
   // 自定义
   if (item.elType === 'custom') return;
-  // element-plus
-  if (item.elType.indexOf('el') === 0) return item.elType;
-  // 公共组件
-  const component = modules[`../${toHump(item.elType)}/index.vue` as keyof typeof modules];
-  return component ? component.default : console.error(`无法找到${item.elType}组件！`);
+
+  //element components
+  return item.elType;
 };
 
 // validate

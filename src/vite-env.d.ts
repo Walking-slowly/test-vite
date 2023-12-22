@@ -16,6 +16,7 @@ t;
 
 declare module '@/api/*.js';
 declare module '@/store/*.ts';
+declare module '@/components/index.ts';
 declare module '@/hook/*.ts';
 declare module '@/store/*.js';
 declare module '@/utils/*.js';
