@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import Layout from '@/layout/index.vue';
+const Layout = () => import('@/layout/index.vue');
 import { getMenuListBySubsystem } from '@/api/index.js';
 
 // import.meta.glob 懒加载
