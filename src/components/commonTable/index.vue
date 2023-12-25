@@ -25,9 +25,8 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
-const DefaultTable = defineAsyncComponent(() => import('./default-table.vue'));
-const VirtualizedTable = defineAsyncComponent(() => import('./virtualized-table.vue'));
+const DefaultTable = () => import('./default-table.vue');
+const VirtualizedTable = () => import('./virtualized-table.vue');
 
 interface TableProps {
   isVirtualizedTable?: boolean;

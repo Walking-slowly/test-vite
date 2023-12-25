@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import type { AsyncComponentLoader } from 'vue';
 import Layout from '@/layout/index.vue';
 import { getMenuListBySubsystem } from '@/api/index.js';
 
@@ -75,7 +74,7 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, path = '/') => {
         keepAlive: !!item.keepAlive,
       },
       component: modules[`../views${path}${url}/index.vue`]
-        ? defineAsyncComponent(modules[`../views${path}${url}/index.vue`] as AsyncComponentLoader)
+        ? modules[`../views${path}${url}/index.vue`]
         : null,
       children: fnAddDynamicMenuRoutes(item.children || [], `${path}${url}/`),
     };
