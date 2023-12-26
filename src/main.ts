@@ -11,7 +11,7 @@ import piniaPersist from 'pinia-plugin-persist';
 import icons from './icons';
 
 // Components
-import components from '@/components/index.ts';
+import components from './components';
 
 //ElementPlus
 import ElementPlus from 'element-plus';
