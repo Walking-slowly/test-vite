@@ -59,3 +59,7 @@ img {
 .el-menu--vertical.el-menu--popup-container {
   background: var(--el-bg-color-page);
 }
+
+.el-sub-menu .el-icon {
+  width: var(--el-menu-icon-width) !important;
+}

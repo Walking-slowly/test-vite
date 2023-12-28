@@ -21,7 +21,7 @@ export default defineComponent({
     return () => (
       <>
         <svg
-          style={{ height: prop.size + 'px' }}
+          style={{ width: prop.size + 'px', height: prop.size + 'px' }}
           class={['el-icon', 'svg-icon', `svg-icon__${prop.iconName}`]}
           aria-hidden="true">
           <use
