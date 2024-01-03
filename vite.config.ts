@@ -118,6 +118,11 @@ export default defineConfig(({ command }: ConfigEnv) => {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
 
+    define: {
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+      __VUE_PROD_DEVTOOLS__: false,
+    },
+
     // 预构建
     optimizeDeps: {
       include: ['vue', 'pinia', 'axios', 'vue-router', 'element-plus', '@element-plus/icons-vue'],
