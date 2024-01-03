@@ -92,7 +92,7 @@ export default {
           prop: 'K',
           label: 'AAA',
           name: 'icon-yuan',
-          size: 28,
+          fontSize: 28,
         },
         {
           elType: 'common-select',

@@ -32,9 +32,9 @@ const VirtualizedTable = defineAsyncComponent(() => import('./virtualized-table.
 interface TableProps {
   isVirtualizedTable?: boolean;
   isPagination?: boolean;
-  loading?: boolean;
-  currentPage: number;
-  pageSize: number;
+  loading: boolean;
+  currentPage?: number;
+  pageSize?: number;
   total?: number;
 }
 

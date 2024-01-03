@@ -2,6 +2,8 @@
 export default defineComponent({
   name: 'CommonSvg',
 
+  inheritAttrs: false,
+
   props: {
     iconName: {
       type: String,

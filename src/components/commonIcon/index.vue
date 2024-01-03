@@ -14,7 +14,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    size: {
+    fontSize: {
       type: Number,
       default: 18,
     },
@@ -23,12 +23,12 @@ export default defineComponent({
   setup(prop) {
     if (prop.name.indexOf('el-') === 0) {
       return () => (
-        <el-icon size={prop.size}>{h(resolveComponent(`${prop.name.substring(3)}`))}</el-icon>
+        <el-icon size={prop.fontSize}>{h(resolveComponent(`${prop.name.substring(3)}`))}</el-icon>
       );
     } else if (prop.name.indexOf('icon-') === 0) {
       return () => (
         <SvgIcon
-          size={prop.size}
+          size={prop.fontSize}
           iconName={prop.name}
         />
       );
