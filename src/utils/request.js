@@ -12,8 +12,8 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // JWT鉴权处理
-    if (localStorage.getItem('token')) {
-      config.headers['token'] = JSON.parse(localStorage.getItem('token'));
+    if (sessionStorage.getItem('token')) {
+      config.headers['token'] = sessionStorage.getItem('token');
     }
     return config;
   },

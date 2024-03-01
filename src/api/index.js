@@ -30,3 +30,12 @@ export function login(data) {
     data,
   });
 }
+
+// 菜单
+export function nav(params) {
+  return request({
+    url: '/salary/sysMenu/nav',
+    method: 'get',
+    params,
+  });
+}

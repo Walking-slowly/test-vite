@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 const Layout = () => import('@/layout/index.vue');
-import { getMenuListBySubsystem } from '@/api/index.js';
+import { nav } from '@/api/index.js';
 
 // import.meta.glob 懒加载
 const modules = import.meta.glob('../views/**/*.vue');
@@ -8,6 +8,7 @@ interface RouteRow {
   url: string;
   name: string;
   children?: Array<RouteRow>;
+  list?: Array<RouteRow>;
   keepAlive?: Boolean;
 }
 
@@ -62,21 +63,18 @@ const router = createRouter({
   routes,
 });
 
-const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, path = '/') => {
+const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') => {
   return arr.map((item) => {
-    const { name, url } = item;
-
+    const { name, path, url } = item;
     return {
-      path: `${path}${url}`,
-      name: url,
+      path: `${routerPath}${path}`,
+      name: path,
       meta: {
         title: name,
         keepAlive: !!item.keepAlive,
       },
-      component: modules[`../views${path}${url}/index.vue`]
-        ? modules[`../views${path}${url}/index.vue`]
-        : null,
-      children: fnAddDynamicMenuRoutes(item.children || [], `${path}${url}/`),
+      component: !item.list ? modules[`../views/${url}/index.vue`] : null,
+      children: fnAddDynamicMenuRoutes(item.list || [], `${routerPath}${path}/`),
     };
   });
 };
@@ -88,13 +86,14 @@ let isRefresh = false;
 
 // 路由授权
 router.beforeEach(async (to, from, next) => {
+  console.log(111);
   if (to.name === 'login') {
     next();
     return;
   }
 
   // 判断是否存在token
-  if (!localStorage.getItem('token')) {
+  if (!sessionStorage.getItem('token')) {
     next({
       name: 'login',
       replace: true,
@@ -104,28 +103,13 @@ router.beforeEach(async (to, from, next) => {
 
   // 不存在菜单和重新刷新都需要重新添加动态路由 否则页面空白
   if (!sessionStorage.getItem('menuList') || !isRefresh) {
-    let data: Array<NewRouteRow> = [];
-    try {
-      data = await getMenuListBySubsystem();
-    } catch (e) {
-      console.error(e);
-    }
-
-    defaultRoute.children = fnAddDynamicMenuRoutes(data || []);
+    let { menuList, permissions, roleTypeList } = await nav();
+    defaultRoute.children = fnAddDynamicMenuRoutes(menuList || []);
     router.addRoute(defaultRoute);
     router.addRoute(ErrorRouter);
-    sessionStorage.setItem(
-      'menuList',
-      JSON.stringify([
-        {
-          name: '首页',
-          icon: 'el-House',
-          id: 1,
-          url: 'home',
-        },
-        ...(data || []),
-      ])
-    );
+    sessionStorage.setItem('menuList', JSON.stringify(menuList || []));
+    sessionStorage.setItem('permissions', JSON.stringify(permissions || []));
+    sessionStorage.setItem('roleTypeList', JSON.stringify(roleTypeList || []));
 
     isRefresh = true;
 

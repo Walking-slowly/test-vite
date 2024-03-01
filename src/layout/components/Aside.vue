@@ -4,11 +4,12 @@ import { useCommonStore } from '@/store/common.ts';
 
 interface RowsItem {
   name: string;
-  url: string;
+  url?: string;
+  path: string;
   icon?: string;
   isParent?: boolean;
   parentUrl?: string;
-  children?: Array<RowsItem>;
+  list?: Array<RowsItem>;
 }
 
 export default defineComponent({
@@ -16,6 +17,7 @@ export default defineComponent({
   setup() {
     const menuList: Array<RowsItem> = JSON.parse(sessionStorage.getItem('menuList') || '') || [];
     const route = useRoute();
+    const router = useRouter();
     const useStore = useCommonStore();
 
     const isCollapse = computed(() => useStore.isCollapse);
@@ -26,25 +28,27 @@ export default defineComponent({
     });
 
     const handleClick = (row: RowsItem) => {
-      const index = routeTabs.value.findIndex((i: RowsItem) => i.url === row.url);
+      const index = routeTabs.value.findIndex((i: RowsItem) => i.path === row.path);
+      router.push({ path: row.path });
+
       if (index >= 0) return;
       routeTabs.value.push(row);
     };
 
     // 目录
     const MenuTtem: FC<RowsItem> = (item) => {
-      const { url, name, icon, isParent, parentUrl, children } = item;
+      const { path, name, icon, isParent, parentUrl, list } = item;
       return (
         <>
-          {children && children.length ? (
+          {list && list.length ? (
             <SubmenuItem
               {...item}
-              {...{ parentUrl: `${parentUrl}${url}/` }}
+              {...{ parentUrl: `${parentUrl}${path}/` }}
             />
           ) : (
             <el-menuItem
-              index={`${parentUrl}${url}`}
-              onClick={() => handleClick({ ...item, url: `${parentUrl}${url}` })}>
+              index={`${parentUrl}${path}`}
+              onClick={() => handleClick({ ...item, path: `${parentUrl}${path}` })}>
               {isParent && <common-icon name={icon} />}
               <span style={`margin-left: ${!isParent ? '20px' : ''}`}>{name}</span>
             </el-menuItem>
@@ -54,7 +58,7 @@ export default defineComponent({
     };
 
     // 菜单
-    const SubmenuItem: FC<RowsItem> = ({ name, url, children = [], isParent, icon, parentUrl }) => {
+    const SubmenuItem: FC<RowsItem> = ({ name, path, list = [], isParent, icon, parentUrl }) => {
       const slots = {
         title: () => (
           <>
@@ -66,12 +70,12 @@ export default defineComponent({
 
       return (
         <el-subMenu
-          index={`${parentUrl}${url}`}
+          index={`${parentUrl}${path}`}
           v-slots={slots}>
-          {children?.map((i) => (
+          {list?.map((i) => (
             <MenuTtem
               {...i}
-              {...{ parentUrl: `${parentUrl}${url}/` }}
+              {...{ parentUrl: `${parentUrl}${path}/` }}
             />
           ))}
         </el-subMenu>
@@ -80,7 +84,7 @@ export default defineComponent({
 
     handleClick({
       name: route.meta.title as string,
-      url: route.path,
+      path: route.path,
     });
 
     return () => (
@@ -89,7 +93,7 @@ export default defineComponent({
           collapse={isCollapse.value}
           text-color={isDarkTheme.value ? '#FFF' : ''}>
           <el-menu-item
-            onClick={() => handleClick({ name: '首页', url: '/home' })}
+            onClick={() => handleClick({ name: '首页', path: '/home' })}
             index="/home"
             class="header-img-menuItem"></el-menu-item>
         </el-menu>
@@ -101,7 +105,7 @@ export default defineComponent({
             text-color={isDarkTheme.value ? '#FFF' : ''}
             unique-opened>
             {menuList.map((item) => {
-              const tag = item.children && item.children.length ? SubmenuItem : MenuTtem;
+              const tag = item.list && item.list.length ? SubmenuItem : MenuTtem;
               return (
                 <tag
                   {...item}
