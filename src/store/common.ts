@@ -5,13 +5,7 @@ export const useCommonStore = defineStore('common', {
     return {
       isDarkTheme: true,
       isCollapse: false,
-      routeTabs: [
-        {
-          name: '首页',
-          url: '/home',
-          noClose: true,
-        },
-      ],
+      routeTabs: [],
     };
   },
 

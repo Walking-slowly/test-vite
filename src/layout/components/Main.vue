@@ -8,10 +8,10 @@
   >
     <el-tab-pane
       v-for="item in useStore.routeTabs"
-      :key="item.url"
+      :key="item.path"
       :label="item.name"
-      :name="item.url"
-      :closable="!item.noClose"
+      :name="item.path"
+      :closable="item.type"
     />
   </el-tabs>
   <el-scrollbar
@@ -51,20 +51,20 @@ const useStore = useCommonStore();
 
 const handleSelectedTab = (tab: TabsPaneContext) => {
   const row = useStore.routeTabs.filter(
-    <T, K extends keyof T>(i: { url: K }) => i.url === tab.paneName
+    <T, K extends keyof T>(i: { path: K }) => i.path === tab.paneName
   );
   if (!row.length) return;
   router.push({
-    path: row[0].url,
+    path: row[0].path,
   });
 };
 
-const handleRemoveTab = (url: TabPaneName) => {
-  const i = useStore.routeTabs.findIndex(<T, K extends keyof T>(i: { url: K }) => i.url === url);
+const handleRemoveTab = (path: TabPaneName) => {
+  const i = useStore.routeTabs.findIndex(<T, K extends keyof T>(i: { path: K }) => i.path === path);
   if (i < 0) return;
-  if (url === route.path) {
+  if (path === route.path) {
     router.push({
-      path: useStore.routeTabs[0].url,
+      path: useStore.routeTabs[0].path,
     });
   }
   useStore.routeTabs.splice(i, 1);

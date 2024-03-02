@@ -7,6 +7,7 @@ const modules = import.meta.glob('../views/**/*.vue');
 interface RouteRow {
   url: string;
   name: string;
+  path?: string;
   children?: Array<RouteRow>;
   list?: Array<RouteRow>;
   keepAlive?: Boolean;
@@ -52,7 +53,7 @@ const ErrorRouter: RouteRecordRaw = {
 };
 
 const defaultRoute = {
-  path: '',
+  path: '/',
   name: '',
   component: Layout,
   children: [],
@@ -68,12 +69,12 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') 
     const { name, path, url } = item;
     return {
       path: `${routerPath}${path}`,
-      name: path,
+      name: item.list && item.list.length ? '' : path,
       meta: {
         title: name,
         keepAlive: !!item.keepAlive,
       },
-      component: !item.list ? modules[`../views/${url}/index.vue`] : null,
+      component: item.list && item.list.length ? null : modules[`../views/${url}/index.vue`],
       children: fnAddDynamicMenuRoutes(item.list || [], `${routerPath}${path}/`),
     };
   });
@@ -84,9 +85,18 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') 
  */
 let isRefresh = false;
 
+const getFristPath: string = (list: any[]) => {
+  let path = '';
+  if (list[0].list && list[0].list.length) {
+    return getFristPath(list[0].list);
+  } else {
+    path = list[0].path;
+  }
+  return path;
+};
+
 // 路由授权
 router.beforeEach(async (to, from, next) => {
-  console.log(111);
   if (to.name === 'login') {
     next();
     return;
@@ -113,11 +123,18 @@ router.beforeEach(async (to, from, next) => {
 
     isRefresh = true;
 
-    // addRoute只会添加一个新的路由， 如果新增加的路由与当前位置相匹配， 所以刷新后需要手动导航地址 防止页面白屏
-    next({
-      ...to,
-      replace: true,
-    });
+    if (to.path === '/home') {
+      next({
+        name: getFristPath(menuList),
+        replace: true,
+      });
+    } else {
+      // addRoute只会添加一个新的路由， 如果新增加的路由与当前位置相匹配， 所以刷新后需要手动导航地址 防止页面白屏
+      next({
+        ...to,
+        replace: true,
+      });
+    }
   } else {
     next();
   }

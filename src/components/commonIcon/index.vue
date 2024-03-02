@@ -25,15 +25,13 @@ export default defineComponent({
       return () => (
         <el-icon size={prop.fontSize}>{h(resolveComponent(`${prop.name.substring(3)}`))}</el-icon>
       );
-    } else if (prop.name.indexOf('icon-') === 0) {
+    } else {
       return () => (
         <SvgIcon
           size={prop.fontSize}
           iconName={prop.name}
         />
       );
-    } else {
-      return () => <i class="fa fa-camera-retro fa-lg"></i>;
     }
   },
 });

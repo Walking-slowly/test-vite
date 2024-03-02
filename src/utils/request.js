@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus';
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASIC_API,
-  timeout: 5000,
+  timeout: 6000,
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
   },
