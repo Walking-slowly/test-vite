@@ -9,7 +9,7 @@ export default defineComponent({
     // 下拉数据源
     options: {
       type: Array,
-      required: true,
+      default: () => [],
     },
     value: {
       type: [String, Number, Array],
@@ -19,6 +19,12 @@ export default defineComponent({
     isTree: {
       type: Boolean,
       default: false,
+    },
+
+    // 插槽
+    slots: {
+      type: Object,
+      default: () => {},
     },
 
     isVirtualized: {
@@ -35,8 +41,9 @@ export default defineComponent({
       <el-tree-select
         v-model={[props.value, 'value']}
         data={props.options}
-        {...attrs}
-      />
+        {...attrs}>
+        {Object.keys(props.slots).map((slotKey) => props.slots[slotKey] && props.slots[slotKey]())}
+      </el-tree-select>
     );
 
     const defaultSelect: FC = () =>
@@ -44,15 +51,18 @@ export default defineComponent({
         <el-select-v2
           v-model={[props.value, 'value']}
           data={props.options}
-          {...attrs}
-        />
+          {...attrs}>
+          {Object.keys(props.slots).map(
+            (slotKey) => props.slots[slotKey] && props.slots[slotKey]()
+          )}
+        </el-select-v2>
       ) : (
         <el-select
           v-model={[props.value, 'value']}
           {...attrs}>
-          {(props.options || []).map((option: any) => (
-            <el-option {...option} />
-          ))}
+          {Object.keys(props.slots).map(
+            (slotKey) => props.slots[slotKey] && props.slots[slotKey]()
+          )}
         </el-select>
       );
 

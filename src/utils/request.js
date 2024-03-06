@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import router from '@/router/index.ts'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASIC_API,
@@ -46,9 +47,9 @@ service.interceptors.response.use(
 
 function showError(error) {
   // token失效
-  if (error.code === 403) {
+  if (error.code === 401) {
     ElMessage({
-      message: '验证失败，请重新登录！',
+      message: '登录已过期，请重新登录！',
       type: 'error',
       duration: 3 * 1000,
     });

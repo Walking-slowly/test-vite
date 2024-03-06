@@ -11,8 +11,17 @@
   .el-menu:not(.el-menu--collapse) {
     width: var(--el-aside-width);
   }
+  .el-menu-item:hover,
+  .el-sub-menu__title:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .el-menu--inline {
+    background-color: #2b2b35;
+  }
   .header-img-menuItem {
-    background: url(@/assets/img/logo.png) no-repeat;
+    background-image: url(@/assets/img/logo.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     height: var(--default-header-height);
     padding: 0 !important;
     line-height: var(--default-header-height);
@@ -21,12 +30,18 @@
     background: none;
     font-weight: bold;
     &::before {
-      content: '首页';
+      content: '';
+      background-image: url(@/assets/img/collapse-log.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
       font-size: 20px;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .is-active {
+    .el-sub-menu__title {
+      color: var(--el-color-primary);
     }
   }
 }

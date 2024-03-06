@@ -1,31 +1,9 @@
 import request from '@/utils/request.js';
 
-export function getMenuListBySubsystem(params) {
-  return request({
-    url: '/getMenuListBySubsystem',
-    method: 'get',
-    params,
-  });
-}
-
-export function getList(params) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(
-        request({
-          url: '/getList',
-          method: 'get',
-          params,
-        })
-      );
-    }, 3000);
-  });
-}
-
-// 测试真实后端接口
+// 登陆
 export function login(data) {
   return request({
-    url: '/salary/sysUser/login',
+    url: 'sysUser/login',
     method: 'post',
     data,
   });
@@ -34,8 +12,34 @@ export function login(data) {
 // 菜单
 export function nav(params) {
   return request({
-    url: '/salary/sysMenu/nav',
+    url: 'sysMenu/nav',
     method: 'get',
     params,
+  });
+}
+
+// 修改密码
+export function updatePwd(data) {
+  return request({
+    url: 'sysUser/updatePwd',
+    method: 'put',
+    data: data,
+  });
+}
+
+// 是否填写验证码
+export function getVerifStatus(params) {
+  return request({
+    url: 'sysUser/getVerifStatus',
+    method: 'get',
+    params,
+  });
+}
+
+// 用户信息
+export function getCurrentInfo() {
+  return request({
+    url: 'sysUser/info',
+    method: 'get',
   });
 }

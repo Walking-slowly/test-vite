@@ -17,7 +17,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 // import ElementPlus from 'unplugin-element-plus/vite'
 
 // mock
-import { viteMockServe } from 'vite-plugin-mock';
+// import { viteMockServe } from 'vite-plugin-mock';
 // eslint校验
 import eslintPlugin from 'vite-plugin-eslint';
 // svg
@@ -45,6 +45,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
         dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
       }),
 
+      // 自动导入无法使用vue内置component
       // Components({
       //   dirs: ['src/components'], // default
       //   extensions: ['vue'], // default
@@ -65,15 +66,15 @@ export default defineConfig(({ command }: ConfigEnv) => {
       //   compiler: 'vue3'
       // }),
 
-      viteMockServe({
-        mockPath: './mock',
-        ignore: /^\_/, // 忽略前缀路径
-        // 开发环境开启
-        localEnabled: command === 'serve',
-        // 生产环境
-        // prodEnabled: command !== 'serve',
-        prodEnabled: false,
-      }),
+      // viteMockServe({
+      //   mockPath: './mock',
+      //   ignore: /^\_/, // 忽略前缀路径
+      //   // 开发环境开启
+      //   localEnabled: command === 'serve',
+      //   // 生产环境
+      //   // prodEnabled: command !== 'serve',
+      //   prodEnabled: false,
+      // }),
 
       eslintPlugin({
         cache: false,
@@ -104,9 +105,9 @@ export default defineConfig(({ command }: ConfigEnv) => {
       open: true,
       hmr: true,
       proxy: {
-        '/salary': {
-          target: 'http://10.87.106.237:9797',
-          rewrite: (path) => path.replace(/^\/salary/, '/salary'),
+        '/assets': {
+          target: 'http://10.87.108.11:9797', // 李准
+          rewrite: path => path.replace(/^\/assets/, '/assets'),
         },
       },
     },

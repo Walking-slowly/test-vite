@@ -15,7 +15,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: '#FFFFFF',
+      default: '',
     },
   },
 
@@ -43,5 +43,6 @@ export default defineComponent({
   height: 1em;
   fill: currentColor;
   overflow: hidden;
+  cursor: pointer;
 }
 </style>

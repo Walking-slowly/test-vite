@@ -15,7 +15,7 @@
       v-model:page-size="pageNum"
       background
       layout="total, sizes, prev, pager, next, jumper"
-      :page-sizes="[50, 100, 200, 300]"
+      :page-sizes="[20, 50, 100, 200]"
       :total="total"
       class="common-pagination"
       @size-change="handleSizeChange"

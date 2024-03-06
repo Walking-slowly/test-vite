@@ -93,7 +93,6 @@ export default defineComponent({
           collapse={isCollapse.value}
           text-color={isDarkTheme.value ? '#FFF' : ''}>
           <el-menu-item
-            onClick={() => handleClick({ name: '首页', path: '/home' })}
             index="/home"
             class="header-img-menuItem"></el-menu-item>
         </el-menu>

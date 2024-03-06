@@ -18,7 +18,7 @@ export default [
             name: '表单',
             id: 101,
             url: 'test',
-            icon: 'el-menu',
+            icon: 'icon-yuan',
             children: [
               {
                 name: '表单-1',

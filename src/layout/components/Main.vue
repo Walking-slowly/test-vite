@@ -1,6 +1,6 @@
 <template>
   <el-tabs
-    v-model="route.path"
+    v-model="currentPath"
     type="card"
     class="main-tabs"
     @tab-click="handleSelectedTab"
@@ -11,7 +11,7 @@
       :key="item.path"
       :label="item.name"
       :name="item.path"
-      :closable="item.type"
+      :closable="!!item.type"
     />
   </el-tabs>
   <el-scrollbar
@@ -49,14 +49,17 @@ const route = useRoute();
 const router = useRouter();
 const useStore = useCommonStore();
 
+const currentPath = computed({
+  get: () => route.path,
+  set: (val) => router.push({ path: val }),
+});
+
 const handleSelectedTab = (tab: TabsPaneContext) => {
-  const row = useStore.routeTabs.filter(
-    <T, K extends keyof T>(i: { path: K }) => i.path === tab.paneName
-  );
-  if (!row.length) return;
-  router.push({
-    path: row[0].path,
-  });
+  // const row = useStore.routeTabs.filter(
+  //   <T, K extends keyof T>(i: { path: K }) => i.path === tab.paneName
+  // );
+  // if (!row.length) return;
+  currentPath.value = tab.paneName;
 };
 
 const handleRemoveTab = (path: TabPaneName) => {
@@ -86,7 +89,6 @@ const handleRemoveTab = (path: TabPaneName) => {
     background: #ffffff;
     margin: 0 3px;
     border-radius: 4px;
-    color: #333;
   }
   & ::v-deep(.el-tabs__item):first-child {
     margin-left: 0;

@@ -2,16 +2,18 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 const Layout = () => import('@/layout/index.vue');
 import { nav } from '@/api/index.js';
 
+import { ElLoading } from 'element-plus';
+
 // import.meta.glob 懒加载
 const modules = import.meta.glob('../views/**/*.vue');
-interface RouteRow {
+export type RouteRow = {
   url: string;
   name: string;
   path?: string;
   children?: Array<RouteRow>;
   list?: Array<RouteRow>;
   keepAlive?: Boolean;
-}
+};
 
 type NewRouteRow = RouteRow & RouteRecordRaw;
 
@@ -47,7 +49,7 @@ const ErrorRouter: RouteRecordRaw = {
   path: '/:pathMatch(.*)',
   name: '404',
   meta: {
-    title: 'Pge not found',
+    title: '404',
   },
   component: () => import('@/views/common/404.vue'),
 };
@@ -66,7 +68,7 @@ const router = createRouter({
 
 const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') => {
   return arr.map((item) => {
-    const { name, path, url } = item;
+    const { name, path } = item;
     return {
       path: `${routerPath}${path}`,
       name: item.list && item.list.length ? '' : path,
@@ -74,7 +76,8 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') 
         title: name,
         keepAlive: !!item.keepAlive,
       },
-      component: item.list && item.list.length ? null : modules[`../views/${url}/index.vue`],
+      component:
+        item.list && item.list.length ? null : modules[`../views${routerPath}${path}/index.vue`],
       children: fnAddDynamicMenuRoutes(item.list || [], `${routerPath}${path}/`),
     };
   });
@@ -85,18 +88,19 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') 
  */
 let isRefresh = false;
 
-const getFristPath: string = (list: any[]) => {
+const getFristPath: any = (list: RouteRow[]) => {
   let path = '';
   if (list[0].list && list[0].list.length) {
     return getFristPath(list[0].list);
   } else {
-    path = list[0].path;
+    path = list[0].path || '';
   }
   return path;
 };
 
 // 路由授权
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title ? to.meta.title : '盈峰环境资产系统管理平台';
   if (to.name === 'login') {
     next();
     return;
@@ -113,28 +117,39 @@ router.beforeEach(async (to, from, next) => {
 
   // 不存在菜单和重新刷新都需要重新添加动态路由 否则页面空白
   if (!sessionStorage.getItem('menuList') || !isRefresh) {
-    let { menuList, permissions, roleTypeList } = await nav();
-    defaultRoute.children = fnAddDynamicMenuRoutes(menuList || []);
-    router.addRoute(defaultRoute);
-    router.addRoute(ErrorRouter);
-    sessionStorage.setItem('menuList', JSON.stringify(menuList || []));
-    sessionStorage.setItem('permissions', JSON.stringify(permissions || []));
-    sessionStorage.setItem('roleTypeList', JSON.stringify(roleTypeList || []));
+    const loading = ElLoading.service({ lock: true });
 
-    isRefresh = true;
+    nav()
+      .then(({ menuList, permissions, roleTypeList }) => {
+        defaultRoute.children = fnAddDynamicMenuRoutes(menuList || []);
+        router.addRoute(defaultRoute);
+        router.addRoute(ErrorRouter);
+        sessionStorage.setItem('menuList', JSON.stringify(menuList || []));
+        sessionStorage.setItem('permissions', JSON.stringify(permissions || []));
+        sessionStorage.setItem('roleTypeList', JSON.stringify(roleTypeList || []));
+        loading.close();
+        isRefresh = true;
 
-    if (to.path === '/home') {
-      next({
-        name: getFristPath(menuList),
-        replace: true,
+        if (to.path === '/home') {
+          next({
+            name: getFristPath(menuList),
+            replace: true,
+          });
+        } else {
+          // addRoute只会添加一个新的路由， 如果新增加的路由与当前位置相匹配， 所以刷新后需要手动导航地址 防止页面白屏
+          next({
+            ...to,
+            replace: true,
+          });
+        }
+      })
+      .catch(() => {
+        loading.close();
+        next({
+          name: 'login',
+          replace: true,
+        });
       });
-    } else {
-      // addRoute只会添加一个新的路由， 如果新增加的路由与当前位置相匹配， 所以刷新后需要手动导航地址 防止页面白屏
-      next({
-        ...to,
-        replace: true,
-      });
-    }
   } else {
     next();
   }

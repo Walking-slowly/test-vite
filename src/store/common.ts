@@ -1,11 +1,16 @@
 import { defineStore } from 'pinia';
+import type { RouteRow } from '@/router/index.ts';
+
+type RouteRows = typeof RouteRow;
 
 export const useCommonStore = defineStore('common', {
   state: () => {
     return {
       isDarkTheme: true,
       isCollapse: false,
+      isFullscreen: false,
       routeTabs: [],
+      userInfo: {},
     };
   },
 
@@ -21,9 +26,20 @@ export const useCommonStore = defineStore('common', {
       });
     },
 
-    SET_ROUTETABS(value: Array<any>) {
+    SET_ROUTETABS(value: RouteRows) {
       this.$patch((state) => {
         state.routeTabs = value;
+      });
+    },
+
+    SET_FULLSCREEN(value: boolean) {
+      this.$patch((state) => {
+        state.isFullscreen = value;
+      });
+    },
+    SET_USERINFO(value: object) {
+      this.$patch((state) => {
+        state.userInfo = value;
       });
     },
   },
@@ -32,7 +48,7 @@ export const useCommonStore = defineStore('common', {
   persist: {
     // 开启数据持久化
     enabled: true,
-    strategies: [{ paths: ['isDarkTheme', 'isCollapse'] }],
+    strategies: [{ paths: ['isDarkTheme', 'isCollapse', 'isFullscreen', 'routeTabs'] }],
     // strategies: [{ key: '', storage: localStorage }],
   },
 });

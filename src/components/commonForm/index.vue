@@ -5,25 +5,25 @@
   >
     <el-row :gutter="gutter">
       <el-col
-        v-for="{ span, events, ...other } in cols"
-        :key="other.prop"
+        v-for="({ span, events, ...other }, i) in cols"
+        :key="i"
         :span="span || 24"
       >
         <el-form-item v-bind="{ ...other }">
-          <slot
-            v-if="other.elType === 'custom'"
-            :name="other.prop"
-          />
-          <component
-            :is="pipeComponents(other)"
-            v-else
-            v-bind="{
-              clearable: true,
-              ...other,
-            }"
-            v-model="modelValue[other.prop]"
-            v-on="events || {}"
-          />
+          <template v-if="other.elType === 'custom'">
+            <component :is="other.cellRenderer && other.cellRenderer()" />
+          </template>
+          <template v-else>
+            <component
+              :is="pipeComponents(other)"
+              v-bind="{
+                clearable: true,
+                ...other,
+              }"
+              v-model="modelValue[other.prop]"
+              v-on="events || {}"
+            />
+          </template>
         </el-form-item>
       </el-col>
     </el-row>
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { OptionItemProps } from 'element-plus/es/components/select-v2/src/select.types';
+import { OptionGroup } from 'element-plus/es/components/select-v2/src/select.types';
 import type { FormInstance } from 'element-plus';
 
 interface FormItem {
@@ -41,7 +41,8 @@ interface FormItem {
   label?: string; // 表单lebel
   placeholder?: string; // 继承element placeholder
   events?: object; // 继承element 事件
-  options?: Array<OptionItemProps>; // select options
+  cellRenderer?: Function;
+  options?: Array<OptionGroup>; // select options
 }
 
 interface FormProps {
@@ -63,9 +64,9 @@ const props = withDefaults(defineProps<FormProps>(), {
 const formRef = ref<FormInstance>();
 const { gutter, modelValue } = toRefs(props);
 
-const pipeComponents = (item: FormItem): any => {
+const pipeComponents = (item: FormItem): string | null => {
   // 自定义
-  if (item.elType === 'custom') return;
+  if (item.elType === 'custom') return null;
 
   //element components
   return item.elType;
@@ -74,7 +75,7 @@ const pipeComponents = (item: FormItem): any => {
 // validate
 const validate = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    (formRef.value as FormInstance).validate((valid) => {
+    (formRef.value as FormInstance).validate(valid => {
       if (valid) resolve(true);
       reject(false);
     });
@@ -100,5 +101,31 @@ defineExpose({
 }
 ::v-deep(.el-form-item) {
   margin-bottom: 8px;
+}
+::v-deep(.el-input) {
+  .el-input__wrapper {
+    .el-input__suffix {
+      position: relative;
+      border-left: 1px solid #dcdfe6;
+      &::before {
+        content: '';
+        position: absolute;
+        background-color: #f9f9f9;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: -10px;
+        border-radius: 0 4px 4px 0;
+        z-index: 0;
+      }
+    }
+  }
+}
+::v-deep(.el-input__inner) {
+  z-index: 1;
+  background-color: transparent;
+}
+::v-deep(.el-divider--horizontal) {
+  margin: 8px 0;
 }
 </style>
