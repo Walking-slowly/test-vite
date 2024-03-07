@@ -35,5 +35,8 @@ module.exports = {
     'arrow-spacing': 1, //=>的前/后括号
     'camelcase': 0, //取消强制驼峰法命名
     "eqeqeq": 1, //使用全等
+    "vue/html-indent": 0,
+    "vue/html-self-closing": 0,
+    "vue/html-closing-bracket-newline": 0
   }
 }

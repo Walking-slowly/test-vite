@@ -70,7 +70,7 @@
                       :src="`/assets/sysUser/captcha.jpg?uuid=${formValue.uuid}`"
                       alt=""
                       @click="getCaptcha"
-                    >
+                    />
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -80,7 +80,8 @@
                   :loading="loading"
                   class="login-page__formSubmit"
                   @click.prevent="handleLogin"
-                >登 录</el-button>
+                  >登 录</el-button
+                >
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -88,7 +89,8 @@
             label="扫码登录"
             name="second"
             lazy
-          >Config</el-tab-pane>
+            >Config</el-tab-pane
+          >
         </el-tabs>
       </div>
     </div>
@@ -149,9 +151,9 @@ const handleLogin = () => {
             loading.value = false;
           }, 500);
         })
-        .catch((e) => {
+        .catch(e => {
           loading.value = false;
-          if (e) getVerifStatusFc(formValue.value.username);
+          if (e && e.code !== 'ECONNABORTED') getVerifStatusFc(formValue.value.username);
         });
     } else {
       console.log('error submit!', fields);
@@ -167,8 +169,8 @@ watchDebounced(
   { debounce: 300, maxWait: 1000 }
 );
 
-const getVerifStatusFc = (userName) => {
-  getVerifStatus({ userName }).then((data) => {
+const getVerifStatusFc = userName => {
+  getVerifStatus({ userName }).then(data => {
     isCaptchaVisiable.value = data === 1;
     getCaptcha();
   });

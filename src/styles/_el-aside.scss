@@ -16,7 +16,29 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
   .el-menu--inline {
-    background-color: #2b2b35;
+    background-color: #f1f1f1;
+    .el-menu-item {
+      position: relative;
+      &::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: #bfcbd9;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        margin-left: 2.5px;
+        background-color: #dcdfe6;
+        transform: translateX(-50%);
+      }
+    }
   }
   .header-img-menuItem {
     background-image: url(@/assets/img/logo.png);
@@ -42,6 +64,31 @@
   .is-active {
     .el-sub-menu__title {
       color: var(--el-color-primary);
+    }
+
+    .el-menu--inline {
+      .el-menu-item.is-active {
+        &::after {
+          background-color: var(--el-color-primary);
+        }
+      }
+    }
+  }
+
+  .el-sub-menu .el-icon {
+    margin-right: 10px !important;
+  }
+}
+.dark .el-aside {
+  .el-menu--inline {
+    background-color: #2b2b35;
+    .el-menu-item {
+      &::after {
+        background-color: #c4c4c4;
+      }
+      &::before {
+        background-color: #474753;
+      }
     }
   }
 }

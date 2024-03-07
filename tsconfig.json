@@ -14,7 +14,7 @@
     // "noUnusedParameters": true,  /* 检查未使用的函数参数（只提示、不报错） */
     // "noUnusedLocals": true,  /* 检查只声明、未使用的局部变量（只提示、不报错） */
     // "strictNullChecks": false,  /* 不允许把 null、undefined 赋值给其他类型的变量 */
-    "noImplicitAny": false, /* 不允许隐式 Any 类型 */
+    "noImplicitAny": false /* 不允许隐式 Any 类型 */,
     "removeComments": true /*  删除注释  */,
     "resolveJsonModule": true,
     // "sourceMap": true,            /* 生成目标文件的sourceMap文件 */
@@ -30,14 +30,7 @@
     "noEmit": true, // 不是输出编译文件
     "types": ["unplugin-vue-define-options", "pinia-plugin-persist", "node"]
   },
-  "include": [
-    "src/**/*.ts",
-    "**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "src/**/*.jsx",
-    "src/**/*.js"
-  ], // 表示编译需要编译得文件或者目录
+  "include": ["src/**/*.ts", "**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.jsx", "src/**/*.js"], // 表示编译需要编译得文件或者目录
   // "extends": "./tsconfig.base.json", // 引入其他配置文件，继承配置
   // "files": [], // 表示编译需要编译得单个文件
   "references": [{ "path": "./tsconfig.node.json" }], // 指定依赖得工程

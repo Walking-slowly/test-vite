@@ -12,6 +12,8 @@
   --default-header-height: 50px;
   // 导航宽度
   --el-aside-width: 230px;
+
+  --el-menu-level-padding: 22px;
 }
 
 *,
@@ -25,8 +27,8 @@ body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-    '微软雅黑', Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial,
+    sans-serif;
   font-size: 16px;
   line-height: 1.15;
   background-color: #f9f9f9;
@@ -79,8 +81,4 @@ img {
 
 .el-menu--vertical.el-menu--popup-container {
   background: var(--el-bg-color-page);
-}
-
-.el-sub-menu .el-icon {
-  width: var(--el-menu-icon-width) !important;
 }

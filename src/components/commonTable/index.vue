@@ -60,12 +60,12 @@ const emit = defineEmits(['changePage', 'changeSelect', 'update:currentPage', 'u
 
 const current = computed({
   get: () => currentPage.value,
-  set: (val) => emit('update:currentPage', val),
+  set: val => emit('update:currentPage', val),
 });
 
 const pageNum = computed({
   get: () => pageSize.value,
-  set: (val) => emit('update:pageSize', val),
+  set: val => emit('update:pageSize', val),
 });
 
 const handleCurrentChange = () => {

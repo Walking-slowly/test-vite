@@ -15,7 +15,7 @@ interface RowsItem {
 export default defineComponent({
   name: 'CommonAside',
   setup() {
-    const menuList: Array<RowsItem> = JSON.parse(sessionStorage.getItem('menuList') || '') || [];
+    const menuList: Array<RowsItem> = JSON.parse(sessionStorage.getItem('menuList') || '[]');
     const route = useRoute();
     const router = useRouter();
     const useStore = useCommonStore();
@@ -24,7 +24,7 @@ export default defineComponent({
     const isDarkTheme = computed(() => useStore.isDarkTheme);
     const routeTabs = computed({
       get: () => useStore.routeTabs,
-      set: (val) => useStore.SET_ROUTETABS(val),
+      set: val => useStore.SET_ROUTETABS(val),
     });
 
     const handleClick = (row: RowsItem) => {
@@ -36,7 +36,7 @@ export default defineComponent({
     };
 
     // 目录
-    const MenuTtem: FC<RowsItem> = (item) => {
+    const MenuTtem: FC<RowsItem> = item => {
       const { path, name, icon, isParent, parentUrl, list } = item;
       return (
         <>
@@ -72,7 +72,7 @@ export default defineComponent({
         <el-subMenu
           index={`${parentUrl}${path}`}
           v-slots={slots}>
-          {list?.map((i) => (
+          {list?.map(i => (
             <MenuTtem
               {...i}
               {...{ parentUrl: `${parentUrl}${path}/` }}
@@ -103,7 +103,7 @@ export default defineComponent({
             default-active={route.path}
             text-color={isDarkTheme.value ? '#FFF' : ''}
             unique-opened>
-            {menuList.map((item) => {
+            {menuList.map(item => {
               const tag = item.list && item.list.length ? SubmenuItem : MenuTtem;
               return (
                 <tag

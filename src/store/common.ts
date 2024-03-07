@@ -16,29 +16,29 @@ export const useCommonStore = defineStore('common', {
 
   actions: {
     SET_ISTHEME(value: boolean) {
-      this.$patch((state) => {
+      this.$patch(state => {
         state.isDarkTheme = value;
       });
     },
     SET_ISCOLLAPSE(value: boolean) {
-      this.$patch((state) => {
+      this.$patch(state => {
         state.isCollapse = value;
       });
     },
 
     SET_ROUTETABS(value: RouteRows) {
-      this.$patch((state) => {
+      this.$patch(state => {
         state.routeTabs = value;
       });
     },
 
     SET_FULLSCREEN(value: boolean) {
-      this.$patch((state) => {
+      this.$patch(state => {
         state.isFullscreen = value;
       });
     },
     SET_USERINFO(value: object) {
-      this.$patch((state) => {
+      this.$patch(state => {
         state.userInfo = value;
       });
     },
