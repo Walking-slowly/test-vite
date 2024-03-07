@@ -51,7 +51,7 @@ const useStore = useCommonStore();
 
 const currentPath = computed({
   get: () => route.path,
-  set: (val) => router.push({ path: val }),
+  set: val => router.push({ path: val }),
 });
 
 const handleSelectedTab = (tab: TabsPaneContext) => {
