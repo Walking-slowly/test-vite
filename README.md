@@ -7,7 +7,18 @@
 <commonFrom v-model="formModel" :cols="cols"/>
 ```
 
-> **cols** 支持拓展类型（elType）, 自定义公共组件在**components**文件夹创建，会统一注册， 定制化请使用 slot 构建个性化组件
+| 属性名                                                        | 说明                                                        | 类型      | 默认值 |
+| ------------------------------------------------------------- | ----------------------------------------------------------- | --------- | ------ |
+| elType                                                        | 可以是 elementPlus 组件名或者是公共组件名或者 custom 自定义 | string    | -      |
+| span                                                          | elementPlus 栅格布局共 24 格                                | number    | 24     |
+| prop                                                          | 表单需要输入的值                                            | string    | -      |
+| label                                                         | 表单 name                                                   | string    | -      |
+| events                                                        | elementPlus 各种组件支持的事件如：input change 等           | Object    | -      |
+| cellRenderer                                                  | 自定义组件需要配置 elType: custom                           | Component | -      |
+| slots                                                         | elementPlus 插槽集合                                        | Object    | -      |
+| 还有继承其他 elementPlus 组件属性如：placeholder，disabled 等 | -                                                           | -         | -      |
+
+> **cols** 支持拓展类型（elType）, 自定义公共组件在**components**文件夹创建，会统一注册， 定制化请使用 cellRenderer 构建个性化组件
 
 ```js
 // 所有表格统一使用 commonTable
@@ -34,7 +45,7 @@
 
 ```js
 /**
- * 1. vscode需要安装Prettier和ESlint插件
+ * 1. vscode需要安装Prettier和ESlint插件 Vue-Official
  * 2. 代码格式化需要配置vscode settings.json， 相关格式化规则（.prettierrc）
  * 3. 代码风格 （.eslintrc）
  */
@@ -43,7 +54,7 @@
   "editor.fontFamily": "Consolas, 'JetBrains Mono', monospace",
   "workbench.colorTheme": "Default Dark+",
   // 保存自动格式化
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   // 可以选择指定只格式化那些类型文件
   // "[vue]": {
   //     "editor.defaultFormatter": "esbenp.prettier-vscode"
