@@ -1,9 +1,11 @@
 .el-dialog {
   border-radius: 6px;
   overflow: hidden;
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
   .el-dialog__header {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0 16px;
     margin: 0;
     height: 39px;
     line-height: 39px;
@@ -17,7 +19,11 @@
       transform: translateY(-50%);
     }
   }
+  .el-dialog__body {
+    padding: 15px 20px;
+  }
   .el-dialog__footer {
+    padding: 16px 16px 0 16px;
     border-top: 1px solid #dcdfe6;
   }
 }

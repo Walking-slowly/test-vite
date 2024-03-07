@@ -11,6 +11,18 @@
             :name="!isCollapse ? 'icon-fold' : 'icon-expand'"
           />
         </span>
+
+        <el-breadcrumb
+          separator="/"
+          style="margin-left: 15px"
+        >
+          <el-breadcrumb-item
+            v-for="(item, i) in breadcrumbData"
+            :key="i"
+            :to="i === breadcrumbData.length - 1 ? null : { path: breadcrumbData[breadcrumbData.length - 1].path }"
+            >{{ item.meta.title }}</el-breadcrumb-item
+          >
+        </el-breadcrumb>
       </div>
 
       <div
@@ -104,7 +116,8 @@
           <el-button
             :loading="loading"
             @click="handleClose"
-          >取 消</el-button>
+            >取 消</el-button
+          >
           <el-button
             type="primary"
             :loading="loading"
@@ -123,6 +136,7 @@ import { useCommonStore } from '@/store/common.js';
 import { useDark /* useToggle */ } from '@vueuse/core';
 import { ElMessageBox } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
+import type { RouteRow } from '@/router/index.ts';
 
 import screenfull from 'screenfull';
 
@@ -132,6 +146,8 @@ defineOptions({
   name: 'CommonHeader',
 });
 
+type RouteRows = typeof RouteRow;
+
 interface RuleForm {
   username: string;
   password: string;
@@ -140,9 +156,20 @@ interface RuleForm {
 }
 
 const router = useRouter();
+const route = useRoute();
 const useStore = useCommonStore();
 
-console.log(useRoute(), 'ss');
+let breadcrumbData = ref<RouteRows>([]);
+// 面包屑
+watch(
+  route,
+  (newValue, oldValue) => {
+    breadcrumbData.value = (newValue.matched || []).filter(i => i.meta.title);
+  },
+  {
+    immediate: true,
+  }
+);
 
 let formModel = ref({
   username: '',
@@ -171,7 +198,7 @@ const rules = reactive<FormRules<RuleForm>>({
 
 // 获取用户信息
 const getCurrentInfoFc = () => {
-  getCurrentInfo().then((data) => {
+  getCurrentInfo().then(data => {
     formModel.value.username = data.realName || data.username;
     useStore.SET_USERINFO({
       username: data.realName || data.username,
@@ -212,7 +239,7 @@ const handleSubmit = () => {
 // 深色切换
 const isDarkTheme = computed({
   get: () => useStore.isDarkTheme,
-  set: (val) => useStore.SET_ISTHEME(val),
+  set: val => useStore.SET_ISTHEME(val),
 });
 const isDark = useDark();
 isDark.value = isDarkTheme.value;
@@ -221,13 +248,13 @@ isDark.value = isDarkTheme.value;
 // 是否展开
 const isCollapse = computed({
   get: () => useStore.isCollapse,
-  set: (val) => useStore.SET_ISCOLLAPSE(val),
+  set: val => useStore.SET_ISCOLLAPSE(val),
 });
 
 //是否全屏
 let isFullscreen = computed({
   get: () => useStore.isFullscreen,
-  set: (val) => useStore.SET_FULLSCREEN(val),
+  set: val => useStore.SET_FULLSCREEN(val),
 });
 const handleToggleFullscreen = () => screenfull.toggle();
 const handleChange = () => {

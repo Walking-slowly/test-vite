@@ -121,11 +121,35 @@ defineExpose({
     }
   }
 }
+::v-deep(.el-select) {
+  .el-select__suffix {
+    position: absolute;
+    right: 11px;
+    top: 1px;
+    bottom: 1px;
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid #dcdfe6;
+    .el-select__icon {
+      margin-left: 8px;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: #f9f9f9;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: -10px;
+      border-radius: 0 4px 4px 0;
+      z-index: 0;
+    }
+  }
+}
 ::v-deep(.el-input__inner) {
   z-index: 1;
   background-color: transparent;
 }
 ::v-deep(.el-divider--horizontal) {
-  margin: 8px 0;
+  margin: 0;
 }
 </style>

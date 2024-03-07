@@ -22,14 +22,12 @@ export default defineComponent({
 
   setup(prop) {
     if (prop.name.indexOf('el-') === 0) {
-      return () => (
-        <el-icon size={prop.fontSize}>{h(resolveComponent(`${prop.name.substring(3)}`))}</el-icon>
-      );
+      return () => <el-icon size={prop.fontSize}>{h(resolveComponent(`${prop.name.substring(3)}`))}</el-icon>;
     } else {
       return () => (
         <SvgIcon
           size={prop.fontSize}
-          iconName={prop.name}
+          iconName={prop.name.indexOf('icon-') === 0 ? prop.name : `icon-${prop.name}`}
         />
       );
     }
