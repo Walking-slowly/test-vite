@@ -1,6 +1,7 @@
 <template>
   <div
     v-loading="loading"
+    :style="attrs.style as string || ''"
     class="default-common-table"
   >
     <component

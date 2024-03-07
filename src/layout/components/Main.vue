@@ -59,7 +59,7 @@ const handleSelectedTab = (tab: TabsPaneContext) => {
   //   <T, K extends keyof T>(i: { path: K }) => i.path === tab.paneName
   // );
   // if (!row.length) return;
-  currentPath.value = tab.paneName;
+  currentPath.value = tab.paneName as string;
 };
 
 const handleRemoveTab = (path: TabPaneName) => {

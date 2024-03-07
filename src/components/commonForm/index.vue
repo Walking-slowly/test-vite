@@ -5,17 +5,17 @@
   >
     <el-row :gutter="gutter">
       <el-col
-        v-for="({ span, events, ...other }, i) in cols"
+        v-for="({ span, events, cellRenderer, ...other }, i) in cols"
         :key="i"
         :span="span || 24"
       >
         <el-form-item v-bind="{ ...other }">
           <template v-if="other.elType === 'custom'">
-            <component :is="other.cellRenderer && other.cellRenderer()" />
+            <component :is="cellRenderer && cellRenderer()" />
           </template>
           <template v-else>
             <component
-              :is="pipeComponents(other)"
+              :is="other.elType"
               v-bind="{
                 clearable: true,
                 ...other,
@@ -63,14 +63,6 @@ const props = withDefaults(defineProps<FormProps>(), {
 
 const formRef = ref<FormInstance>();
 const { gutter, modelValue } = toRefs(props);
-
-const pipeComponents = (item: FormItem): string | null => {
-  // 自定义
-  if (item.elType === 'custom') return null;
-
-  //element components
-  return item.elType;
-};
 
 // validate
 const validate = (): Promise<boolean> => {
