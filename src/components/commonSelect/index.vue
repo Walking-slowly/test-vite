@@ -42,7 +42,7 @@ export default defineComponent({
         v-model={[props.value, 'value']}
         data={props.options}
         {...attrs}>
-        {Object.keys(props.slots).map((slotKey) => props.slots[slotKey] && props.slots[slotKey]())}
+        {Object.keys(props.slots || {}).map((slotKey) => props.slots[slotKey] && props.slots[slotKey]())}
       </el-tree-select>
     );
 
@@ -50,9 +50,9 @@ export default defineComponent({
       props.isVirtualized ? (
         <el-select-v2
           v-model={[props.value, 'value']}
-          data={props.options}
+          options={props.options}
           {...attrs}>
-          {Object.keys(props.slots).map(
+          {Object.keys(props.slots || {}).map(
             (slotKey) => props.slots[slotKey] && props.slots[slotKey]()
           )}
         </el-select-v2>
@@ -60,7 +60,7 @@ export default defineComponent({
         <el-select
           v-model={[props.value, 'value']}
           {...attrs}>
-          {Object.keys(props.slots).map(
+          {Object.keys(props.slots || {}).map(
             (slotKey) => props.slots[slotKey] && props.slots[slotKey]()
           )}
         </el-select>

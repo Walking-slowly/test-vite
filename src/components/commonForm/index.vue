@@ -5,7 +5,7 @@
   >
     <el-row :gutter="gutter">
       <el-col
-        v-for="({ span, events, cellRenderer, ...other }, i) in cols"
+        v-for="({ span, events, cellRenderer, options, ...other }, i) in cols"
         :key="i"
         :span="span || 24"
       >
@@ -18,6 +18,7 @@
               :is="other.elType"
               v-bind="{
                 clearable: true,
+                options,
                 ...other,
               }"
               v-model="modelValue[other.prop]"
@@ -121,7 +122,7 @@ defineExpose({
     bottom: 1px;
     border-radius: 0 4px 4px 0;
     border-left: 1px solid #dcdfe6;
-    .el-select__icon {
+    .el-select__caret {
       margin-left: 8px;
     }
     &::before {
