@@ -17,12 +17,18 @@ export const useTable = (callBack: Function): object => {
     callBack && callBack();
   };
 
+  const init = () => {
+    currentPage.value = 1;
+    callBack && callBack();
+  }
+
   return {
     currentPage,
     pageSize,
     total,
     loading,
 
+    init,
     onChangePage,
   };
 };

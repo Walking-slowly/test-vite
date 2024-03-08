@@ -6,6 +6,7 @@
     <el-row :gutter="gutter">
       <el-col
         v-for="({ span, events, cellRenderer, options, ...other }, i) in cols"
+        v-show="isShow && isUp ? i <= showCols || i === cols.length - 1 : true"
         :key="i"
         :span="span || 24"
       >
@@ -27,13 +28,33 @@
           </template>
         </el-form-item>
       </el-col>
+      <el-col
+        v-if="isDivider"
+        :span="24"
+        class="form-divider"
+      >
+        <div
+          :title="isUp ? '展开' : '收起'"
+          @click="handleSwitch"
+        >
+          <common-icon
+            v-if="isShow"
+            :class="{ downIcon: isUp }"
+            :name="isUp ? 'icon-down' : 'icon-up'"
+            :font-size="14"
+          />
+        </div>
+
+        <el-divider />
+      </el-col>
     </el-row>
   </el-form>
 </template>
 
 <script lang="ts" setup>
 import { OptionGroup } from 'element-plus/es/components/select-v2/src/select.types';
-import type { FormInstance } from 'element-plus';
+import type { FormInstance, FormItemProp } from 'element-plus';
+import { Arrayable } from 'element-plus/es/utils/typescript';
 
 interface FormItem {
   elType: string; // 输入框类型
@@ -52,6 +73,7 @@ interface FormProps {
     [key: string]: any;
   };
   gutter?: number;
+  isDivider?: Boolean;
 }
 
 defineOptions({
@@ -60,7 +82,28 @@ defineOptions({
 
 const props = withDefaults(defineProps<FormProps>(), {
   gutter: () => 10,
+  isDivider: () => true,
 });
+
+// 收起时显示的Cols
+const btnCols = computed(() => props.cols[props.cols.length - 1].span || 0);
+const showCols = computed(() => {
+  let res = 24 - btnCols.value;
+
+  return props.cols.findIndex(i => {
+    res -= i.span || 0;
+    if (res === 0) return i;
+  });
+});
+
+// 是否显示展开收起 >= 24
+const isShow = computed(() => {
+  return props.cols.map(i => i.span || 0).reduce((a, b) => a + b) > 24;
+});
+let isUp = ref(false);
+const handleSwitch = () => {
+  isUp.value = !isUp.value;
+};
 
 const formRef = ref<FormInstance>();
 const { gutter, modelValue } = toRefs(props);
@@ -76,8 +119,8 @@ const validate = (): Promise<boolean> => {
 };
 
 // resetFields
-const resetFields = () => {
-  (formRef.value as FormInstance).resetFields();
+const resetFields = (arr: Arrayable<FormItemProp> | undefined) => {
+  (formRef.value as FormInstance).resetFields(arr);
 };
 
 defineExpose({
@@ -143,6 +186,19 @@ defineExpose({
   background-color: transparent;
 }
 ::v-deep(.el-divider--horizontal) {
-  margin: 0;
+  margin: 1px 0 8px 0;
+}
+.form-divider {
+  position: relative;
+  ::v-deep(.el-icon) {
+    position: absolute;
+    left: 50%;
+    top: -10px;
+    transform: translateX(-50%);
+    color: #717377;
+  }
+  ::v-deep(.svg-icon__icon-down) {
+    top: -1px !important;
+  }
 }
 </style>
