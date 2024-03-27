@@ -67,17 +67,17 @@ const router = createRouter({
 });
 
 const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') => {
-  return arr.map((item) => {
+  return arr.map(item => {
     const { name, path } = item;
     return {
       path: `${routerPath}${path}`,
       name: item.list && item.list.length ? '' : path,
+      replace: true,
       meta: {
         title: name,
         keepAlive: !!item.keepAlive,
       },
-      component:
-        item.list && item.list.length ? null : modules[`../views${routerPath}${path}/index.vue`],
+      component: item.list && item.list.length ? null : modules[`../views${routerPath}${path}/index.vue`],
       children: fnAddDynamicMenuRoutes(item.list || [], `${routerPath}${path}/`),
     };
   });
@@ -100,7 +100,7 @@ const getFristPath: any = (list: RouteRow[]) => {
 
 // 路由授权
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title ? to.meta.title : '盈峰环境资产系统管理平台';
+  document.title = typeof to.meta.title === 'string' ? to.meta.title : '盈峰环境资产系统管理平台';
   if (to.name === 'login') {
     next();
     return;

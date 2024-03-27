@@ -37,6 +37,7 @@ module.exports = {
     "eqeqeq": 1, //使用全等
     "vue/html-indent": 0,
     "vue/html-self-closing": 0,
-    "vue/html-closing-bracket-newline": 0
+    "vue/html-closing-bracket-newline": 0,
+    'vue/one-component-per-file': 0
   }
 }

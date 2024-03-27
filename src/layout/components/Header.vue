@@ -35,19 +35,19 @@
         />
       </div>
 
-      <!-- <el-switch
+      <el-switch
         v-model="isDarkTheme"
         inline-prompt
         style="margin-left: 15px"
         active-icon="Moon"
         inactive-icon="Sunny"
         @change="toggleDark()"
-      /> -->
+      />
 
       <el-dropdown
         :show-timeout="0"
         placement="bottom"
-        style="margin-left: 15px"
+        style="margin-left: 15px; color: var(--color)"
       >
         <span class="flex-center">
           <common-icon
@@ -75,8 +75,10 @@
       <common-form
         ref="updatePasswordForm"
         v-model="formModel"
+        :show-message="false"
         label-width="80px"
         :rules="rules"
+        :is-divider="false"
         :cols="[
           {
             elType: 'el-input',
@@ -131,9 +133,15 @@
   </el-header>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'CommonHeader',
+};
+</script>
+
 <script setup lang="ts">
 import { useCommonStore } from '@/store/common.js';
-import { useDark /* useToggle */ } from '@vueuse/core';
+import { useDark, useToggle } from '@vueuse/core';
 import { ElMessageBox } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
 import type { RouteRow } from '@/router/index.ts';
@@ -141,10 +149,6 @@ import type { RouteRow } from '@/router/index.ts';
 import screenfull from 'screenfull';
 
 import { updatePwd, getCurrentInfo } from '@/api/index.js';
-
-defineOptions({
-  name: 'CommonHeader',
-});
 
 type RouteRows = typeof RouteRow;
 
@@ -243,7 +247,7 @@ const isDarkTheme = computed({
 });
 const isDark = useDark();
 isDark.value = isDarkTheme.value;
-// const toggleDark = useToggle(isDark);
+const toggleDark = useToggle(isDark);
 
 // 是否展开
 const isCollapse = computed({

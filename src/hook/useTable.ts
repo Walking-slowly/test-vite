@@ -6,9 +6,10 @@
  *  total: Number
  *  loading: Boolean
  *  onChangePage: Function
+ *  init: Function
  * }}
  */
-export const useTable = (callBack: Function): object => {
+export default (callBack: Function): object => {
   const currentPage = ref<number>(1);
   const pageSize = ref<number>(20);
   const total = ref<number>(0);
@@ -20,7 +21,7 @@ export const useTable = (callBack: Function): object => {
   const init = () => {
     currentPage.value = 1;
     callBack && callBack();
-  }
+  };
 
   return {
     currentPage,

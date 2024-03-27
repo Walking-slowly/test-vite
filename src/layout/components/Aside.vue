@@ -29,7 +29,7 @@ export default defineComponent({
 
     const handleClick = (row: RowsItem) => {
       const index = routeTabs.value.findIndex((i: RowsItem) => i.path === row.path);
-      router.push({ path: row.path });
+      router.replace({ path: row.path });
 
       if (index >= 0) return;
       routeTabs.value.push(row);

@@ -24,9 +24,9 @@ export default defineComponent({
 
     return () => (
       <el-table
+        height={'100%'}
         {...props}
-        {...other}
-        height={'100%'}>
+        {...other}>
         {props.isSelect && (
           <el-table-column
             type="selection"
@@ -36,16 +36,13 @@ export default defineComponent({
         )}
         {(columns as Column).map((i: Column) => (
           <el-table-column
+            show-overflow-tooltip={true}
             {...i}
             label={i.title}
             v-slots={{
               default: (res: any) => i.cellRenderer && i.cellRenderer({ ...res, rowData: res.row }),
               header: (res: any) =>
-                i.headerCellRenderer ? (
-                  i.headerCellRenderer({ ...res, rowData: res.row })
-                ) : (
-                  <span>{i.title}</span>
-                ),
+                i.headerCellRenderer ? i.headerCellRenderer({ ...res, rowData: res.row }) : <span>{i.title}</span>,
             }}
           />
         ))}

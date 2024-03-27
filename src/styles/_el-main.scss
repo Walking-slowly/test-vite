@@ -1,5 +1,6 @@
 .el-main {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
   padding: 0 !important;
   color: #303133;
   & > div {

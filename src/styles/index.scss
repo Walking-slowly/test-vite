@@ -7,15 +7,6 @@
 @import 'el-table';
 @import 'el-dialog';
 
-:root {
-  // 头部高度
-  --default-header-height: 50px;
-  // 导航宽度
-  --el-aside-width: 230px;
-
-  --el-menu-level-padding: 22px;
-}
-
 *,
 *:before,
 *:after {
@@ -31,7 +22,7 @@ body {
     sans-serif;
   font-size: 16px;
   line-height: 1.15;
-  background-color: #f9f9f9;
+  background-color: #e6e6e6;
 }
 
 li {
@@ -41,7 +32,7 @@ li {
 input:-webkit-autofill,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
   background-color: rgb(0, 0, 0) !important;
   background-image: none !important;
   color: rgb(0, 0, 0) !important;
@@ -77,6 +68,15 @@ img {
   display: flex;
   align-items: center;
   flex-flow: nowrap;
+}
+
+.assets-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #909399;
+  font-size: 14px;
 }
 
 .el-menu--vertical.el-menu--popup-container {

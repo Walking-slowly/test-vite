@@ -3,4 +3,9 @@
     background-color: #54545d !important;
     color: #ffffff;
   }
+  .el-table__header {
+    .el-checkbox__input {
+      background-color: #fff;
+    }
+  }
 }

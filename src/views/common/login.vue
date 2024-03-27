@@ -102,15 +102,17 @@
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'Login',
+};
+</script>
+
 <script lang="ts" setup>
 import { watchDebounced } from '@vueuse/core';
 import { login, getVerifStatus } from '@/api/index.js';
 import { getUUID } from '@/utils/index.js';
 import type { FormInstance, FormRules } from 'element-plus';
-
-defineOptions({
-  name: 'Login',
-});
 
 interface RuleForm {
   username: string;
@@ -153,7 +155,7 @@ const handleLogin = () => {
         })
         .catch(e => {
           loading.value = false;
-          if (e && e.code !== 'ECONNABORTED') getVerifStatusFc(formValue.value.username);
+          if (e && !['ERR_BAD_RESPONSE', 'ECONNABORTED'].includes(e.code)) getVerifStatusFc(formValue.value.username);
         });
     } else {
       console.log('error submit!', fields);
@@ -166,7 +168,7 @@ watchDebounced(
   (newValue, oldvalue) => {
     getVerifStatusFc(newValue);
   },
-  { debounce: 300, maxWait: 1000 }
+  { debounce: 1000, maxWait: 1000 }
 );
 
 const getVerifStatusFc = userName => {
@@ -238,6 +240,7 @@ const getCaptcha = () => {
     height: 38.66px;
   }
   &__form {
+    overflow-y: auto;
     position: absolute;
     background-color: #fff;
     right: 0;

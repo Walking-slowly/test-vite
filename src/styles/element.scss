@@ -1,2 +1,33 @@
-@use './light.scss';
-@use './dark.scss';
+@use 'element-plus/theme-chalk/index.css';
+
+:root {
+  --el-color-primary: #aace3b;
+  --el-color-primary-light-3: #c4dd76;
+  --el-color-primary-light-5: #d5e79d;
+  --el-color-primary-light-7: #e6f0c4;
+  --el-color-primary-light-8: #eef5d8;
+  --el-color-primary-light-9: #f7faeb;
+  --el-color-primary-dark-2: #88a52f;
+
+  --el-color-success: #409eff;
+  --el-color-success-light-3: #79bbff;
+  --el-color-success-light-5: #a0cfff;
+  --el-color-success-light-7: #c6e2ff;
+  --el-color-success-light-8: #d9ecff;
+  --el-color-success-light-9: #ecf5ff;
+  --el-color-success-dark-2: #337ecc;
+}
+html {
+  --el-bg-color-page: #f9f9f9 !important;
+  --el-menu-bg-color: #f9f9f9 !important;
+  --el-menu-hover-bg-color: #ffffff99 !important;
+}
+
+html.dark {
+  --el-bg-color-page: #383842 !important;
+  --el-menu-bg-color: #383842 !important;
+  --el-menu-hover-bg-color: #00000033 !important;
+  .el-header {
+    color: #fff;
+  }
+}

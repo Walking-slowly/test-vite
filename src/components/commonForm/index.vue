@@ -4,30 +4,32 @@
     :model="modelValue"
   >
     <el-row :gutter="gutter">
-      <el-col
-        v-for="({ span, events, cellRenderer, options, ...other }, i) in cols"
-        v-show="isShow && isUp ? i <= showCols || i === cols.length - 1 : true"
-        :key="i"
-        :span="span || 24"
-      >
-        <el-form-item v-bind="{ ...other }">
-          <template v-if="other.elType === 'custom'">
-            <component :is="cellRenderer && cellRenderer()" />
-          </template>
-          <template v-else>
-            <component
-              :is="other.elType"
-              v-bind="{
-                clearable: true,
-                options,
-                ...other,
-              }"
-              v-model="modelValue[other.prop]"
-              v-on="events || {}"
-            />
-          </template>
-        </el-form-item>
-      </el-col>
+      <template v-for="({ span, events, cellRenderer, options, vShow = true, ...other }, i) in cols">
+        <el-col
+          v-if="vShow"
+          v-show="isShow && isUp ? i <= showCols || i === cols.length - 1 : true"
+          :key="i"
+          :span="span || 24"
+        >
+          <el-form-item v-bind="{ ...other }">
+            <template v-if="other.elType === 'custom'">
+              <component :is="cellRenderer && cellRenderer()" />
+            </template>
+            <template v-else>
+              <component
+                :is="other.elType"
+                v-bind="{
+                  clearable: true,
+                  options,
+                  ...other,
+                }"
+                v-model="modelValue[other.prop]"
+                v-on="events || {}"
+              />
+            </template>
+          </el-form-item>
+        </el-col>
+      </template>
       <el-col
         v-if="isDivider"
         :span="24"
@@ -51,10 +53,17 @@
   </el-form>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'CommonForm',
+};
+</script>
+
 <script lang="ts" setup>
 import { OptionGroup } from 'element-plus/es/components/select-v2/src/select.types';
 import type { FormInstance, FormItemProp } from 'element-plus';
 import { Arrayable } from 'element-plus/es/utils/typescript';
+import { ElMessage } from 'element-plus';
 
 interface FormItem {
   elType: string; // 输入框类型
@@ -64,6 +73,7 @@ interface FormItem {
   placeholder?: string; // 继承element placeholder
   events?: object; // 继承element 事件
   cellRenderer?: Function;
+  vShow?: boolean; // 是否显示
   options?: Array<OptionGroup>; // select options
 }
 
@@ -75,10 +85,6 @@ interface FormProps {
   gutter?: number;
   isDivider?: Boolean;
 }
-
-defineOptions({
-  name: 'CommonForm',
-});
 
 const props = withDefaults(defineProps<FormProps>(), {
   gutter: () => 10,
@@ -112,8 +118,16 @@ const { gutter, modelValue } = toRefs(props);
 const validate = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     (formRef.value as FormInstance).validate(valid => {
-      if (valid) resolve(true);
-      reject(false);
+      if (valid) {
+        resolve(true);
+      } else {
+        ElMessage({
+          message: '请填写必填项！',
+          type: 'error',
+        });
+
+        reject(false);
+      }
     });
   });
 };
@@ -132,6 +146,7 @@ defineExpose({
 <style lang="scss" scoped>
 ::v-deep(.el-select),
 ::v-deep(.el-date-editor),
+::v-deep(.el-autocomplete),
 ::v-deep(.el-input__wrapper) {
   width: 100%;
 }

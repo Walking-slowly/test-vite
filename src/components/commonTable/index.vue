@@ -25,6 +25,13 @@
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'CommonTable',
+  inheritAttrs: false,
+};
+</script>
+
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue';
 const DefaultTable = defineAsyncComponent(() => import('./default-table.vue'));
@@ -38,11 +45,6 @@ interface TableProps {
   pageSize?: number;
   total?: number;
 }
-
-defineOptions({
-  name: 'CommonTable',
-  inheritAttrs: false,
-});
 
 const props = withDefaults(defineProps<TableProps>(), {
   isVirtualizedTable: false,

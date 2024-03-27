@@ -43,3 +43,58 @@ export function getCurrentInfo() {
     method: 'get',
   });
 }
+
+// 项目
+export function getAuthProjectList(params) {
+  return request({
+    url: 'report/org/authProjectList',
+    method: 'get',
+    params,
+  });
+}
+
+// 项目公司
+export function getCompanyList(params) {
+  return request({
+    url: 'report/baseCompany/list',
+    method: 'get',
+    params,
+  });
+}
+
+// 资产类型
+export function getSapType(params) {
+  return request({
+    url: 'assetsInfo/getSapType',
+    method: 'get',
+    params,
+  });
+}
+
+// 设施
+export function getFacilityForSap(params) {
+  return request({
+    url: 'assetsInfo/getFacilityForSap',
+    method: 'get',
+    params,
+  });
+}
+
+// 车辆
+export function getVehInfoForSap(params) {
+  return request({
+    url: 'assetsInfo/getVehInfoForSap',
+    method: 'get',
+    params,
+  });
+}
+
+// 车辆型号
+export function getBindVehTypes(params) {
+  return request({
+    url: 'assetsInfo/getBindVehTypes',
+    method: 'get',
+    params,
+  });
+}
+

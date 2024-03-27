@@ -20,23 +20,25 @@ export default defineComponent({
     // 只能输入小数后几位
     decimal: {
       type: Number,
-      default: 2
-    }
+      default: 2,
+    },
   },
+
+  emits: ['update:modelValue'],
 
   setup(props, { emit }) {
     let startValue = ref('');
     let endValue = ref('');
 
     const handleStartInput = value => {
-      const test = new RegExp(`\\d+\\.?\\d{0,${props.decimal}}`)
-      startValue.value = value.match(test)[0]
+      const test = new RegExp(`\\d+\\.?\\d{0,${props.decimal}}`);
+      startValue.value = value.match(test)[0];
       emit('update:modelValue', [startValue.value, endValue.value]);
     };
 
     const handleEndInput = value => {
-      const test = new RegExp(`\\d+\\.?\\d{0,${props.decimal}}`)
-      endValue.value = value.match(test)[0]
+      const test = new RegExp(`\\d+\\.?\\d{0,${props.decimal}}`);
+      endValue.value = value.match(test)[0];
       emit('update:modelValue', [startValue.value, endValue.value]);
     };
 

@@ -2,22 +2,9 @@ import path from 'path';
 import { defineConfig, ConfigEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-// 插件调试工具
-// import Inspect from 'vite-plugin-inspect';
-
-// 定义options node 14.19.0 unplugin-vue-define-options 1.1.4 我是试过安装1.2.0以及更高版本会提示找不到模块
-import DefineOptions from 'unplugin-vue-define-options/vite';
-
-// import Icons from 'unplugin-icons/vite'
-// import IconsResolver from 'unplugin-icons/resolver'
 
 import AutoImport from 'unplugin-auto-import/vite';
-// import Components from 'unplugin-vue-components/vite';
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-// import ElementPlus from 'unplugin-element-plus/vite'
 
-// mock
-// import { viteMockServe } from 'vite-plugin-mock';
 // eslint校验
 import eslintPlugin from 'vite-plugin-eslint';
 // svg
@@ -31,7 +18,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
     plugins: [
       vue(),
       vueJsx(),
-      DefineOptions(),
       // ElementPlus({ useSource: true }),
       AutoImport({
         // 自动导入vue相关函数
@@ -45,37 +31,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
         dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
       }),
 
-      // 自动导入无法使用vue内置component
-      // Components({
-      //   dirs: ['src/components'], // default
-      //   extensions: ['vue'], // default
-      //   resolvers: [
-      //     // // 自动导入 Element Plus 组件
-      //     // ElementPlusResolver(),
-      //     // // 自动注册图标组件   {prefix}-{enabledCollections}-{icon-name}
-      //     // IconsResolver({
-      //     //   prefix: false,
-      //     //   enabledCollections: ['ep']
-      //     // }),
-      //   ],
-      //   dts: path.resolve(pathSrc, 'components.d.ts'),
-      // }),
-
-      // Icons({
-      //   autoInstall: true,
-      //   compiler: 'vue3'
-      // }),
-
-      // viteMockServe({
-      //   mockPath: './mock',
-      //   ignore: /^\_/, // 忽略前缀路径
-      //   // 开发环境开启
-      //   localEnabled: command === 'serve',
-      //   // 生产环境
-      //   // prodEnabled: command !== 'serve',
-      //   prodEnabled: false,
-      // }),
-
       eslintPlugin({
         cache: false,
         include: ['src/**/*.vue', 'src/**/*.ts'],
@@ -87,8 +42,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
         iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')],
         symbolId: 'icon-[name]',
       }),
-
-      // Inspect(),
     ],
 
     css: {
@@ -104,6 +57,9 @@ export default defineConfig(({ command }: ConfigEnv) => {
       port: 8081,
       open: true,
       hmr: true,
+      warmup: {
+        clientFiles: ['./src/components/**/index.vue'],
+      },
       proxy: {
         '/assets': {
           target: 'http://10.87.108.11:9797', // 李准
@@ -126,9 +82,45 @@ export default defineConfig(({ command }: ConfigEnv) => {
 
     // 预构建
     optimizeDeps: {
-      include: ['vue', 'pinia', 'axios', 'vue-router', 'element-plus', '@element-plus/icons-vue'],
+      include: [
+        'vue',
+        'element-plus/es',
+        'element-plus/es/components/form/style/index',
+        'element-plus/es/components/radio-group/style/index',
+        'element-plus/es/components/radio/style/index',
+        'element-plus/es/components/checkbox/style/index',
+        'element-plus/es/components/checkbox-group/style/index',
+        'element-plus/es/components/switch/style/index',
+        'element-plus/es/components/time-picker/style/index',
+        'element-plus/es/components/date-picker/style/index',
+        'element-plus/es/components/col/style/index',
+        'element-plus/es/components/form-item/style/index',
+        'element-plus/es/components/alert/style/index',
+        'element-plus/es/components/breadcrumb/style/index',
+        'element-plus/es/components/select/style/index',
+        'element-plus/es/components/input/style/index',
+        'element-plus/es/components/breadcrumb-item/style/index',
+        'element-plus/es/components/tag/style/index',
+        'element-plus/es/components/pagination/style/index',
+        'element-plus/es/components/table/style/index',
+        'element-plus/es/components/table-column/style/index',
+        'element-plus/es/components/card/style/index',
+        'element-plus/es/components/row/style/index',
+        'element-plus/es/components/button/style/index',
+        'element-plus/es/components/menu/style/index',
+        'element-plus/es/components/sub-menu/style/index',
+        'element-plus/es/components/menu-item/style/index',
+        'element-plus/es/components/option/style/index',
+        '@element-plus/icons-vue',
+        'pinia',
+        'axios',
+        'vue-router',
+        '@vueuse/core',
+        '@element-plus/icons-vue',
+        'screenfull',
+      ],
     },
 
-    base: process.env.NODE_ENV === 'production' ? './' : '/',
+    base: command === 'build' ? './' : '/',
   };
 });

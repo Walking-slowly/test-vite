@@ -51,8 +51,6 @@
  */
 
 {
-  "editor.fontFamily": "Consolas, 'JetBrains Mono', monospace",
-  "workbench.colorTheme": "Default Dark+",
   // 保存自动格式化
   "editor.formatOnSave": false,
   // 可以选择指定只格式化那些类型文件

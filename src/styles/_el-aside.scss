@@ -1,4 +1,6 @@
 .el-aside {
+  --el-aside-width: 230px;
+  --default-header-height: 50px;
   width: auto !important;
   overflow: hidden;
   height: 100%;
@@ -10,10 +12,6 @@
   }
   .el-menu:not(.el-menu--collapse) {
     width: var(--el-aside-width);
-  }
-  .el-menu-item:hover,
-  .el-sub-menu__title:hover {
-    background-color: rgba(0, 0, 0, 0.1);
   }
   .el-menu--inline {
     background-color: #f1f1f1;
