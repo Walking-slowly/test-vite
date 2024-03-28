@@ -9,24 +9,24 @@
   --el-color-primary-light-9: #f7faeb;
   --el-color-primary-dark-2: #88a52f;
 
-  --el-color-success: #409eff;
-  --el-color-success-light-3: #79bbff;
-  --el-color-success-light-5: #a0cfff;
-  --el-color-success-light-7: #c6e2ff;
-  --el-color-success-light-8: #d9ecff;
-  --el-color-success-light-9: #ecf5ff;
-  --el-color-success-dark-2: #337ecc;
+  // --el-color-success: #409eff;
+  // --el-color-success-light-3: #79bbff;
+  // --el-color-success-light-5: #a0cfff;
+  // --el-color-success-light-7: #c6e2ff;
+  // --el-color-success-light-8: #d9ecff;
+  // --el-color-success-light-9: #ecf5ff;
+  // --el-color-success-dark-2: #337ecc;
 }
 html {
   --el-bg-color-page: #f9f9f9 !important;
   --el-menu-bg-color: #f9f9f9 !important;
-  --el-menu-hover-bg-color: #ffffff99 !important;
+  --el-menu-hover-bg-color: #0000001a !important;
 }
 
 html.dark {
   --el-bg-color-page: #383842 !important;
   --el-menu-bg-color: #383842 !important;
-  --el-menu-hover-bg-color: #00000033 !important;
+  --el-menu-hover-bg-color: #ffffff1a !important;
   .el-header {
     color: #fff;
   }

@@ -180,6 +180,7 @@ const handleRefresh = () => {
 }
 .delete-tab {
   height: 100%;
+  color: #383842;
   background: #fff;
   display: flex;
   align-items: center;

@@ -50,7 +50,7 @@ export default defineComponent({
               index={`${parentUrl}${path}`}
               onClick={() => handleClick({ ...item, path: `${parentUrl}${path}` })}>
               {isParent && <common-icon name={icon} />}
-              <span style={`margin-left: ${!isParent ? '20px' : ''}`}>{name}</span>
+              <span style={`margin-left: ${!isParent ? '18px' : ''}`}>{name}</span>
             </el-menuItem>
           )}
         </>

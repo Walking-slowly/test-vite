@@ -304,5 +304,8 @@ const getCaptcha = () => {
     background-color: #fff;
     padding: 0 15px;
   }
+  ::v-deep(.el-icon) {
+    color: #383842 !important;
+  }
 }
 </style>

@@ -22,7 +22,7 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background-color: #bfcbd9;
+        background-color: #383842;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -73,8 +73,9 @@
     }
   }
 
-  .el-sub-menu .el-icon {
-    margin-right: 12px !important;
+  .el-sub-menu .el-icon,
+  .el-menu-item .el-icon {
+    margin-right: 14px !important;
   }
 }
 .dark .el-aside {
