@@ -278,7 +278,6 @@ export default defineComponent({
     };
 
     // 列表查询
-    let tableList = ref([]);
     const search = () => {
       loading.value = true;
       listQuery({ ...formModel.value, limit: pageSize.value, page: currentPage.value })
@@ -291,7 +290,7 @@ export default defineComponent({
           loading.value = false;
         });
     };
-    let { currentPage, pageSize, total, loading, init, onChangePage } = useTable(search);
+    let { tableList, currentPage, pageSize, total, loading, init, onChangePage } = useTable(search);
 
     const handleRest = () => {
       formModel.value = {};

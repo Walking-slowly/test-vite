@@ -217,7 +217,6 @@ export default defineComponent({
     };
 
     // 列表查询
-    let tableList = ref([]);
     const search = () => {
       loading.value = true;
       getSysUserPage({ ...formModel.value, limit: pageSize.value, page: currentPage.value })
@@ -230,7 +229,7 @@ export default defineComponent({
           loading.value = false;
         });
     };
-    let { currentPage, pageSize, total, loading, init, onChangePage } = useTable(search);
+    let { tableList, currentPage, pageSize, total, loading, init, onChangePage } = useTable(search);
 
     const handleRest = () => {
       formModel.value = {};
@@ -285,10 +284,10 @@ export default defineComponent({
       } else {
         getEmployeeUserPage({ keywords: queryString })
           .then(data => {
-            cb(data || []);
+            cb(data.length && data ? data : [{ text: '暂无数据' }]);
           })
           .catch(() => {
-            cb([]);
+            cb([{ text: '暂无数据' }]);
           });
       }
     };
@@ -381,7 +380,11 @@ export default defineComponent({
                       fetchSuggestions={querySearchAsync}
                       onSelect={handleSelect}
                       v-slots={{
-                        default: ({ item }) => <div>{item.realName}</div>,
+                        default: ({ item }) => (
+                          <div style={item.text ? { textAlign: 'center', fontSize: '12px', color: '#909399' } : {}}>
+                            {item.text || item.realName}
+                          </div>
+                        ),
                       }}
                       placeholder="请选择"
                     />

@@ -8,7 +8,7 @@
       @tab-remove="handleRemoveTab"
     >
       <el-tab-pane
-        v-for="item in useStore.routeTabs"
+        v-for="item in routeTabs"
         :key="item.path"
         :label="item.name"
         :name="item.path"
@@ -42,7 +42,6 @@
       width: 100%;
       border-radius: 4px;
       height: auto;
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
     "
     view-style="height: 100%; display: flex;"
     wrap-style="max-height: 100%; height: auto"

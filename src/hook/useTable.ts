@@ -10,6 +10,7 @@
  * }}
  */
 export default (callBack: Function): object => {
+  const tableList = ref<any[]>([]);
   const currentPage = ref<number>(1);
   const pageSize = ref<number>(20);
   const total = ref<number>(0);
@@ -24,6 +25,7 @@ export default (callBack: Function): object => {
   };
 
   return {
+    tableList,
     currentPage,
     pageSize,
     total,

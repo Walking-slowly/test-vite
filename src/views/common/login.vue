@@ -19,7 +19,9 @@
               ref="ruleFormRef"
               :model="formValue"
               :rules="rules"
+              status-icon
               size="large"
+              @keyup.enter="handleLogin()"
             >
               <el-form-item prop="username">
                 <el-input
@@ -27,7 +29,7 @@
                   clearable
                   placeholder="账号"
                 >
-                  <template #prepend>
+                  <template #prefix>
                     <common-icon name="icon-user" />
                   </template>
                 </el-input>
@@ -38,9 +40,8 @@
                   type="password"
                   clearable
                   placeholder="密码"
-                  show-password
                 >
-                  <template #prepend>
+                  <template #prefix>
                     <common-icon name="icon-lock" />
                   </template>
                 </el-input>
@@ -56,7 +57,7 @@
                       clearable
                       placeholder="验证码"
                     >
-                      <template #prepend>
+                      <template #prefix>
                         <common-icon name="icon-code" />
                       </template>
                     </el-input>
@@ -306,6 +307,9 @@ const getCaptcha = () => {
   }
   ::v-deep(.el-icon) {
     color: #383842 !important;
+  }
+  ::v-deep(.el-input__prefix-inner > :last-child) {
+    margin-right: 10px;
   }
 }
 </style>

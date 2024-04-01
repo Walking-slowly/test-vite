@@ -226,6 +226,7 @@ export default defineComponent({
           message: '删除成功！',
           type: 'success',
         });
+        formModel.value = {};
         getAllMenuListFc();
       });
     };

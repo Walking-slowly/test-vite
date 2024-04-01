@@ -45,7 +45,6 @@ export default defineComponent({
       init();
     };
 
-    const tableList = ref([]);
     const TableColumns = [
       {
         title: '序号',
@@ -115,7 +114,7 @@ export default defineComponent({
         });
     };
 
-    let { currentPage, pageSize, total, loading, init, onChangePage } = useTable(search);
+    let { tableList, currentPage, pageSize, total, loading, init, onChangePage } = useTable(search);
 
     init();
 

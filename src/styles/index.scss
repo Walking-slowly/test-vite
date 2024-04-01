@@ -41,6 +41,9 @@ select:-webkit-autofill {
   caret-color: #333;
 }
 
+#app {
+  min-width: 1180px;
+}
 #app,
 .el-container {
   height: 100%;
