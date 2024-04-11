@@ -36,6 +36,31 @@ export function getVerifStatus(params) {
   });
 }
 
+// 二维码
+export function getQrCode() {
+  return request({
+    url: 'qrCode/getQrCode',
+    method: 'get',
+  });
+}
+
+// 扫码登陆
+export function checkQrCodeLogin(params) {
+  return request({
+    url: 'qrCode/checkQrCodeLogin',
+    method: 'get',
+    params,
+  });
+}
+
+export function qrCodeLogin(data) {
+  return request({
+    url: 'sysUser/qrCodeLogin',
+    method: 'post',
+    data,
+  });
+}
+
 // 用户信息
 export function getCurrentInfo() {
   return request({
@@ -98,3 +123,11 @@ export function getBindVehTypes(params) {
   });
 }
 
+// 字典
+export function sysDictionary(params) {
+  return request({
+    url: 'sysDictionary/page',
+    method: 'get',
+    params,
+  });
+}

@@ -35,14 +35,14 @@
         />
       </div>
 
-      <el-switch
+      <!-- <el-switch
         v-model="isDarkTheme"
         inline-prompt
         style="margin-left: 15px"
         active-icon="Moon"
         inactive-icon="Sunny"
         @change="toggleDark()"
-      />
+      /> -->
 
       <el-dropdown
         :show-timeout="0"
@@ -141,7 +141,7 @@ export default {
 
 <script setup lang="ts">
 import { useCommonStore } from '@/store/common.js';
-import { useDark, useToggle } from '@vueuse/core';
+import { useDark /* useToggle */ } from '@vueuse/core';
 import { ElMessageBox } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
 import type { RouteRow } from '@/router/index.ts';
@@ -247,7 +247,7 @@ const isDarkTheme = computed({
 });
 const isDark = useDark();
 isDark.value = isDarkTheme.value;
-const toggleDark = useToggle(isDark);
+// const toggleDark = useToggle(isDark);
 
 // 是否展开
 const isCollapse = computed({

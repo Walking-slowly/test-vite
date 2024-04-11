@@ -1,0 +1,13 @@
+.el-upload--picture-card {
+  --el-upload-picture-card-size: 100px !important;
+}
+.el-upload-list--picture-card {
+  --el-upload-list-picture-card-size: 100px !important;
+  .el-progress {
+    width: 97px !important;
+  }
+  .el-progress-circle {
+    height: 97px !important;
+    width: 97px !important;
+  }
+}

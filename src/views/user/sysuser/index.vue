@@ -36,9 +36,9 @@ export default defineComponent({
     const getSysRolePageFc = () => {
       getSysRolePage({ limit: 500, page: 1 }).then(({ rows }) => {
         roleList.value = rows || [];
+        FormSearchCols[1].options = rows || [];
       });
     };
-    getSysRolePageFc();
 
     const FormSearchCols = [
       {
@@ -48,19 +48,14 @@ export default defineComponent({
         placeholder: '角色名称或角色编码',
       },
       {
-        elType: 'common-select',
+        elType: 'el-select',
         span: 4,
         prop: 'roleId',
         placeholder: '请选择角色',
-        slots: {
-          default: () => {
-            return roleList.value.map((i: OptionGroup) => (
-              <el-option
-                label={i.roleName}
-                value={i.id}
-              />
-            ));
-          },
+        options: [],
+        props: {
+          label: 'roleName',
+          value: 'id',
         },
       },
       {
@@ -236,8 +231,6 @@ export default defineComponent({
       init();
     };
 
-    init();
-
     const handleDialogClose = () => {
       updateForm.value?.resetFields();
       updateVisible.value = false;
@@ -300,6 +293,11 @@ export default defineComponent({
       updateFormModel.value.projects = item.projects;
       updateFormModel.value.userCode = item.userCode;
     };
+
+    onActivated(() => {
+      getSysRolePageFc();
+      handleRest();
+    });
 
     return () => (
       <div

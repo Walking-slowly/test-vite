@@ -10,7 +10,7 @@ export default defineComponent({
     const leftLoading = ref(false);
     const treeRef = ref();
     const rightLoading = ref(false);
-    let formModel = ref({});
+    const formModel = ref({});
     const isEdit = ref(false);
     const formRef = ref();
     const btnData = ref([]);
@@ -29,7 +29,7 @@ export default defineComponent({
         required: true,
       },
       {
-        elType: 'common-select',
+        elType: 'el-select',
         span: 24,
         prop: 'type',
         label: '类型',
@@ -46,7 +46,7 @@ export default defineComponent({
         },
       },
       {
-        elType: 'common-select',
+        elType: 'el-select',
         span: 24,
         prop: 'parentId',
         label: '父节点',
@@ -314,8 +314,6 @@ export default defineComponent({
       });
     };
 
-    getAllMenuListFc();
-
     const rightForm = () => (
       <el-scrollbar
         v-loading={rightLoading.value}
@@ -400,6 +398,13 @@ export default defineComponent({
         )}
       </el-scrollbar>
     );
+
+    onActivated(() => {
+      searchName.value = '';
+      formModel.value = {};
+      isEdit.value = false;
+      getAllMenuListFc();
+    });
 
     return () => (
       <el-row

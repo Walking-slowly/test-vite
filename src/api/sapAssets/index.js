@@ -27,9 +27,9 @@ export function getSapDetail(id) {
 }
 
 // 保存
-export function saveSapBind(data) {
+export function saveSap(data) {
   return request({
-    url: `assetsInfo/saveSapBind`,
+    url: `assetsInfo/saveSap`,
     method: 'post',
     data,
   });

@@ -297,8 +297,6 @@ export default defineComponent({
       init();
     };
 
-    init();
-
     const handleDialogClose = () => {
       updateFormModel.value = {};
       updateForm.value?.resetFields();
@@ -339,6 +337,10 @@ export default defineComponent({
         }
       });
     };
+
+    onActivated(() => {
+      handleRest();
+    });
 
     return () => (
       <div

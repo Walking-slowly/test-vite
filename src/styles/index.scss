@@ -6,6 +6,7 @@
 @import 'el-dropdown';
 @import 'el-table';
 @import 'el-dialog';
+@import 'el-upload';
 
 *,
 *:before,
@@ -23,6 +24,18 @@ body {
   font-size: 16px;
   line-height: 1.15;
   background-color: #e6e6e6;
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #90939980;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 }
 
 li {

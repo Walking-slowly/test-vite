@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 onMounted(() => {
   // const link = document.createElement('link');
   // link.rel = 'stylesheet';
@@ -9,5 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <router-view />
+  <el-config-provider :locale="zhCn">
+    <router-view />
+  </el-config-provider>
 </template>

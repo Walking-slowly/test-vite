@@ -58,7 +58,12 @@ export default defineConfig(({ command }: ConfigEnv) => {
       open: true,
       hmr: true,
       warmup: {
-        clientFiles: ['./src/components/**/index.vue'],
+        clientFiles: [
+          './src/components/commonForm/index.vue',
+          './src/components/commonTable/index.vue',
+          './src/components/commonIcon/index.vue',
+          './src/components/commonUpload/index.vue',
+        ],
       },
       proxy: {
         '/assets': {
@@ -98,7 +103,9 @@ export default defineConfig(({ command }: ConfigEnv) => {
         'element-plus/es/components/alert/style/index',
         'element-plus/es/components/breadcrumb/style/index',
         'element-plus/es/components/select/style/index',
+        'element-plus/es/components/select-v2/style/index',
         'element-plus/es/components/input/style/index',
+        'element-plus/es/components/input-number/style/index',
         'element-plus/es/components/breadcrumb-item/style/index',
         'element-plus/es/components/tag/style/index',
         'element-plus/es/components/pagination/style/index',
@@ -107,6 +114,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
         'element-plus/es/components/card/style/index',
         'element-plus/es/components/row/style/index',
         'element-plus/es/components/button/style/index',
+        'element-plus/es/components/button-group/style/index',
         'element-plus/es/components/menu/style/index',
         'element-plus/es/components/sub-menu/style/index',
         'element-plus/es/components/menu-item/style/index',
@@ -116,7 +124,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
         'axios',
         'vue-router',
         '@vueuse/core',
-        '@element-plus/icons-vue',
         'screenfull',
       ],
     },

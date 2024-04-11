@@ -11,6 +11,30 @@
       <div class="login-page__form-content">
         <el-tabs v-model="activeName">
           <el-tab-pane
+            label="扫码登录"
+            name="second"
+            lazy
+          >
+            <div class="login-page__code">
+              <canvas
+                ref="QRCodeRef"
+                class="qrcodeImgArea"
+              />
+              <div
+                v-if="reloadQrCodeVisible"
+                class="reload_login_qrcode"
+              >
+                <span class="qr_span_title">二维码失效</span>
+                <button
+                  class="refQrCode"
+                  @click="handleGetQrCode"
+                >
+                  请点击刷新
+                </button>
+              </div>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane
             label="密码登录"
             name="first"
             lazy
@@ -28,6 +52,7 @@
                   v-model="formValue.username"
                   clearable
                   placeholder="账号"
+                  @change="handleUserChange"
                 >
                   <template #prefix>
                     <common-icon name="icon-user" />
@@ -86,12 +111,6 @@
               </el-form-item>
             </el-form>
           </el-tab-pane>
-          <el-tab-pane
-            label="扫码登录"
-            name="second"
-            lazy
-            >Config</el-tab-pane
-          >
         </el-tabs>
       </div>
     </div>
@@ -110,10 +129,11 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { watchDebounced } from '@vueuse/core';
-import { login, getVerifStatus } from '@/api/index.js';
+import QRCode from 'qrcode';
+import { login, getVerifStatus, getQrCode, checkQrCodeLogin, qrCodeLogin } from '@/api/index.js';
 import { getUUID } from '@/utils/index.js';
 import type { FormInstance, FormRules } from 'element-plus';
+import { ElMessage } from 'element-plus';
 
 interface RuleForm {
   username: string;
@@ -124,8 +144,12 @@ interface RuleForm {
 
 const router = useRouter();
 
-let activeName = ref('first');
+let activeName = ref('second');
 let isCaptchaVisiable = ref(false);
+
+const QRCodeRef = ref<HTMLCanvasElement>();
+const checkQrCodeTimer = ref();
+const reloadQrCodeVisible = ref(false);
 
 const ruleFormRef = ref<FormInstance>();
 let loading = ref(false);
@@ -164,13 +188,52 @@ const handleLogin = () => {
   });
 };
 
-watchDebounced(
-  () => formValue.value.username,
-  (newValue, oldvalue) => {
-    getVerifStatusFc(newValue);
-  },
-  { debounce: 1000, maxWait: 1000 }
-);
+const handleUserChange = val => {
+  getVerifStatusFc(val);
+};
+
+watch(activeName, newValue => {
+  if (newValue === 'second') {
+    getQrCodeFc();
+  } else {
+    clearInterval(checkQrCodeTimer.value);
+  }
+});
+
+const getQrCodeFc = () => {
+  getQrCode().then(({ content, uuid }) => {
+    QRCode.toCanvas(QRCodeRef.value, content, function (error) {
+      if (error) {
+        console.log(error);
+      } else {
+        checkQrCodeTimer.value = setInterval(() => {
+          checkQrCodeLoginFc(uuid);
+        }, 3000);
+      }
+    });
+  });
+};
+
+const checkQrCodeLoginFc = uniqueCode => {
+  checkQrCodeLogin({ uniqueCode }).then(({ flag, loginBean }) => {
+    if (flag === 1) {
+      qrCodeLogin(loginBean).then(({ token }) => {
+        ElMessage.success('扫码登录成功');
+        clearInterval(checkQrCodeTimer.value);
+        sessionStorage.setItem('token', token);
+        router.push({ name: 'home' });
+      });
+    } else if (flag === 2) {
+      clearInterval(checkQrCodeTimer.value);
+      reloadQrCodeVisible.value = true;
+    }
+  });
+};
+
+const handleGetQrCode = () => {
+  reloadQrCodeVisible.value = false;
+  getQrCodeFc();
+};
 
 const getVerifStatusFc = userName => {
   getVerifStatus({ userName }).then(data => {
@@ -182,6 +245,8 @@ const getVerifStatusFc = userName => {
 const getCaptcha = () => {
   formValue.value.uuid = getUUID();
 };
+
+getQrCodeFc();
 </script>
 
 <style scoped lang="scss">
@@ -260,6 +325,53 @@ const getCaptcha = () => {
     top: 150px;
     left: 50%;
     transform: translateX(-50%);
+  }
+  &__code {
+    width: 390px;
+    height: 394px;
+    background-image: url('@/assets/img/login/qr_code.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    .qrcodeImgArea {
+      border: 1px solid #e9e9e9;
+      width: 185px;
+      height: 200px;
+      margin-top: 100px;
+      margin-left: 10px;
+      position: absolute;
+      z-index: 2;
+    }
+    .reload_login_qrcode {
+      margin-top: 100px;
+      width: 185px;
+      margin-left: 10px;
+      position: absolute;
+      z-index: 3;
+      height: 200px;
+      background-color: #e9e9e9;
+      filter: alpha(Opacity=90);
+      -moz-opacity: 0.9;
+      opacity: 0.9;
+      .qr_span_title {
+        color: #7f9927;
+        top: 29%;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+        z-index: 1111;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      .refQrCode {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        cursor: pointer;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
   ::v-deep(.el-input__inner) {
     font-size: 16px !important;

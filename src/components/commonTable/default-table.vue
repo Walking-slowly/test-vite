@@ -17,6 +17,8 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+
+    selectable: Function,
   },
 
   setup(props, { attrs }) {
@@ -32,6 +34,7 @@ export default defineComponent({
             type="selection"
             align="center"
             width="45"
+            selectable={props.selectable}
           />
         )}
         {(columns as Column).map((i: Column) => (

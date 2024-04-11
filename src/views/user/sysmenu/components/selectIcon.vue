@@ -16,6 +16,7 @@
     ref="popoverRef"
     :virtual-ref="buttonRef"
     trigger="click"
+    width="306"
     :hide-after="50"
     virtual-triggering
   >

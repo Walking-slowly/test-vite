@@ -254,7 +254,9 @@ export default defineComponent({
       });
     };
 
-    init();
+    onActivated(() => {
+      handleRest();
+    });
 
     return () => (
       <div

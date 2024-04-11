@@ -14,8 +14,8 @@ import icons from './icons';
 import components from './components';
 
 //ElementPlus
-import ElementPlus from 'element-plus';
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import ElementPlus from './element';
+import { ElLoading } from 'element-plus';
 import 'virtual:svg-icons-register';
 
 // 生产使用mock需要
@@ -28,7 +28,8 @@ console.log(import.meta.env, 'env');
 
 const app = createApp(App);
 app.use(createPinia().use(piniaPersist));
-app.use(ElementPlus, { locale: zhCn });
+app.directive('loading', ElLoading.directive);
+app.use(ElementPlus);
 app.use(components);
 app.use(icons);
 app.use(router);

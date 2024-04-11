@@ -1,5 +1,5 @@
 import { App } from 'vue';
-import { Plus, Moon, Sunny } from '@element-plus/icons-vue';
+import { Plus, Moon, Sunny, UploadFilled, ArrowDown } from '@element-plus/icons-vue';
 
 export default {
   install(app: App) {
@@ -7,6 +7,8 @@ export default {
       Plus,
       Moon,
       Sunny,
+      UploadFilled,
+      ArrowDown,
     };
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);

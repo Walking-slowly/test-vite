@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
-import router from '@/router/index.ts'
+import router from '@/router/index.ts';
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASIC_API,
@@ -11,21 +11,22 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(
-  (config) => {
+  config => {
+    config.headers['timestamp'] = new Date().getTime();
     // JWT鉴权处理
     if (sessionStorage.getItem('token')) {
       config.headers['token'] = sessionStorage.getItem('token');
     }
     return config;
   },
-  (error) => {
+  error => {
     console.error(error); // for debug
     return Promise.reject(error);
   }
 );
 
 service.interceptors.response.use(
-  (response) => {
+  response => {
     const res = response.data;
     if (res.code === 200 || res.code === 0) {
       return res.data;
@@ -34,12 +35,10 @@ service.interceptors.response.use(
       return Promise.reject(res);
     }
   },
-  (error) => {
+  error => {
     console.error(error); // for debug
     const badMessage = error.message || error;
-    const code = parseInt(
-      badMessage.toString().replace('Error: Request failed with status code ', '')
-    );
+    const code = parseInt(badMessage.toString().replace('Error: Request failed with status code ', ''));
     showError({ code, message: badMessage });
     return Promise.reject(error);
   }

@@ -22,29 +22,12 @@
   .el-dialog__body {
     padding: 15px 20px;
     overflow: hidden;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 228px);
     overflow-y: auto;
-    display: flex;
-    flex-flow: column;
-    & > div {
-      flex: 1;
-    }
   }
   .el-dialog__footer {
     padding: 16px 16px 0 16px;
     border-top: 1px solid #dcdfe6;
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    background-color: #90939980;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
   }
 }
 .el-overlay-dialog {

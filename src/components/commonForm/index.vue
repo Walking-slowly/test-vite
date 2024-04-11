@@ -1,31 +1,69 @@
 <template>
   <el-form
     ref="formRef"
+    class="common-form"
     :model="modelValue"
+    scroll-to-error
   >
     <el-row :gutter="gutter">
-      <template v-for="({ span, events, cellRenderer, options, vShow = true, ...other }, i) in cols">
+      <template
+        v-for="(
+          {
+            label,
+            prop,
+            elType,
+            span,
+            events,
+            cellRenderer,
+            options,
+            slots,
+            // eslint-disable-next-line vue/no-template-shadow
+            props = { label: 'label', value: 'value' },
+            vShow = true,
+            ...other
+          },
+          i
+        ) in cols"
+      >
         <el-col
           v-if="vShow"
           v-show="isShow && isUp ? i <= showCols || i === cols.length - 1 : true"
           :key="i"
           :span="span || 24"
         >
-          <el-form-item v-bind="{ ...other }">
-            <template v-if="other.elType === 'custom'">
+          <el-form-item v-bind="{ label, prop, ...other }">
+            <template v-if="elType === 'custom'">
               <component :is="cellRenderer && cellRenderer()" />
             </template>
             <template v-else>
               <component
-                :is="other.elType"
+                :is="elType"
                 v-bind="{
                   clearable: true,
                   options,
+                  props,
+                  slots,
                   ...other,
                 }"
-                v-model="modelValue[other.prop]"
+                v-model="modelValue[prop]"
                 v-on="events || {}"
-              />
+              >
+                <template v-if="elType === 'el-select'">
+                  <slot name="default">
+                    <el-option
+                      v-for="item in options"
+                      :key="item[props.value]"
+                      :label="item[props.label]"
+                      :value="item[props.value]"
+                    />
+                  </slot>
+                </template>
+                <component
+                  :is="value"
+                  v-for="(value, key) in slots"
+                  :key="key"
+                />
+              </component>
             </template>
           </el-form-item>
         </el-col>
@@ -73,6 +111,8 @@ interface FormItem {
   placeholder?: string; // 继承element placeholder
   events?: object; // 继承element 事件
   cellRenderer?: Function;
+  slots?: Object;
+  props?: any;
   vShow?: boolean; // 是否显示
   options?: Array<OptionGroup>; // select options
 }
@@ -144,76 +184,99 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-::v-deep(.el-select),
-::v-deep(.el-date-editor),
-::v-deep(.el-autocomplete),
-::v-deep(.el-input__wrapper) {
-  width: 100%;
-}
-::v-deep(.el-form-item) {
-  margin-bottom: 8px;
-}
-::v-deep(.el-input) {
-  .el-input__wrapper {
-    .el-input__suffix {
-      position: relative;
-      border-left: 1px solid #dcdfe6;
-      &::before {
-        content: '';
+.common-form {
+  ::v-deep(.el-select),
+  ::v-deep(.el-date-editor),
+  ::v-deep(.el-autocomplete),
+  ::v-deep(.el-input-number),
+  ::v-deep(.el-date-editor),
+  ::v-deep(.el-input),
+  ::v-deep(.el-input__wrapper) {
+    width: 100% !important;
+  }
+  ::v-deep(.el-form-item) {
+    margin-bottom: 8px;
+  }
+  ::v-deep(.el-form-item__content > .el-select) {
+    .el-select__wrapper {
+      .el-select__suffix {
         position: absolute;
-        background-color: #f9f9f9;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        right: -10px;
+        right: 11px;
+        top: 1px;
+        bottom: 1px;
         border-radius: 0 4px 4px 0;
-        z-index: 0;
+        border-left: 1px solid #dcdfe6;
+        .el-select__caret {
+          margin-left: 8px;
+        }
+        &::before {
+          content: '';
+          position: absolute;
+          background-color: #f9f9f9;
+          top: 0px;
+          bottom: 0px;
+          left: 0px;
+          right: -10px;
+          border-radius: 0 4px 4px 0;
+          z-index: 0;
+        }
+      }
+    }
+    .el-input__wrapper {
+      .el-input__suffix {
+        position: absolute;
+        border-left: 1px solid #dcdfe6;
+        right: 11px;
+        top: 1px;
+        bottom: 1px;
+        height: auto;
+        z-index: 2;
+        &::before {
+          content: '';
+          position: absolute;
+          background-color: #f9f9f9;
+          top: 0px;
+          bottom: 0px;
+          left: 0px;
+          right: -10px;
+          border-radius: 0 4px 4px 0;
+          z-index: 0;
+        }
       }
     }
   }
-}
-::v-deep(.el-select) {
-  .el-select__suffix {
-    position: absolute;
-    right: 11px;
-    top: 1px;
-    bottom: 1px;
-    border-radius: 0 4px 4px 0;
-    border-left: 1px solid #dcdfe6;
-    .el-select__caret {
-      margin-left: 8px;
-    }
-    &::before {
-      content: '';
+  ::v-deep(.el-input__suffix-inner) {
+    z-index: 1;
+  }
+  ::v-deep(.el-input__count-inner) {
+    background: transparent !important;
+  }
+  ::v-deep(.el-input__inner) {
+    z-index: 1;
+    background-color: transparent;
+  }
+  ::v-deep(.el-divider--horizontal) {
+    margin: 1px 0 8px 0;
+  }
+  .form-divider {
+    position: relative;
+    ::v-deep(.el-icon) {
       position: absolute;
-      background-color: #f9f9f9;
-      top: 0px;
-      bottom: 0px;
-      left: 0px;
-      right: -10px;
-      border-radius: 0 4px 4px 0;
-      z-index: 0;
+      left: 50%;
+      top: -10px;
+      transform: translateX(-50%);
+      color: #717377;
+    }
+    ::v-deep(.svg-icon__icon-down) {
+      top: -1px !important;
     }
   }
-}
-::v-deep(.el-input__inner) {
-  z-index: 1;
-  background-color: transparent;
-}
-::v-deep(.el-divider--horizontal) {
-  margin: 1px 0 8px 0;
-}
-.form-divider {
-  position: relative;
-  ::v-deep(.el-icon) {
-    position: absolute;
-    left: 50%;
-    top: -10px;
-    transform: translateX(-50%);
-    color: #717377;
+  ::v-deep(.el-form-item.is-error .el-upload-dragger),
+  ::v-deep(.el-form-item.is-error .el-upload--picture-card) {
+    border-color: var(--el-color-danger);
   }
-  ::v-deep(.svg-icon__icon-down) {
-    top: -1px !important;
+  ::v-deep(.el-form-item__error) {
+    padding-top: 1px;
   }
 }
 </style>

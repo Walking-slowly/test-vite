@@ -38,26 +38,15 @@
   </div>
   <el-scrollbar
     max-height="100%"
-    style="
-      width: 100%;
-      border-radius: 4px;
-      height: auto;
-    "
+    style="width: 100%; border-radius: 4px; height: auto; box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.15)"
     view-style="height: 100%; display: flex;"
     wrap-style="max-height: 100%; height: auto"
   >
     <el-main v-if="isShow">
       <router-view v-slot="{ Component }">
         <keep-alive>
-          <component
-            :is="Component"
-            v-if="$route.meta.keepAlive"
-          />
+          <component :is="Component" />
         </keep-alive>
-        <component
-          :is="Component"
-          v-if="!$route.meta.keepAlive"
-        />
       </router-view>
     </el-main>
   </el-scrollbar>
