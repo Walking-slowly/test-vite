@@ -4,6 +4,7 @@ import SelectIcon from './components/selectIcon.vue';
 
 import { ElMessage, ElMessageBox } from 'element-plus';
 export default defineComponent({
+  name: 'Sysmenu',
   setup() {
     const searchName = ref('');
     let menuList = ref([]);
@@ -399,11 +400,15 @@ export default defineComponent({
       </el-scrollbar>
     );
 
-    onActivated(() => {
+    const handleReset = () => {
       searchName.value = '';
       formModel.value = {};
       isEdit.value = false;
       getAllMenuListFc();
+    }
+
+    onActivated(() => {
+      handleReset();
     });
 
     return () => (

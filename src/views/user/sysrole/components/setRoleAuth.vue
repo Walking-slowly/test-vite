@@ -167,6 +167,7 @@ export default defineComponent({
               data={treeList.value}
               default-expand-all
               show-checkbox
+              check-strictly
               node-key="id"
               v-loading={loading.value}
               default-checked-keys={defaultCheckedKeys.value}

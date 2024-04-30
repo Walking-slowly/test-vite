@@ -12,17 +12,6 @@ declare module '*.tsx' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
-interface Screenfull {
-  isFullscreen: boolean;
-  toggle: Function;
-  on: Function;
-  off: Function;
-  // 更多属性根据实际情况添加
-}
-declare module 'screenfull' {
-  const screenfull: Screenfull;
-  export default screenfull;
-}
 
 declare module '@/api/*.js';
 declare module '@/store/*.ts';

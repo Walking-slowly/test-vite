@@ -377,12 +377,12 @@ getQrCodeFc();
     font-size: 16px !important;
   }
   ::v-deep(.el-form-item) {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
   ::v-deep(.el-tabs__header),
   ::v-deep(.el-tabs__nav-scroll) {
     margin: 0;
-    height: 44px;
+    height: 49px;
   }
   ::v-deep(.el-tabs__item) {
     font-size: 18px;

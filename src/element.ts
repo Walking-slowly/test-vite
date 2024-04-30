@@ -50,6 +50,10 @@ import {
   ElDescriptionsItem,
   ElInputNumber,
   ElPopover,
+  ElTooltip,
+  ElProgress,
+  ElCard,
+  ElLink,
 } from 'element-plus';
 
 export default {
@@ -105,6 +109,10 @@ export default {
       ElDescriptionsItem,
       ElInputNumber,
       ElPopover,
+      ElTooltip,
+      ElProgress,
+      ElCard,
+      ElLink,
     };
     for (const [key, component] of Object.entries(ElementComponents)) {
       app.component(key, component);

@@ -6,6 +6,7 @@ interface RowsItem {
   name: string;
   url?: string;
   path: string;
+  label?: string;
   icon?: string;
   isParent?: boolean;
   parentUrl?: string;
@@ -28,11 +29,18 @@ export default defineComponent({
     });
 
     const handleClick = (row: RowsItem) => {
-      const index = routeTabs.value.findIndex((i: RowsItem) => i.path === row.path);
       router.replace({ path: row.path });
 
-      if (index >= 0) return;
-      routeTabs.value.push(row);
+      setTimeout(() => {
+        const index = routeTabs.value.findIndex((i: RowsItem) => i.path === row.path);
+
+        if (index >= 0) return;
+        routeTabs.value.push({
+          name: row.name,
+          path: row.path,
+          label: row.label
+        });
+      })
     };
 
     // 目录
@@ -48,7 +56,7 @@ export default defineComponent({
           ) : (
             <el-menuItem
               index={`${parentUrl}${path}`}
-              onClick={() => handleClick({ ...item, path: `${parentUrl}${path}` })}>
+              onClick={() => handleClick({ ...item, path: `${parentUrl}${path}`, label: path.charAt(0).toUpperCase() + path.slice(1) })}>
               {isParent && <common-icon name={icon} />}
               <span style={`margin-left: ${!isParent ? '18px' : ''}`}>{name}</span>
             </el-menuItem>
@@ -84,6 +92,7 @@ export default defineComponent({
 
     handleClick({
       name: route.meta.title as string,
+      label: route.name as string,
       path: route.path,
     });
 

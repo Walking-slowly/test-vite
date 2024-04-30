@@ -11,6 +11,7 @@ interface RuleForm {
 }
 
 export default defineComponent({
+  name: 'Sysrole',
   setup() {
     const updateVisible = ref(false);
     const updateLoading = ref(false);

@@ -8,11 +8,11 @@
       @tab-remove="handleRemoveTab"
     >
       <el-tab-pane
-        v-for="item in routeTabs"
+        v-for="(item, i) in routeTabs"
         :key="item.path"
         :label="item.name"
         :name="item.path"
-        :closable="!!item.type"
+        :closable="i > 0"
       />
     </el-tabs>
 
@@ -44,7 +44,7 @@
   >
     <el-main v-if="isShow">
       <router-view v-slot="{ Component }">
-        <keep-alive>
+        <keep-alive :exclude="exclude">
           <component :is="Component" />
         </keep-alive>
       </router-view>
@@ -71,6 +71,8 @@ const routeTabs = computed({
   set: val => useStore.SET_ROUTETABS(val),
 });
 
+const exclude = ref();
+
 const handleSelectedTab = (tab: TabsPaneContext) => {
   // const row = useStore.routeTabs.filter(
   //   <T, K extends keyof T>(i: { path: K }) => i.path === tab.paneName
@@ -81,6 +83,7 @@ const handleSelectedTab = (tab: TabsPaneContext) => {
 
 const handleRemoveTab = (path: TabPaneName) => {
   const i = routeTabs.value.findIndex(<T, K extends keyof T>(i: { path: K }) => i.path === path);
+
   if (i < 0) return;
   if (path === route.path) {
     router.replace({
@@ -88,7 +91,17 @@ const handleRemoveTab = (path: TabPaneName) => {
       force: true,
     });
   }
-  routeTabs.value.splice(i, 1);
+  const res = routeTabs.value.splice(i, 1);
+
+  // 删除后进行缓存清理，不然缓存记录一直存着，容易造成内存泄漏
+  exclude.value = [res[0].label]
+
+  // 重置，可以让组件声明周期正常进行
+  nextTick(() => {
+    setTimeout(() => {
+      exclude.value = undefined
+    })
+  })
 };
 
 const handleCommand = (command: string | number | object) => {
@@ -120,6 +133,7 @@ const handleRefresh = () => {
 
 <style scoped lang="scss">
 .main-tabs {
+  --el-tabs-header-height: 32px !important;
   flex: 1;
   ::v-deep(.el-tabs__content) {
     display: none;
@@ -129,7 +143,6 @@ const handleRefresh = () => {
   ::v-deep(.el-tabs__header) {
     border: 0 !important;
   }
-
   ::v-deep(.el-tabs__item) {
     background: #ffffff;
     margin: 0 3px;

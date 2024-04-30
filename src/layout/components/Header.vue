@@ -27,7 +27,7 @@
 
       <div
         style="display: flex"
-        @click="handleToggleFullscreen"
+        @click="toggle"
       >
         <common-icon
           :name="isFullscreen ? 'icon-exitFullscreen' : 'icon-fullscreen'"
@@ -141,12 +141,10 @@ export default {
 
 <script setup lang="ts">
 import { useCommonStore } from '@/store/common.js';
-import { useDark /* useToggle */ } from '@vueuse/core';
+import { useDark, useFullscreen /* useToggle */ } from '@vueuse/core';
 import { ElMessageBox } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
 import type { RouteRow } from '@/router/index.ts';
-
-import screenfull from 'screenfull';
 
 import { updatePwd, getCurrentInfo } from '@/api/index.js';
 
@@ -162,6 +160,7 @@ interface RuleForm {
 const router = useRouter();
 const route = useRoute();
 const useStore = useCommonStore();
+const { isFullscreen, toggle } = useFullscreen();
 
 let breadcrumbData = ref<RouteRows>([]);
 // 面包屑
@@ -255,16 +254,6 @@ const isCollapse = computed({
   set: val => useStore.SET_ISCOLLAPSE(val),
 });
 
-//是否全屏
-let isFullscreen = computed({
-  get: () => useStore.isFullscreen,
-  set: val => useStore.SET_FULLSCREEN(val),
-});
-const handleToggleFullscreen = () => screenfull.toggle();
-const handleChange = () => {
-  isFullscreen.value = screenfull.isFullscreen;
-};
-
 const handleLoginOut = () => {
   ElMessageBox.confirm('请确认是否退出?', '提示', {
     confirmButtonText: '确定',
@@ -284,12 +273,4 @@ const resetInfo = () => {
   sessionStorage.clear();
   router.replace({ name: 'login' });
 };
-
-onMounted(() => {
-  screenfull.on('change', handleChange);
-});
-
-onUnmounted(() => {
-  screenfull.off('change', handleChange);
-});
 </script>

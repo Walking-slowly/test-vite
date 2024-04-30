@@ -1,4 +1,5 @@
 import '@/styles/index.scss';
+import '@/utils/browser_patch.js';
 import App from './App.vue';
 import router from './router';
 

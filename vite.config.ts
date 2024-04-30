@@ -67,7 +67,8 @@ export default defineConfig(({ command }: ConfigEnv) => {
       },
       proxy: {
         '/assets': {
-          target: 'http://10.87.108.11:9797', // 李准
+          target: 'http://10.87.106.237:9696', // 测试环境
+          // target: 'http://10.87.108.11:9797', // 李准
           rewrite: path => path.replace(/^\/assets/, '/assets'),
         },
       },
@@ -77,7 +78,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
       alias: {
         '@': pathSrc,
       },
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
 
     define: {
@@ -124,10 +124,20 @@ export default defineConfig(({ command }: ConfigEnv) => {
         'axios',
         'vue-router',
         '@vueuse/core',
-        'screenfull',
       ],
     },
 
     base: command === 'build' ? './' : '/',
+    build: {
+      outDir: 'assets',
+      assetsDir: 'static',
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'static/js/[name]-[hash].js',
+          entryFileNames: 'static/js/[name]-[hash].js',
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
+        }
+      }
+    }
   };
 });

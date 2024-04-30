@@ -155,16 +155,18 @@ const formRef = ref<FormInstance>();
 const { gutter, modelValue } = toRefs(props);
 
 // validate
-const validate = (): Promise<boolean> => {
+const validate = (bool = true): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     (formRef.value as FormInstance).validate(valid => {
       if (valid) {
         resolve(true);
       } else {
-        ElMessage({
-          message: '请填写必填项！',
-          type: 'error',
-        });
+        if (bool) {
+          ElMessage({
+            message: '请填写必填项！',
+            type: 'error',
+          });
+        }
 
         reject(false);
       }
@@ -183,21 +185,21 @@ defineExpose({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .common-form {
-  ::v-deep(.el-select),
-  ::v-deep(.el-date-editor),
-  ::v-deep(.el-autocomplete),
-  ::v-deep(.el-input-number),
-  ::v-deep(.el-date-editor),
-  ::v-deep(.el-input),
-  ::v-deep(.el-input__wrapper) {
+  .el-select,
+  .el-date-editor,
+  .el-autocomplete,
+  .el-input-number,
+  .el-date-editor,
+  .el-input,
+  .el-input__wrapper {
     width: 100% !important;
   }
-  ::v-deep(.el-form-item) {
+  .el-form-item {
     margin-bottom: 8px;
   }
-  ::v-deep(.el-form-item__content > .el-select) {
+  .el-form-item__content > .el-select {
     .el-select__wrapper {
       .el-select__suffix {
         position: absolute;
@@ -245,38 +247,45 @@ defineExpose({
       }
     }
   }
-  ::v-deep(.el-input__suffix-inner) {
+  .el-input__suffix-inner {
     z-index: 1;
   }
-  ::v-deep(.el-input__count-inner) {
+  .el-input__count-inner {
     background: transparent !important;
   }
-  ::v-deep(.el-input__inner) {
+  .el-input__inner {
     z-index: 1;
     background-color: transparent;
   }
-  ::v-deep(.el-divider--horizontal) {
+  .el-divider--horizontal {
     margin: 1px 0 8px 0;
   }
   .form-divider {
     position: relative;
-    ::v-deep(.el-icon) {
+    .el-icon {
       position: absolute;
       left: 50%;
       top: -10px;
       transform: translateX(-50%);
       color: #717377;
     }
-    ::v-deep(.svg-icon__icon-down) {
+    .svg-icon__icon-down {
       top: -1px !important;
     }
   }
-  ::v-deep(.el-form-item.is-error .el-upload-dragger),
-  ::v-deep(.el-form-item.is-error .el-upload--picture-card) {
+  .el-form-item.is-error .el-upload-dragger,
+  .el-form-item.is-error .el-upload--picture-card {
     border-color: var(--el-color-danger);
   }
-  ::v-deep(.el-form-item__error) {
+  .el-form-item__error {
     padding-top: 1px;
+  }
+  .el-form-item.is-error .el-table--border::before,
+  .el-form-item.is-error .el-table--border::after,
+  .el-form-item.is-error .el-table--border .el-table__inner-wrapper::after,
+  .el-form-item.is-error .el-table--border .el-table__inner-wrapper::before {
+    background-color: var(--el-color-danger) !important;
+    z-index: 4;
   }
 }
 </style>

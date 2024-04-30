@@ -12,7 +12,6 @@ export type RouteRow = {
   path?: string;
   children?: Array<RouteRow>;
   list?: Array<RouteRow>;
-  keepAlive?: Boolean;
 };
 
 type NewRouteRow = RouteRow & RouteRecordRaw;
@@ -66,16 +65,19 @@ const router = createRouter({
   routes,
 });
 
+const capitalizeFirstLetter = string => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') => {
   return arr.map(item => {
     const { name, path } = item;
     return {
       path: `${routerPath}${path}`,
-      name: item.list && item.list.length ? '' : path,
+      name: item.list && item.list.length ? '' : capitalizeFirstLetter(path),
       replace: true,
       meta: {
         title: name,
-        keepAlive: !!item.keepAlive,
       },
       component: item.list && item.list.length ? null : modules[`../views${routerPath}${path}/index.vue`],
       children: fnAddDynamicMenuRoutes(item.list || [], `${routerPath}${path}/`),
@@ -93,7 +95,7 @@ const getFristPath: any = (list: RouteRow[]) => {
   if (list[0].list && list[0].list.length) {
     return getFristPath(list[0].list);
   } else {
-    path = list[0].path || '';
+    path = list[0].url || '';
   }
   return path;
 };
@@ -132,7 +134,7 @@ router.beforeEach((to, from, next) => {
 
         if (to.path === '/home') {
           next({
-            name: getFristPath(menuList),
+            path: getFristPath(menuList),
             replace: true,
           });
         } else {

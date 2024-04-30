@@ -8,7 +8,6 @@ export const useCommonStore = defineStore('common', {
     return {
       isDarkTheme: true,
       isCollapse: false,
-      isFullscreen: false,
       routeTabs: [],
       userInfo: {},
     };
@@ -32,11 +31,6 @@ export const useCommonStore = defineStore('common', {
       });
     },
 
-    SET_FULLSCREEN(value: boolean) {
-      this.$patch(state => {
-        state.isFullscreen = value;
-      });
-    },
     SET_USERINFO(value: object) {
       this.$patch(state => {
         state.userInfo = value;
@@ -48,7 +42,7 @@ export const useCommonStore = defineStore('common', {
   persist: {
     // 开启数据持久化
     enabled: true,
-    strategies: [{ paths: ['isDarkTheme', 'isCollapse', 'isFullscreen', 'routeTabs'] }],
+    strategies: [{ paths: ['isDarkTheme', 'isCollapse', 'routeTabs'] }],
     // strategies: [{ key: '', storage: localStorage }],
   },
 });

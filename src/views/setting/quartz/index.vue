@@ -11,6 +11,7 @@ interface RuleForm {
 }
 
 export default defineComponent({
+  name: 'Quartz',
   setup() {
     // 查询数据
     let formModel = ref<RuleForm>({});

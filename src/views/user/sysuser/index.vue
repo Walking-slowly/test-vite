@@ -12,6 +12,7 @@ interface RuleForm {
 }
 
 export default defineComponent({
+  name: 'Sysuser',
   setup() {
     // 查询数据
     let formModel = ref<RuleForm>({});
