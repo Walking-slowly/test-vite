@@ -377,7 +377,7 @@ getQrCodeFc();
     font-size: 16px !important;
   }
   ::v-deep(.el-form-item) {
-    margin-bottom: 25px;
+    margin-bottom: 24px;
   }
   ::v-deep(.el-tabs__header),
   ::v-deep(.el-tabs__nav-scroll) {

@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-const Layout = () => import('@/layout/index.vue');
 import { nav } from '@/api/index.js';
 
 import { ElLoading } from 'element-plus';
+
+import Layout from '@/layout/index.vue';
 
 // import.meta.glob 懒加载
 const modules = import.meta.glob('../views/**/*.vue');
@@ -63,6 +64,7 @@ const defaultRoute = {
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
 const capitalizeFirstLetter = string => {

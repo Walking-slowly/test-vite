@@ -19,12 +19,6 @@ import ElementPlus from './element';
 import { ElLoading } from 'element-plus';
 import 'virtual:svg-icons-register';
 
-// 生产使用mock需要
-// import { setupProdMockServer } from '../mock/index.ts';
-// if (import.meta.env.VITE_MODE === 'production') {
-//   setupProdMockServer();
-// }
-
 console.log(import.meta.env, 'env');
 
 const app = createApp(App);

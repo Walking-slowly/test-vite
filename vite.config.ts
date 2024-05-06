@@ -67,8 +67,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
       },
       proxy: {
         '/assets': {
-          target: 'http://10.87.106.237:9696', // 测试环境
-          // target: 'http://10.87.108.11:9797', // 李准
+          target: 'http://10.87.106.237/:9696', // 李准
           rewrite: path => path.replace(/^\/assets/, '/assets'),
         },
       },
@@ -89,7 +88,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
     optimizeDeps: {
       include: [
         'vue',
-        'element-plus/es',
         'element-plus/es/components/form/style/index',
         'element-plus/es/components/radio-group/style/index',
         'element-plus/es/components/radio/style/index',
@@ -135,9 +133,9 @@ export default defineConfig(({ command }: ConfigEnv) => {
         output: {
           chunkFileNames: 'static/js/[name]-[hash].js',
           entryFileNames: 'static/js/[name]-[hash].js',
-          assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
-        }
-      }
-    }
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+        },
+      },
+    },
   };
 });
