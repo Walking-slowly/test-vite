@@ -140,7 +140,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { useCommonStore } from '@/store/common.js';
+import { useCommonStore } from '@/store/common.ts';
 import { useDark, useFullscreen /* useToggle */ } from '@vueuse/core';
 import { ElMessageBox } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';

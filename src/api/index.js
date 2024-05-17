@@ -131,3 +131,21 @@ export function sysDictionary(params) {
     params,
   });
 }
+
+// 查询流程审批人
+export function getManagerList(data) {
+  return request({
+    url: 'process/processBussiness/getManagerList',
+    method: 'post',
+    data,
+  });
+}
+
+// 查询流程日志
+export function getHisTaskList(data) {
+  return request({
+    url: 'process/processBusTask/getHisTaskList',
+    method: 'post',
+    data,
+  });
+}

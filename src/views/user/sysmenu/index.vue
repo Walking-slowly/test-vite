@@ -1,6 +1,6 @@
 <script lang="jsx">
 import { getAllMenuList, getSysMenuDetails, putObj, addObj, delObj, getList } from '@/api/sysmenu/index.js';
-import SelectIcon from './components/selectIcon.vue';
+const SelectIcon = defineAsyncComponent(() => import('./components/selectIcon.vue'));
 
 import { ElMessage, ElMessageBox } from 'element-plus';
 export default defineComponent({
@@ -538,30 +538,30 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .sysmenu-page {
   overflow: hidden;
   height: calc(100vh - 105px);
-  &::v-deep(.el-col) {
-    height: 100%;
-  }
-  &__right,
-  &__left {
-    border: 1px var(--el-border-color) var(--el-border-style);
-    height: 100%;
-    border-radius: 4px;
-    display: flex;
-    flex-flow: column;
-    h3 {
-      background: #f5f5f5;
-      border-radius: 4px 4px 0px 0px;
-      height: 40px;
-      line-height: 40px;
-      font-size: 16px;
-      margin: 0;
-      padding: 0 15px;
-      border-bottom: 1px var(--el-border-color) var(--el-border-style);
-    }
-  }
+}
+.sysmenu-page ::v-deep(.el-col) {
+  height: 100%;
+}
+
+.sysmenu-page .sysmenu-page__right, .sysmenu-page .sysmenu-page__left {
+  border: 1px var(--el-border-color) var(--el-border-style);
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  flex-flow: column;
+}
+.sysmenu-page .sysmenu-page__right h3, .sysmenu-page .sysmenu-page__left h3 {
+  background: #f5f5f5;
+  border-radius: 4px 4px 0px 0px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  margin: 0;
+  padding: 0 15px;
+  border-bottom: 1px var(--el-border-color) var(--el-border-style);
 }
 </style>

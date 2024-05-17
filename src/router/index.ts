@@ -1,9 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { nav } from '@/api/index.js';
-
 import { ElLoading } from 'element-plus';
 
-import Layout from '@/layout/index.vue';
+import Layout from '@/layout/index.vue'
 
 // import.meta.glob 懒加载
 const modules = import.meta.glob('../views/**/*.vue');
@@ -40,6 +39,22 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/common/login.vue'),
     meta: {
       title: '登录',
+    },
+  },
+  {
+    path: '/transferRecordsFlow/:type',
+    name: 'transferRecordsFlow',
+    component: () => import('@/views/transfer/records/components/details.vue'),
+    meta: {
+      title: '调动申请',
+    },
+  },
+  {
+    path: '/assetScrapFlow/:type',
+    name: 'assetScrapFlow',
+    component: () => import('@/views/assetScrap/activity/components/details.vue'),
+    meta: {
+      title: '资产报废申请',
     },
   },
 ];

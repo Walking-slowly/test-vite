@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCommonStore } from '@/store/common.js';
+import { useCommonStore } from '@/store/common.ts';
 import type { TabsPaneContext, TabPaneName } from 'element-plus';
 const route = useRoute();
 const router = useRouter();

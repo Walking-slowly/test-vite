@@ -197,18 +197,15 @@ export default defineComponent({
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         beforeClose: (action, instance, done) => {
-          console.log(action, '1');
           if (action === 'confirm') {
             instance.confirmButtonLoading = true;
 
             trigger({ ...rowData, jobParameter: jobParameter.value })
               .then(() => {
                 done();
-                console.log('1');
                 instance.confirmButtonLoading = false;
               })
               .catch(() => {
-                console.log('2');
                 instance.confirmButtonLoading = false;
               });
           } else {
@@ -445,7 +442,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="css">
 .triggerMessageBox .el-message-box__message {
   width: 100%;
 }

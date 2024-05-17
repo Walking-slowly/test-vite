@@ -144,6 +144,7 @@ export default defineComponent({
           )}
         </div>
       ),
+      ...(props.slots || {})
     };
 
     return () => (
@@ -159,9 +160,8 @@ export default defineComponent({
         action={import.meta.env.VITE_BASIC_API + 'oss/upload'}
         {...attrs}
         v-slots={fileSlots}
-        v-model:file-list={fileList.value}>
-        {Object.keys(props.slots || {}).map(slotKey => props.slots[slotKey] && props.slots[slotKey]())}
-      </el-upload>
+        v-model:file-list={fileList.value}
+      />
     );
   },
 });

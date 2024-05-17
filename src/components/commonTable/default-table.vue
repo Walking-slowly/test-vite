@@ -2,6 +2,7 @@
 
 <script lang="tsx">
 import type { Column } from 'element-plus';
+import { ElTable } from 'element-plus';
 
 export default defineComponent({
   name: 'DefaultTable',
@@ -21,11 +22,16 @@ export default defineComponent({
     selectable: Function,
   },
 
-  setup(props, { attrs }) {
+  setup(props, { attrs, expose }) {
     const { columns = [], ...other } = attrs;
+
+    const tableRef = ref<InstanceType<typeof ElTable>>();
+
+    expose({ tableRef });
 
     return () => (
       <el-table
+        ref={tableRef}
         height={'100%'}
         {...props}
         {...other}>

@@ -54,6 +54,9 @@ import {
   ElProgress,
   ElCard,
   ElLink,
+  ElCollapse,
+  ElCollapseItem,
+  ElAutoResizer
 } from 'element-plus';
 
 export default {
@@ -113,6 +116,9 @@ export default {
       ElProgress,
       ElCard,
       ElLink,
+      ElCollapse,
+      ElCollapseItem,
+      ElAutoResizer
     };
     for (const [key, component] of Object.entries(ElementComponents)) {
       app.component(key, component);

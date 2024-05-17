@@ -7,7 +7,7 @@
     <component
       :is="isVirtualizedTable ? VirtualizedTable : DefaultTable"
       v-bind="attrs"
-      @selection-change="handleSelectionChange"
+      ref="defaultCommonTable"
     />
 
     <el-pagination
@@ -33,7 +33,6 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
 const DefaultTable = defineAsyncComponent(() => import('./default-table.vue'));
 const VirtualizedTable = defineAsyncComponent(() => import('./virtualized-table.vue'));
 
@@ -46,6 +45,12 @@ interface TableProps {
   total?: number;
 }
 
+interface Emits {
+  (event: 'changePage'): void;
+  (event: 'update:currentPage', current: number): void;
+  (event: 'update:pageSize', pageNum: number): void;
+}
+
 const props = withDefaults(defineProps<TableProps>(), {
   isVirtualizedTable: false,
   isPagination: false,
@@ -55,11 +60,19 @@ const props = withDefaults(defineProps<TableProps>(), {
   total: 0,
 });
 
+type TableComponentInstance = InstanceType<typeof DefaultTable> | InstanceType<typeof VirtualizedTable> | null;
+
 const attrs = useAttrs();
+
+const defaultCommonTable = ref<TableComponentInstance>();
+
+const getInternalTable = () => {
+  return defaultCommonTable.value ? (defaultCommonTable.value as any).tableRef : null;
+};
 
 const { isVirtualizedTable, isPagination, loading, currentPage, pageSize } = toRefs(props);
 
-const emit = defineEmits(['changePage', 'changeSelect', 'update:currentPage', 'update:pageSize']);
+const emit = defineEmits<Emits>();
 
 const current = computed({
   get: () => currentPage.value,
@@ -80,20 +93,21 @@ const handleSizeChange = () => {
   emit('changePage');
 };
 
-const handleSelectionChange = <T extends Array<T>>(val: T) => {
-  emit('changeSelect', val);
-};
+defineExpose({
+  getInternalTable,
+});
+
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .default-common-table {
   display: flex;
   height: 100%;
   overflow: hidden;
   flex-flow: column;
   align-items: flex-end;
-  .common-pagination {
-    margin: 8px 0;
-  }
+}
+.default-common-table .common-pagination {
+  margin: 8px 0;
 }
 </style>

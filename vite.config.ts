@@ -67,7 +67,10 @@ export default defineConfig(({ command }: ConfigEnv) => {
       },
       proxy: {
         '/assets': {
-          target: 'http://10.87.106.237/:9696', // 李准
+          // target: 'http://10.87.106.237:9696', // 测试环境
+          // target: 'http://10.54.6.19:9696', // 生产
+          target: 'http://10.87.108.11:9696', // 李准
+          // target: 'http://10.87.108.51:9696', // 郑康
           rewrite: path => path.replace(/^\/assets/, '/assets'),
         },
       },

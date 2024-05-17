@@ -12,7 +12,6 @@ dist
 dist-ssr
 *.local
 package-lock.json
-auto-imports.d.ts
 
 # Editor directories and files
 .vscode/*

@@ -117,7 +117,7 @@
 
     <div class="login-page__footer">
       <div>版权所有：COPYRIGHT © 2020 盈峰环境科技集团股份有限公司</div>
-      <div>浙ICP备16025887号-1</div>
+      <div>湘ICP备18016171号-6</div>
     </div>
   </div>
 </template>
@@ -215,19 +215,29 @@ const getQrCodeFc = () => {
 };
 
 const checkQrCodeLoginFc = uniqueCode => {
-  checkQrCodeLogin({ uniqueCode }).then(({ flag, loginBean }) => {
-    if (flag === 1) {
-      qrCodeLogin(loginBean).then(({ token }) => {
-        ElMessage.success('扫码登录成功');
+  checkQrCodeLogin({ uniqueCode })
+    .then(({ flag, loginBean }) => {
+      if (flag === 1) {
+        qrCodeLogin(loginBean)
+          .then(({ token }) => {
+            ElMessage.success('扫码登录成功');
+            clearInterval(checkQrCodeTimer.value);
+            sessionStorage.setItem('token', token);
+            router.push({ name: 'home' });
+          })
+          .catch(() => {
+            clearInterval(checkQrCodeTimer.value);
+            reloadQrCodeVisible.value = true;
+          });
+      } else if (flag === 2) {
         clearInterval(checkQrCodeTimer.value);
-        sessionStorage.setItem('token', token);
-        router.push({ name: 'home' });
-      });
-    } else if (flag === 2) {
+        reloadQrCodeVisible.value = true;
+      }
+    })
+    .catch(() => {
       clearInterval(checkQrCodeTimer.value);
       reloadQrCodeVisible.value = true;
-    }
-  });
+    });
 };
 
 const handleGetQrCode = () => {
@@ -377,7 +387,7 @@ getQrCodeFc();
     font-size: 16px !important;
   }
   ::v-deep(.el-form-item) {
-    margin-bottom: 24px;
+    margin-bottom: 25px;
   }
   ::v-deep(.el-tabs__header),
   ::v-deep(.el-tabs__nav-scroll) {
