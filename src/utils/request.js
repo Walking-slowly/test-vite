@@ -2,6 +2,21 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import router from '@/router/index.ts';
 
+const downloadErrorLog = (content, filename) => {
+  // 创建隐藏的可下载链接
+  let eleLink = document.createElement('a');
+  eleLink.download = filename;
+  eleLink.style.display = 'none';
+  // 字符内容转变成blob地址
+  let blob = new Blob([content]);
+  eleLink.href = URL.createObjectURL(blob);
+  // 触发点击
+  document.body.appendChild(eleLink);
+  eleLink.click();
+  // 然后移除
+  document.body.removeChild(eleLink);
+};
+
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASIC_API,
   timeout: 60000,
@@ -20,7 +35,6 @@ service.interceptors.request.use(
     return config;
   },
   error => {
-    console.error(error); // for debug
     return Promise.reject(error);
   }
 );
@@ -36,7 +50,6 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.error(error); // for debug
     const badMessage = error.message || error;
     const code = parseInt(badMessage.toString().replace('Error: Request failed with status code ', ''));
     showError({ code, message: badMessage });
@@ -46,20 +59,14 @@ service.interceptors.response.use(
 
 function showError(error) {
   // token失效
-  if (error.code === 401) {
-    ElMessage({
-      message: '登录已过期，请重新登录！',
-      type: 'error',
-      duration: 3 * 1000,
-    });
+  if (error.code === 401 || error.code === 401044) {
+    ElMessage.error('登录已过期，请重新登录！');
     sessionStorage.clear();
     router.replace({ name: 'login' });
+  } else if (error.code === 80000) {
+    downloadErrorLog(error.msg || error.message, '错误信息');
   } else {
-    ElMessage({
-      message: error.msg || error.message || '服务异常',
-      type: 'error',
-      duration: 3 * 1000,
-    });
+    ElMessage.error(error.msg || error.message || '服务异常');
   }
 }
 

@@ -32,10 +32,8 @@ export default defineConfig(({ command }: ConfigEnv) => {
       }),
 
       eslintPlugin({
-        cache: false,
         include: ['src/**/*.vue', 'src/**/*.ts'],
         exclude: ['node_modules', 'dist'],
-        fix: true,
       }),
 
       createSvgIconsPlugin({
@@ -57,14 +55,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
       port: 8081,
       open: true,
       hmr: true,
-      warmup: {
-        clientFiles: [
-          './src/components/commonForm/index.vue',
-          './src/components/commonTable/index.vue',
-          './src/components/commonIcon/index.vue',
-          './src/components/commonUpload/index.vue',
-        ],
-      },
       proxy: {
         '/assets': {
           // target: 'http://10.87.106.237:9696', // 测试环境
@@ -83,7 +73,6 @@ export default defineConfig(({ command }: ConfigEnv) => {
     },
 
     define: {
-      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
       __VUE_PROD_DEVTOOLS__: false,
     },
 
@@ -130,8 +119,12 @@ export default defineConfig(({ command }: ConfigEnv) => {
 
     base: command === 'build' ? './' : '/',
     build: {
+      cssCodeSplit: false,
+      sourcemap: false,
       outDir: 'assets',
       assetsDir: 'static',
+      emptyOutDir: true,
+      chunkSizeWarningLimit: 1500,
       rollupOptions: {
         output: {
           chunkFileNames: 'static/js/[name]-[hash].js',

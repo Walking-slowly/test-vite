@@ -83,31 +83,29 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .common-inputrange {
   display: flex;
   width: 100%;
   border: var(--el-border);
   border-radius: var(--el-border-radius-base);
-  ::v-deep(.el-input__wrapper) {
-    box-shadow: none;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  ::v-deep(.el-input__inner) {
-    text-align: center;
-  }
-  ::v-deep(.el-input__suffix) {
-    display: none;
-    border-left: 0 !important;
-    &::before {
-      display: none;
-    }
-  }
-  &:hover {
-    ::v-deep(.el-input__suffix) {
-      display: block;
-    }
-  }
+}
+.common-inputrange ::v-deep(.el-input__wrapper) {
+  box-shadow: none;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.common-inputrange ::v-deep(.el-input__inner) {
+  text-align: center;
+}
+.common-inputrange ::v-deep(.el-input__suffix) {
+  display: none;
+  border-left: 0 !important;
+}
+.common-inputrange ::v-deep(.el-input__suffix)::before {
+  display: none;
+}
+.common-inputrange:hover ::v-deep(.el-input__suffix) {
+  display: block;
 }
 </style>
