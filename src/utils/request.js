@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import router from '@/router/index.ts';
+import { useCommonStore } from '@/store/common.ts';
 
 const downloadErrorLog = (content, filename) => {
   // 创建隐藏的可下载链接
@@ -60,8 +61,11 @@ service.interceptors.response.use(
 function showError(error) {
   // token失效
   if (error.code === 401 || error.code === 401044) {
+    const useStore = useCommonStore();
     ElMessage.error('登录已过期，请重新登录！');
+    useStore.$reset();
     sessionStorage.clear();
+    localStorage.clear();
     router.replace({ name: 'login' });
   } else if (error.code === 80000) {
     downloadErrorLog(error.msg || error.message, '错误信息');

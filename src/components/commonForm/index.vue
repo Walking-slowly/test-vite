@@ -17,9 +17,9 @@
             cellRenderer,
             options,
             slots,
-            // eslint-disable-next-line vue/no-template-shadow
-            props = { label: 'label', value: 'value' },
+            props: defaultProps,
             vShow = true,
+            rules,
             ...other
           },
           i
@@ -31,39 +31,16 @@
           :key="i"
           :span="span || 24"
         >
-          <el-form-item v-bind="{ label, prop, ...other }">
+          <el-form-item v-bind="{ label, prop, rules, ...other }">
             <template v-if="elType === 'custom'">
               <component :is="cellRenderer && cellRenderer()" />
             </template>
             <template v-else>
               <component
-                :is="elType"
-                v-bind="{
-                  clearable: true,
-                  options,
-                  props,
-                  slots,
-                  ...other,
-                }"
+                :is="filterComponents({ elType, options, slots, props: defaultProps, ...other })"
                 v-model="modelValue[prop]"
                 v-on="events || {}"
-              >
-                <template v-if="elType === 'el-select'">
-                  <slot name="default">
-                    <el-option
-                      v-for="item in options"
-                      :key="item[props.value]"
-                      :label="item[props.label]"
-                      :value="item[props.value]"
-                    />
-                  </slot>
-                </template>
-                <component
-                  :is="value"
-                  v-for="(value, key) in slots"
-                  :key="key"
-                />
-              </component>
+              />
             </template>
           </el-form-item>
         </el-col>
@@ -91,13 +68,13 @@
   </el-form>
 </template>
 
-<script lang="ts">
+<script lang="tsx">
 export default {
   name: 'CommonForm',
 };
 </script>
 
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import { OptionGroup } from 'element-plus/es/components/select-v2/src/select.types';
 import type { FormInstance, FormItemProp } from 'element-plus';
 import { Arrayable } from 'element-plus/es/utils/typescript';
@@ -112,7 +89,8 @@ interface FormItem {
   events?: object; // 继承element 事件
   cellRenderer?: Function;
   slots?: Object;
-  props?: any;
+  props?: Object;
+  rules?: Array<any>;
   vShow?: boolean; // 是否显示
   options?: Array<OptionGroup>; // select options
 }
@@ -174,14 +152,54 @@ const validate = (bool = true): Promise<boolean> => {
   });
 };
 
+const validateField = (arr: Arrayable<FormItemProp> | undefined) => {
+  return (formRef.value as FormInstance).validateField(arr);
+};
+
 // resetFields
 const resetFields = (arr: Arrayable<FormItemProp> | undefined) => {
   (formRef.value as FormInstance).resetFields(arr);
 };
 
+const filterComponents = ({ elType, slots, options, ...other }) => {
+  const componentsName = resolveComponent(elType);
+
+  const { props = { label: 'label', value: 'value' } } = other;
+
+  const defaultSlots = {
+    default: ['el-select', 'ElSelect'].includes(elType)
+      ? () => (
+          <>
+            {(options || []).map(i => (
+              <el-option
+                label={i[props.label]}
+                value={i[props.value]}
+              />
+            ))}
+          </>
+        )
+      : null,
+    ...slots,
+  };
+
+  return (
+    <componentsName
+      clearable={true}
+      v-slots={defaultSlots}
+      {...other}
+      {...{
+        options: ['el-select', 'ElSelect'].includes(elType) ? null : options,
+        props: ['el-select', 'ElSelect'].includes(elType) ? null : props,
+        slots: elType.indexOf('el-') === 0 ? null : slots,
+      }}
+    />
+  );
+};
+
 defineExpose({
   validate,
   resetFields,
+  validateField,
 });
 </script>
 

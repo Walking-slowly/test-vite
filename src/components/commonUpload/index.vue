@@ -27,7 +27,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props, { emit, attrs }) {
-    const fileList = ref(props.modelValue);
+    const { modelValue: fileList } = toRefs(props);
 
     const imgTypes = ['.jpeg', '.png', '.gif', '.bmp', '.raw', '.tiff', '.tif', '.jpg'];
 
@@ -73,15 +73,7 @@ export default defineComponent({
 
     const handleDownload = file => {
       const res = file.response ? file.response.data.url : file.url;
-      const token = sessionStorage.getItem('token');
-      const fileUrl = encodeURIComponent(res.replace(/[\\[\s\]]/g, ''));
-      const fileName = encodeURIComponent(file?.name);
-      window.open(
-        `${
-          import.meta.env.VITE_BASIC_API
-        }oss/remoteFileDownloadWithResp?token=${token}&fileUrl=${fileUrl}&fileName=${fileName}`,
-        '_self'
-      );
+      window.open(res, '_blank');
     };
 
     const toggleClass = computed(() =>
@@ -144,7 +136,7 @@ export default defineComponent({
           )}
         </div>
       ),
-      ...(props.slots || {})
+      ...(props.slots || {}),
     };
 
     return () => (
@@ -168,9 +160,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-::v-deep(.el-upload-dragger) {
-  background-color: #fafafa;
-}
 ::v-deep(.el-upload-list.is-disabled > .el-upload--picture-card) {
   display: none;
 }

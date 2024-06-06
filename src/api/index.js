@@ -149,3 +149,12 @@ export function getHisTaskList(data) {
     data,
   });
 }
+
+// 查询组织树
+export function orgTree(params) {
+  return request({
+    url: 'report/org/orgTree',
+    method: 'get',
+    params
+  });
+}
