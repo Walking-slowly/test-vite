@@ -18,6 +18,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[20, 50, 100, 200]"
       :total="total"
+      :pager-count="pagerCount"
       class="common-pagination"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -43,6 +44,7 @@ interface TableProps {
   currentPage?: number;
   pageSize?: number;
   total?: number;
+  pagerCount?: number;
 }
 
 interface Emits {
@@ -58,6 +60,7 @@ const props = withDefaults(defineProps<TableProps>(), {
   currentPage: 1,
   pageSize: 50,
   total: 0,
+  pagerCount: 5,
 });
 
 type TableComponentInstance = InstanceType<typeof DefaultTable> | InstanceType<typeof VirtualizedTable> | null;
@@ -70,7 +73,7 @@ const getInternalTable = () => {
   return defaultCommonTable.value ? (defaultCommonTable.value as any).tableRef : null;
 };
 
-const { isVirtualizedTable, isPagination, loading, currentPage, pageSize } = toRefs(props);
+const { isVirtualizedTable, isPagination, loading, currentPage, pageSize, pagerCount } = toRefs(props);
 
 const emit = defineEmits<Emits>();
 
@@ -96,7 +99,6 @@ const handleSizeChange = () => {
 defineExpose({
   getInternalTable,
 });
-
 </script>
 
 <style lang="css" scoped>

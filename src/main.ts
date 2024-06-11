@@ -21,6 +21,10 @@ import 'virtual:svg-icons-register';
 
 console.log(import.meta.env, 'env');
 
+window.addEventListener('vite:preloadError', event => {
+  window.location.reload();
+});
+
 const app = createApp(App);
 app.use(createPinia().use(piniaPersist));
 app.directive('loading', ElLoading.directive);

@@ -54,11 +54,13 @@ export default defineComponent({
       let res = rawFile.name.substring(rawFile.name.lastIndexOf('.'));
       if (attrs.accept.indexOf(res) === -1) {
         ElMessage.error(`上传文件只能是${attrs.accept}格式!`);
+        return false;
       } else if (rawFile.size / 1024 / 1024 > props.fileSize) {
         ElMessage.error(`文件大小限制为${props.fileSize}MB!`);
         return false;
+      } else {
+        return true;
       }
-      return true;
     };
 
     const handlePreview = file => {
