@@ -52,7 +52,7 @@ export default defineComponent({
 
     const beforeUpload = rawFile => {
       let res = rawFile.name.substring(rawFile.name.lastIndexOf('.'));
-      if (attrs.accept.indexOf(res) === -1) {
+      if (attrs.accept.indexOf(res.toLowerCase()) === -1) {
         ElMessage.error(`上传文件只能是${attrs.accept}格式!`);
         return false;
       } else if (rawFile.size / 1024 / 1024 > props.fileSize) {

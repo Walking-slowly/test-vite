@@ -1,4 +1,5 @@
 import { App } from 'vue';
+// 自动引入，vue内置component 无法识别
 import {
   ElContainer,
   ElHeader,
@@ -56,7 +57,8 @@ import {
   ElLink,
   ElCollapse,
   ElCollapseItem,
-  ElAutoResizer
+  ElAutoResizer,
+  ElStatistic
 } from 'element-plus';
 
 export default {
@@ -118,7 +120,8 @@ export default {
       ElLink,
       ElCollapse,
       ElCollapseItem,
-      ElAutoResizer
+      ElAutoResizer,
+      ElStatistic
     };
     for (const [key, component] of Object.entries(ElementComponents)) {
       app.component(key, component);

@@ -16,7 +16,7 @@
       v-model:page-size="pageNum"
       background
       layout="total, sizes, prev, pager, next, jumper"
-      :page-sizes="[20, 50, 100, 200]"
+      :page-sizes="pageSizes"
       :total="total"
       :pager-count="pagerCount"
       class="common-pagination"
@@ -45,6 +45,7 @@ interface TableProps {
   pageSize?: number;
   total?: number;
   pagerCount?: number;
+  pageSizes?: any
 }
 
 interface Emits {
@@ -61,6 +62,7 @@ const props = withDefaults(defineProps<TableProps>(), {
   pageSize: 50,
   total: 0,
   pagerCount: 5,
+  pageSizes: [20, 50, 100, 200]
 });
 
 type TableComponentInstance = InstanceType<typeof DefaultTable> | InstanceType<typeof VirtualizedTable> | null;
@@ -73,7 +75,7 @@ const getInternalTable = () => {
   return defaultCommonTable.value ? (defaultCommonTable.value as any).tableRef : null;
 };
 
-const { isVirtualizedTable, isPagination, loading, currentPage, pageSize, pagerCount } = toRefs(props);
+const { isVirtualizedTable, isPagination, loading, currentPage, pageSize, pagerCount, pageSizes } = toRefs(props);
 
 const emit = defineEmits<Emits>();
 

@@ -143,32 +143,13 @@ export default defineConfig(({ command }: ConfigEnv) => {
       outDir: 'assets',
       assetsDir: 'static',
       sourcemap: false,
-      reportCompressedSize: false,
-      // 规定触发警告的 chunk 大小 default 500
-      chunkSizeWarningLimit: 2000,
       rollupOptions: {
         output: {
-          // 最小化拆分包
-          manualChunks: id => {
-            if (id.startsWith('virtual:svg-icons-')) {
-              return 'sprite';
-            }
-            if (id.includes('node_modules')) {
-              const fileName = id.toString().split('node_modules/').pop()!.split('/')[0].toString();
-              return fileName;
-            }
-          },
-          // Static resource classification and packaging
-          chunkFileNames: chunkInfo => {
-            const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : [];
-            const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]';
-            return `assets/js/${fileName}-[name]-[hash].js`;
-          },
-          entryFileNames: 'assets/js/[name]-[hash].js',
-          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
-        },
-        external: [''],
-      },
-    },
+          chunkFileNames: 'js/[name]-[hash].js',
+          entryFileNames: 'js/[name]-[hash].js',
+          assetFileNames: '[ext]/[name]-[hash].[ext]'
+        }
+      }
+    }
   };
 });
