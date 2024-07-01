@@ -10,7 +10,7 @@
     <div class="login-page__form">
       <div class="login-page__form-content">
         <el-tabs v-model="activeName">
-          <el-tab-pane
+          <!-- <el-tab-pane
             label="扫码登录"
             name="second"
             lazy
@@ -33,7 +33,7 @@
                 </button>
               </div>
             </div>
-          </el-tab-pane>
+          </el-tab-pane> -->
           <el-tab-pane
             label="密码登录"
             name="first"
@@ -144,7 +144,7 @@ interface RuleForm {
 
 const router = useRouter();
 
-let activeName = ref('second');
+let activeName = ref('first');
 let isCaptchaVisiable = ref(false);
 
 const QRCodeRef = ref<HTMLCanvasElement>();
@@ -240,10 +240,10 @@ const checkQrCodeLoginFc = uniqueCode => {
     });
 };
 
-const handleGetQrCode = () => {
-  reloadQrCodeVisible.value = false;
-  getQrCodeFc();
-};
+// const handleGetQrCode = () => {
+//   reloadQrCodeVisible.value = false;
+//   getQrCodeFc();
+// };
 
 const getVerifStatusFc = userName => {
   getVerifStatus({ userName }).then(data => {
@@ -256,7 +256,7 @@ const getCaptcha = () => {
   formValue.value.uuid = getUUID();
 };
 
-getQrCodeFc();
+// getQrCodeFc();
 </script>
 
 <style scoped lang="scss">
@@ -271,11 +271,11 @@ getQrCodeFc();
     position: absolute;
     content: '';
     background-image: url(@/assets/img/login/big-logo.png);
-    width: 647.57px;
+    width: 780.57px;
     height: 666.4px;
     top: 50%;
     transform: translateY(-50%);
-    left: 213px;
+    left: 12%;
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
@@ -432,6 +432,14 @@ getQrCodeFc();
   }
   ::v-deep(.el-input__prefix-inner > :last-child) {
     margin-right: 10px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .login-page {
+    &::before {
+    left: 5%;
+    }
   }
 }
 </style>
