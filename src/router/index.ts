@@ -92,12 +92,11 @@ const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') 
 let isRefresh = false;
 
 const getFristPath: any = (list: RouteRow[]) => {
-  let path = '';
+  let path = list.length ? list[0].path : '/';
   if (list[0].list && list[0].list.length) {
-    return getFristPath(list[0].list);
-  } else {
-    path = list[0].url || '';
+    return path += `/${getFristPath(list[0].list)}`;
   }
+  
   return path;
 };
 
