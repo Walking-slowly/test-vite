@@ -1,7 +1,7 @@
 <template>
   <el-form
     ref="formRef"
-    class="common-form"
+    :class="['common-form', {'common-form-disabled': $attrs.disabled}]"
     :model="modelValue"
     scroll-to-error
   >

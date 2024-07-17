@@ -36,6 +36,7 @@ export default defineComponent({
         label: '类型',
         placeholder: '请选择类型',
         required: true,
+        clearable: false,
         slots: {
           default: () =>
             ['目录', '菜单'].map((item, i) => (
@@ -47,23 +48,26 @@ export default defineComponent({
         },
       },
       {
-        elType: 'el-select',
+        elType: 'el-tree-select',
         span: 24,
         prop: 'parentId',
         label: '父节点',
-        vShow: formModel.value.type,
         placeholder: '请选择父节点',
         required: true,
+        checkStrictly: true,
         filterable: true,
-        slots: {
-          default: () =>
-            (menuList.value[0].list || []).map(item => (
-              <el-option
-                label={item.name}
-                value={item.id}
-              />
-            )),
+        clearable: false,
+        props: {
+          label: 'name',
+          value: 'id',
+          children: 'list'
         },
+        data: unref(menuList),
+        events: {
+          nodeClick: ({ url }) => {
+            formModel.value.parentPath = url;
+          }
+        }
       },
       {
         elType: 'el-input',
@@ -76,7 +80,7 @@ export default defineComponent({
         elType: 'custom',
         span: 24,
         prop: 'icon',
-        vShow: !formModel.value.type,
+        vShow: formModel.value.parentId === '0',
         label: '图标',
         cellRenderer: () => <SelectIcon v-model={[formModel.value.icon, 'modelValue']} />,
       },
@@ -145,7 +149,9 @@ export default defineComponent({
       rightLoading.value = true;
       getSysMenuDetails(id)
         .then(data => {
-          formModel.value = data || {};
+          formModel.value = {
+            ...(data || {}),
+          }
           if (formModel.value.type === 1) {
             getListFc();
           } else {
@@ -162,8 +168,15 @@ export default defineComponent({
       if (!formRef || !formRef.value) return;
       await formRef.value.validate();
       rightLoading.value = true;
+
+      const params = {
+        parentId: '0',
+        ...formModel.value,
+        url: formModel.value.parentPath ? `${formModel.value.parentPath}/${formModel.value.path}` : formModel.value.path
+      }
+      delete params.parentPath
       if (formModel.value.id) {
-        putObj(formModel.value.id, { ...formModel.value })
+        putObj(formModel.value.id, params)
           .then(() => {
             ElMessage({
               message: '更新成功！',
@@ -177,7 +190,7 @@ export default defineComponent({
             rightLoading.value = false;
           });
       } else {
-        addObj({ parentId: '0', ...formModel.value, url: formModel.value.path })
+        addObj(params)
           .then(() => {
             ElMessage({
               message: '新增成功！',
@@ -341,7 +354,7 @@ export default defineComponent({
             </el-button>
           </div>
         )}
-        {formModel.value.type === 1 && formModel.value.id && (
+        {formModel.value.type === 1 && formModel.value.id && !unref(isEdit) && (
           <>
             <el-divider content-position="left">按钮配置</el-divider>
             <div style="margin-top: 20px; text-align: right;">

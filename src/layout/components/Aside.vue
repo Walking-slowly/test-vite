@@ -45,18 +45,15 @@ export default defineComponent({
 
     // 目录
     const MenuTtem: FC<RowsItem> = item => {
-      const { path, name, icon, isParent, parentUrl, list } = item;
+      const { url, path, name, icon, isParent, parentUrl = '/', list } = item;
       return (
         <>
           {list && list.length ? (
-            <SubmenuItem
-              {...item}
-              {...{ parentUrl: `${parentUrl}${path}/` }}
-            />
+            <SubmenuItem {...item} />
           ) : (
             <el-menuItem
-              index={`${parentUrl}${path}`}
-              onClick={() => handleClick({ ...item, path: `${parentUrl}${path}`, label: path.charAt(0).toUpperCase() + path.slice(1) })}>
+              index={`${parentUrl}${url}`}
+              onClick={() => handleClick({ ...item, path: `${parentUrl}${url}`, label: path.charAt(0).toUpperCase() + path.slice(1) })}>
               {isParent && <common-icon name={icon} />}
               <span style={`margin-left: ${!isParent ? '18px' : ''}`}>{name}</span>
             </el-menuItem>
@@ -66,7 +63,7 @@ export default defineComponent({
     };
 
     // 菜单
-    const SubmenuItem: FC<RowsItem> = ({ name, path, list = [], isParent, icon, parentUrl }) => {
+    const SubmenuItem: FC<RowsItem> = ({ name, url, list = [], isParent, icon, parentUrl = '/' }) => {
       const slots = {
         title: () => (
           <>
@@ -78,13 +75,10 @@ export default defineComponent({
 
       return (
         <el-subMenu
-          index={`${parentUrl}${path}`}
+          index={`${parentUrl}${url}`}
           v-slots={slots}>
           {list?.map(i => (
-            <MenuTtem
-              {...i}
-              {...{ parentUrl: `${parentUrl}${path}/` }}
-            />
+            <MenuTtem {...i} />
           ))}
         </el-subMenu>
       );

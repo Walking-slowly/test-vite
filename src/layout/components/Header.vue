@@ -146,7 +146,7 @@ import { ElMessageBox } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
 import type { RouteRow } from '@/router/index.ts';
 
-import { updatePwd, getCurrentInfo } from '@/api/index.js';
+import { updatePwd } from '@/api/index.js';
 
 type RouteRows = typeof RouteRow;
 
@@ -175,11 +175,12 @@ watch(
 );
 
 let formModel = ref({
-  username: '',
+  username: computed(() => useStore.userInfo.username || ''),
   password: '',
   newPassword: '',
   confirmPassword: '',
 });
+
 const rules = reactive<FormRules<RuleForm>>({
   username: [{ required: true, message: '请输入', trigger: 'blur' }],
   password: [{ required: true, message: '请输入', trigger: 'blur' }],
@@ -198,18 +199,6 @@ const rules = reactive<FormRules<RuleForm>>({
     },
   ],
 });
-
-// 获取用户信息
-const getCurrentInfoFc = () => {
-  getCurrentInfo().then(data => {
-    formModel.value.username = data.realName || data.username;
-    useStore.SET_USERINFO({
-      username: data.realName || data.username,
-      mobile: data.mobile,
-    });
-  });
-};
-getCurrentInfoFc();
 
 // 修改密码
 let loading = ref(false);

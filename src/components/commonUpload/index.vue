@@ -74,8 +74,25 @@ export default defineComponent({
     };
 
     const handleDownload = file => {
-      const res = file.response ? file.response.data.url : file.url;
-      window.open(res, '_blank');
+      const url = file.response ? file.response.data.url : file.url;
+      window.open(url, '_blank');
+
+      // const xhr = new window.XMLHttpRequest()
+      // xhr.open('GET', url, true)
+      // xhr.responseType = 'blob'
+      // xhr.send()
+      // xhr.onload = () => {
+      // if (xhr.status === 200) {
+      //   const url = window.URL.createObjectURL(xhr.response)
+      //   const a = document.createElement('a')
+      //   a.style.display = "none";
+      //   a.href = url;
+      //   a.download = file.name;
+      //   document.body.appendChild(a);
+      //   a.click();
+      //   document.body.removeChild(a);
+      //   window.URL.revokeObjectURL(url);
+      // }}
     };
 
     const toggleClass = computed(() =>
@@ -144,10 +161,10 @@ export default defineComponent({
     return () => (
       <el-upload
         style="width: 100%;"
+        class={[toggleClass.value, { 'common-upload__disabled': attrs.disabled }]}
         headers={{
           token: sessionStorage.getItem('token'),
         }}
-        className={toggleClass.value}
         on-success={handleSuccess}
         before-upload={beforeUpload}
         multiple={true}
@@ -170,9 +187,11 @@ export default defineComponent({
     display: none;
   }
 }
+
 ::v-deep(.el-upload-list.is-disabled .el-upload-list__common-delete) {
   display: none !important;
 }
+
 .el-upload-list__item-actions {
   display: flex;
   align-items: center;
@@ -200,5 +219,14 @@ export default defineComponent({
   flex: 1;
   margin-right: 15px;
   margin-left: 5px;
+}
+</style>
+
+<style>
+.common-form-disabled .el-upload {
+  display: none !important;
+}
+.common-upload__disabled .el-upload {
+  display: none !important;
 }
 </style>

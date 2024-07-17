@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import { nav } from '@/api/index.js';
+import { nav, auth } from '@/api/index.js';
 import { ElLoading } from 'element-plus';
 
-import Layout from '@/layout/index.vue';
+import Layout from '@/layout/index.vue'
 
 // import.meta.glob 懒加载
 const modules = import.meta.glob('../views/**/*.vue');
@@ -72,16 +72,16 @@ const capitalizeFirstLetter = string => {
 
 const fnAddDynamicMenuRoutes: any = (arr: Array<NewRouteRow>, routerPath = '/') => {
   return arr.map(item => {
-    const { name, path } = item;
+    const { name, url, path } = item;
     return {
-      path: `${routerPath}${path}`,
+      path: `${routerPath}${url}`,
       name: item.list && item.list.length ? '' : capitalizeFirstLetter(path),
       replace: true,
       meta: {
         title: name,
       },
-      component: item.list && item.list.length ? null : modules[`../views${routerPath}${path}/index.vue`],
-      children: fnAddDynamicMenuRoutes(item.list || [], `${routerPath}${path}/`),
+      component: item.list && item.list.length ? null : modules[`../views${routerPath}${url}/index.vue`],
+      children: fnAddDynamicMenuRoutes(item.list || []),
     };
   });
 };
@@ -96,7 +96,6 @@ const getFristPath: any = (list: RouteRow[]) => {
   if (list[0].list && list[0].list.length) {
     return path += `/${getFristPath(list[0].list)}`;
   }
-  
   return path;
 };
 
@@ -108,8 +107,24 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  // 判断是否存在token
-  if (!sessionStorage.getItem('token')) {
+  // 从其他地址跳转免登陆
+  if(to.query && to.query.authToken){
+    auth({ authToken: to.query.authToken }).then(({ token }) => {
+      sessionStorage.setItem('token', token);
+      next({
+        path: '/home',
+        replace: true,
+      });
+    }).catch(() => {
+      next({
+        name: 'login',
+        replace: true,
+      });
+      return;
+    })
+    return;
+  } else if (!sessionStorage.getItem('token')) {
+    // 判断是否存在token
     next({
       name: 'login',
       replace: true,

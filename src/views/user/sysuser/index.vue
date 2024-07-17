@@ -109,15 +109,6 @@ export default defineComponent({
         align: 'center',
       },
       {
-        title: '岗位',
-        minWidth: 140,
-        prop: 'isAdmin',
-        align: 'center',
-        cellRenderer: ({ rowData }) => {
-          return rowData.isAdmin === 1 ? '平台管理员' : '非平台管理员';
-        },
-      },
-      {
         title: '状态',
         width: 80,
         prop: 'status',
