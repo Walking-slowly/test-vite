@@ -3,12 +3,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vueuse/core": "^13.1.0",
-    "vue": "catalog:"
+    "vue": "^3.5.13"
   }
 }

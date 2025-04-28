@@ -23,7 +23,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
     const root = process.cwd();
     const isBuild = command === 'build';
     const env = loadEnv(mode, root);
-
+    console.log(command, 'ssss')
     const plugins = await loadApplicationPlugins({
       archiver: true,
       archiverPluginOptions: {},
@@ -33,15 +33,12 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       env,
       extraAppConfig: true,
       html: true,
-      i18n: true,
       importmapOptions: defaultImportmapOptions,
       injectAppLoading: true,
       injectMetadata: true,
       isBuild,
       license: true,
       mode,
-      nitroMock: !isBuild,
-      nitroMockOptions: {},
       print: !isBuild,
       printInfoMap: {
         'Vben Admin Docs': 'https://doc.vben.pro',

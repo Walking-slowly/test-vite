@@ -2,13 +2,6 @@
   "name": "@internal/vite-config",
   "version": "5.5.4",
   "private": true,
-  "homepage": "https://github.com/vbenjs/vue-vben-admin",
-  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
-    "directory": "internal/vite-config"
-  },
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -27,32 +20,32 @@
     }
   },
   "dependencies": {
-    "@jspm/generator": "catalog:",
-    "archiver": "catalog:",
-    "cheerio": "catalog:",
-    "get-port": "catalog:",
-    "html-minifier-terser": "catalog:",
-    "nitropack": "catalog:",
-    "resolve.exports": "catalog:",
-    "vite-plugin-pwa": "catalog:",
-    "vite-plugin-vue-devtools": "catalog:"
+    "@jspm/generator": "^2.5.1",
+    "archiver": "^7.0.1",
+    "cheerio": "^1.0.0",
+    "get-port": "^7.1.0",
+    "html-minifier-terser": "^7.2.0",
+    "nitropack": "^2.11.6",
+    "resolve.exports": "^2.0.3",
+    "vite-plugin-pwa": "^0.21.1",
+    "vite-plugin-vue-devtools": "^7.7.2"
   },
   "devDependencies": {
-    "@pnpm/workspace.read-manifest": "catalog:",
-    "@types/archiver": "catalog:",
-    "@types/html-minifier-terser": "catalog:",
+    "@pnpm/workspace.read-manifest": "^1000.1.1",
+    "@types/archiver": "^6.0.3",
+    "@types/html-minifier-terser": "^7.0.2",
     "@internal/node-utils": "workspace:*",
-    "@vitejs/plugin-vue": "catalog:",
-    "@vitejs/plugin-vue-jsx": "catalog:",
-    "dayjs": "catalog:",
-    "dotenv": "catalog:",
-    "rollup": "catalog:",
-    "rollup-plugin-visualizer": "catalog:",
-    "sass": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-compression": "catalog:",
-    "vite-plugin-dts": "catalog:",
-    "vite-plugin-html": "catalog:",
-    "vite-plugin-lazy-import": "catalog:"
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.7",
+    "rollup": "^4.35.0",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "sass": "^1.85.1",
+    "vite": "^6.2.1",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-dts": "^4.5.3",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plugin-lazy-import": "^1.0.7"
   }
 }

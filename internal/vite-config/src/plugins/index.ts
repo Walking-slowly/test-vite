@@ -98,13 +98,10 @@ async function loadApplicationPlugins(
     compressTypes,
     extraAppConfig,
     html,
-    i18n,
     importmap,
     importmapOptions,
     injectAppLoading,
     license,
-    nitroMock,
-    nitroMockOptions,
     print,
     printInfoMap,
     pwa,
@@ -117,18 +114,18 @@ async function loadApplicationPlugins(
 
   return await loadConditionPlugins([
     ...commonPlugins,
-    {
-      condition: i18n,
-      plugins: async () => {
-        return [
-          // viteVueI18nPlugin({
-          //   compositionOnly: true,
-          //   fullInstall: true,
-          //   runtimeOnly: true,
-          // }),
-        ];
-      },
-    },
+    // {
+    //   condition: i18n,
+    //   plugins: async () => {
+    //     return [
+    //       viteVueI18nPlugin({
+    //         compositionOnly: true,
+    //         fullInstall: true,
+    //         runtimeOnly: true,
+    //       }),
+    //     ];
+    //   },
+    // },
     {
       condition: print,
       plugins: async () => {
