@@ -1,0 +1,25 @@
+{
+  "name": "test-vite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "pnpm -r run stub --if-present",
+    "dev:test": "pnpm -F @apps/aab dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.7.0",
+  "dependencies": {
+    "@internal/node-utils": "workspace:*",
+    "@internal/tsconfig": "workspace:*",
+    "@internal/vite-config": "workspace:*",
+    "@types/node": "^22.15.2",
+    "@vueuse/core": "^13.1.0",
+    "turbo": "catalog:",
+    "unbuild": "catalog:",
+    "vite": "catalog:"
+  }
+}
