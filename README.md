@@ -13,7 +13,7 @@
 
 # 为啥使用vite而不是webpack
 ```
-  vite原生就支持esm，esm是vite的一等公民非常契合现在浏览器，尽管现在webpack也支持esm，但是需要配置，而且webpack启动时必须先打包整个应用（包括依赖和源码），vite直接启动一个ESM服务器，浏览器按需请求文件。依赖通过 esbuild 预构建为 ESM，源码文件按需编译，所以vite比webpack更快。ESM 是 Vite 快的核心原因，但不仅仅是 ESM。
+  vite原生就支持esm【es modules】，esm是vite的一等公民非常契合现在浏览器，尽管现在webpack也支持esm，但是需要配置，而且webpack启动时必须先打包整个应用（包括依赖和源码），vite直接启动一个ESM服务器，浏览器按需请求文件。依赖通过 esbuild 预构建为 ESM，源码文件按需编译，所以vite比webpack更快。ESM 是 Vite 快的核心原因，但不仅仅是 ESM。
 ```
 
 # 使用pnpm多项目管理
@@ -32,4 +32,13 @@
     entries: ['src/index'],
     declaration: true, // 自动生成 .d.ts
   });
+```
+
+# vite性能优化
+```
+  1. 减少解析操作, 填写后缀，vite会按照顺序依次查找当后缀不明确时['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx']
+  2. 避免使用桶文件，尽量按需导入
+  3. 预热常用文件，比如公共组件，菜单栏
+  4. 使用postcss
+  5. 使用esm文件
 ```
