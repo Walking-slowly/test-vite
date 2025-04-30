@@ -22,10 +22,10 @@
   2. 热更新（HMR）效率高
     Webpack：修改文件后需重新构建受影响的部分模块，项目越大速度越慢。
     Vite：HMR 直接在原生 ESM 上运行，仅更新修改的模块。
-3. 原生支持现代浏览器特性
+  3. 原生支持现代浏览器特性
     Vite：默认使用 ES Modules，直接利用浏览器原生能力，无需打包即可开发。
     Webpack：需配置。
-4. 对新兴技术的友好性
+  4. 对新兴技术的友好性
     Vite：天然支持 Vue 3、React Fast Refresh、Svelte 等，生态插件（如 @vitejs/plugin-react）更轻量。
     Webpack：需依赖社区插件（如 babel-loader），调试成本较高。
 ```
